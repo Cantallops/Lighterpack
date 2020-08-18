@@ -1,0 +1,701 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CA098A1024EC17E6005B632D /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098A0F24EC17E6005B632D /* Tests_iOS.swift */; };
+		CA098A1B24EC17E6005B632D /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098A1A24EC17E6005B632D /* Tests_macOS.swift */; };
+		CA098A1D24EC17E6005B632D /* LighterPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F424EC17E5005B632D /* LighterPackApp.swift */; };
+		CA098A1E24EC17E6005B632D /* LighterPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F424EC17E5005B632D /* LighterPackApp.swift */; };
+		CA098A1F24EC17E6005B632D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F524EC17E5005B632D /* ContentView.swift */; };
+		CA098A2024EC17E6005B632D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F524EC17E5005B632D /* ContentView.swift */; };
+		CA098A2124EC17E6005B632D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA0989F624EC17E6005B632D /* Assets.xcassets */; };
+		CA098A2224EC17E6005B632D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA0989F624EC17E6005B632D /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CA098A0C24EC17E6005B632D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CA0989EF24EC17E4005B632D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA0989FA24EC17E6005B632D;
+			remoteInfo = "LighterPack (iOS)";
+		};
+		CA098A1724EC17E6005B632D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CA0989EF24EC17E4005B632D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA098A0224EC17E6005B632D;
+			remoteInfo = "LighterPack (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CA0989F424EC17E5005B632D /* LighterPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighterPackApp.swift; sourceTree = "<group>"; };
+		CA0989F524EC17E5005B632D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CA0989F624EC17E6005B632D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CA0989FB24EC17E6005B632D /* LighterPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LighterPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA0989FE24EC17E6005B632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA098A0324EC17E6005B632D /* LighterPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LighterPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA098A0524EC17E6005B632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA098A0624EC17E6005B632D /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		CA098A0B24EC17E6005B632D /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA098A0F24EC17E6005B632D /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
+		CA098A1124EC17E6005B632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA098A1624EC17E6005B632D /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA098A1A24EC17E6005B632D /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
+		CA098A1C24EC17E6005B632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CA0989F824EC17E6005B632D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA098A0024EC17E6005B632D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA098A0824EC17E6005B632D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA098A1324EC17E6005B632D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CA0989EE24EC17E4005B632D = {
+			isa = PBXGroup;
+			children = (
+				CA0989F324EC17E5005B632D /* Shared */,
+				CA0989FD24EC17E6005B632D /* iOS */,
+				CA098A0424EC17E6005B632D /* macOS */,
+				CA098A0E24EC17E6005B632D /* Tests iOS */,
+				CA098A1924EC17E6005B632D /* Tests macOS */,
+				CA0989FC24EC17E6005B632D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CA0989F324EC17E5005B632D /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				CA0989F424EC17E5005B632D /* LighterPackApp.swift */,
+				CA0989F524EC17E5005B632D /* ContentView.swift */,
+				CA0989F624EC17E6005B632D /* Assets.xcassets */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		CA0989FC24EC17E6005B632D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CA0989FB24EC17E6005B632D /* LighterPack.app */,
+				CA098A0324EC17E6005B632D /* LighterPack.app */,
+				CA098A0B24EC17E6005B632D /* Tests iOS.xctest */,
+				CA098A1624EC17E6005B632D /* Tests macOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CA0989FD24EC17E6005B632D /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CA0989FE24EC17E6005B632D /* Info.plist */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		CA098A0424EC17E6005B632D /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				CA098A0524EC17E6005B632D /* Info.plist */,
+				CA098A0624EC17E6005B632D /* macOS.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		CA098A0E24EC17E6005B632D /* Tests iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CA098A0F24EC17E6005B632D /* Tests_iOS.swift */,
+				CA098A1124EC17E6005B632D /* Info.plist */,
+			);
+			path = "Tests iOS";
+			sourceTree = "<group>";
+		};
+		CA098A1924EC17E6005B632D /* Tests macOS */ = {
+			isa = PBXGroup;
+			children = (
+				CA098A1A24EC17E6005B632D /* Tests_macOS.swift */,
+				CA098A1C24EC17E6005B632D /* Info.plist */,
+			);
+			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CA0989FA24EC17E6005B632D /* LighterPack (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA098A2524EC17E6005B632D /* Build configuration list for PBXNativeTarget "LighterPack (iOS)" */;
+			buildPhases = (
+				CA0989F724EC17E6005B632D /* Sources */,
+				CA0989F824EC17E6005B632D /* Frameworks */,
+				CA0989F924EC17E6005B632D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LighterPack (iOS)";
+			productName = "LighterPack (iOS)";
+			productReference = CA0989FB24EC17E6005B632D /* LighterPack.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CA098A0224EC17E6005B632D /* LighterPack (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA098A2824EC17E6005B632D /* Build configuration list for PBXNativeTarget "LighterPack (macOS)" */;
+			buildPhases = (
+				CA0989FF24EC17E6005B632D /* Sources */,
+				CA098A0024EC17E6005B632D /* Frameworks */,
+				CA098A0124EC17E6005B632D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LighterPack (macOS)";
+			productName = "LighterPack (macOS)";
+			productReference = CA098A0324EC17E6005B632D /* LighterPack.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CA098A0A24EC17E6005B632D /* Tests iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA098A2B24EC17E6005B632D /* Build configuration list for PBXNativeTarget "Tests iOS" */;
+			buildPhases = (
+				CA098A0724EC17E6005B632D /* Sources */,
+				CA098A0824EC17E6005B632D /* Frameworks */,
+				CA098A0924EC17E6005B632D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CA098A0D24EC17E6005B632D /* PBXTargetDependency */,
+			);
+			name = "Tests iOS";
+			productName = "Tests iOS";
+			productReference = CA098A0B24EC17E6005B632D /* Tests iOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		CA098A1524EC17E6005B632D /* Tests macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA098A2E24EC17E6005B632D /* Build configuration list for PBXNativeTarget "Tests macOS" */;
+			buildPhases = (
+				CA098A1224EC17E6005B632D /* Sources */,
+				CA098A1324EC17E6005B632D /* Frameworks */,
+				CA098A1424EC17E6005B632D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CA098A1824EC17E6005B632D /* PBXTargetDependency */,
+			);
+			name = "Tests macOS";
+			productName = "Tests macOS";
+			productReference = CA098A1624EC17E6005B632D /* Tests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CA0989EF24EC17E4005B632D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					CA0989FA24EC17E6005B632D = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					CA098A0224EC17E6005B632D = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					CA098A0A24EC17E6005B632D = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = CA0989FA24EC17E6005B632D;
+					};
+					CA098A1524EC17E6005B632D = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = CA098A0224EC17E6005B632D;
+					};
+				};
+			};
+			buildConfigurationList = CA0989F224EC17E4005B632D /* Build configuration list for PBXProject "LighterPack" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CA0989EE24EC17E4005B632D;
+			productRefGroup = CA0989FC24EC17E6005B632D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CA0989FA24EC17E6005B632D /* LighterPack (iOS) */,
+				CA098A0224EC17E6005B632D /* LighterPack (macOS) */,
+				CA098A0A24EC17E6005B632D /* Tests iOS */,
+				CA098A1524EC17E6005B632D /* Tests macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CA0989F924EC17E6005B632D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA098A2124EC17E6005B632D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA098A0124EC17E6005B632D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA098A2224EC17E6005B632D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA098A0924EC17E6005B632D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA098A1424EC17E6005B632D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CA0989F724EC17E6005B632D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA098A1F24EC17E6005B632D /* ContentView.swift in Sources */,
+				CA098A1D24EC17E6005B632D /* LighterPackApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA0989FF24EC17E6005B632D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA098A2024EC17E6005B632D /* ContentView.swift in Sources */,
+				CA098A1E24EC17E6005B632D /* LighterPackApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA098A0724EC17E6005B632D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA098A1024EC17E6005B632D /* Tests_iOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA098A1224EC17E6005B632D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA098A1B24EC17E6005B632D /* Tests_macOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CA098A0D24EC17E6005B632D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA0989FA24EC17E6005B632D /* LighterPack (iOS) */;
+			targetProxy = CA098A0C24EC17E6005B632D /* PBXContainerItemProxy */;
+		};
+		CA098A1824EC17E6005B632D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA098A0224EC17E6005B632D /* LighterPack (macOS) */;
+			targetProxy = CA098A1724EC17E6005B632D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CA098A2324EC17E6005B632D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CA098A2424EC17E6005B632D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		CA098A2624EC17E6005B632D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55KT6477DB;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.acantallops.LighterPack;
+				PRODUCT_NAME = LighterPack;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CA098A2724EC17E6005B632D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55KT6477DB;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.acantallops.LighterPack;
+				PRODUCT_NAME = LighterPack;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CA098A2924EC17E6005B632D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 55KT6477DB;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.acantallops.LighterPack;
+				PRODUCT_NAME = LighterPack;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CA098A2A24EC17E6005B632D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 55KT6477DB;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.acantallops.LighterPack;
+				PRODUCT_NAME = LighterPack;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		CA098A2C24EC17E6005B632D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55KT6477DB;
+				INFOPLIST_FILE = "Tests iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.acantallops.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "LighterPack (iOS)";
+			};
+			name = Debug;
+		};
+		CA098A2D24EC17E6005B632D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55KT6477DB;
+				INFOPLIST_FILE = "Tests iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.acantallops.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "LighterPack (iOS)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CA098A2F24EC17E6005B632D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 55KT6477DB;
+				INFOPLIST_FILE = "Tests macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.acantallops.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "LighterPack (macOS)";
+			};
+			name = Debug;
+		};
+		CA098A3024EC17E6005B632D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 55KT6477DB;
+				INFOPLIST_FILE = "Tests macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.acantallops.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "LighterPack (macOS)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CA0989F224EC17E4005B632D /* Build configuration list for PBXProject "LighterPack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA098A2324EC17E6005B632D /* Debug */,
+				CA098A2424EC17E6005B632D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA098A2524EC17E6005B632D /* Build configuration list for PBXNativeTarget "LighterPack (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA098A2624EC17E6005B632D /* Debug */,
+				CA098A2724EC17E6005B632D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA098A2824EC17E6005B632D /* Build configuration list for PBXNativeTarget "LighterPack (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA098A2924EC17E6005B632D /* Debug */,
+				CA098A2A24EC17E6005B632D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA098A2B24EC17E6005B632D /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA098A2C24EC17E6005B632D /* Debug */,
+				CA098A2D24EC17E6005B632D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA098A2E24EC17E6005B632D /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA098A2F24EC17E6005B632D /* Debug */,
+				CA098A3024EC17E6005B632D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CA0989EF24EC17E4005B632D /* Project object */;
+}
