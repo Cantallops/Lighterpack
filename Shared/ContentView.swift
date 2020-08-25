@@ -8,9 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    @FetchRequest(
+      entity: DBItem.entity(),
+      sortDescriptors: [
+        NSSortDescriptor(keyPath: \DBItem.name, ascending: true)
+      ]
+    ) var items: FetchedResults<DBItem>
+
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        TabView {
+            NavigationView {
+                GearListsScreen()
+            }
+                .tabItem {
+                    Icon(.lists)
+                    Text("Lists")
+                }
+
+            NavigationView {
+                ItemsListScreen()
+            }
+                .tabItem {
+                    Icon(.gearList)
+                    Text("Gear")
+                }
+
+            NavigationView {
+                ProfileScreen()
+            }
+                .tabItem {
+                    Icon(.profile)
+                    Text("Profile")
+                }
+        }
     }
 }
 

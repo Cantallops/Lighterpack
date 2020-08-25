@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct LighterPackApp: App {
+
+    let context = PersistentContainer.persistentContainer.viewContext
+    let syncEngine = SyncEngine()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    syncEngine.run()
+                }
+                .environment(\.managedObjectContext, context)
         }
     }
 }

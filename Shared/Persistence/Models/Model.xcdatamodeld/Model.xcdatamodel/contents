@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17183" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DBCategory" representedClassName="DBCategory" syncable="YES">
+        <attribute name="hexColor" attributeType="String" defaultValueString=""/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <relationship name="items" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="DBCategoryItem" inverseName="category" inverseEntity="DBCategoryItem"/>
+        <relationship name="list" maxCount="1" deletionRule="Nullify" destinationEntity="DBList" inverseName="categories" inverseEntity="DBList"/>
+    </entity>
+    <entity name="DBCategoryItem" representedClassName="DBCategoryItem" syncable="YES">
+        <attribute name="consumable" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="quantity" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="star" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="worn" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="DBCategory" inverseName="items" inverseEntity="DBCategory"/>
+        <relationship name="item" maxCount="1" deletionRule="Nullify" destinationEntity="DBItem" inverseName="categoryItems" inverseEntity="DBItem"/>
+    </entity>
+    <entity name="DBItem" representedClassName="DBItem" syncable="YES">
+        <attribute name="authorUnit" attributeType="String" defaultValueString="g"/>
+        <attribute name="desc" attributeType="String" defaultValueString=""/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" attributeType="String" defaultValueString=""/>
+        <attribute name="imageURL" attributeType="String" defaultValueString=""/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="price" attributeType="Float" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="url" attributeType="String" defaultValueString=""/>
+        <attribute name="weight" attributeType="Float" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="categoryItems" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="DBCategoryItem" inverseName="item" inverseEntity="DBCategoryItem"/>
+    </entity>
+    <entity name="DBList" representedClassName="DBList" syncable="YES">
+        <attribute name="desc" attributeType="String" defaultValueString=""/>
+        <attribute name="externalId" attributeType="String" defaultValueString=""/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="categories" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="DBCategory" inverseName="list" inverseEntity="DBCategory"/>
+    </entity>
+    <elements>
+        <element name="DBCategory" positionX="-331.48828125" positionY="-55.36328125" width="128" height="118"/>
+        <element name="DBCategoryItem" positionX="-87.7578125" positionY="-64.875" width="128" height="133"/>
+        <element name="DBItem" positionX="107.0625" positionY="-81.72265625" width="128" height="193"/>
+        <element name="DBList" positionX="-150.25390625" positionY="94.34765625" width="128" height="133"/>
+    </elements>
+</model>
