@@ -22,6 +22,20 @@ struct CategoryItem: Codable  {
     let star: Int
     let itemId: Int
 
+    init(
+        qty: Int,
+        worn: Bool,
+        consumable: Bool,
+        star: Int,
+        itemId: Int
+    ) {
+        self.qty = qty
+        self.worn = worn
+        self.consumable = consumable
+        self.star = star
+        self.itemId = itemId
+    }
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.qty = try container.decode(Int.self, forKey: .qty)

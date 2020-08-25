@@ -63,23 +63,3 @@ extension DBList {
 extension DBList : Identifiable {
 
 }
-
-extension DBList {
-
-    var categoriesArray: [DBCategory] {
-        (categories.array as? [DBCategory]) ?? []
-    }
-
-    var quantity: Int16 {
-        categoriesArray.reduce(Int16(0)) { $0 + $1.quantity }
-    }
-
-    var price: Float {
-        categoriesArray.reduce(0.0) { $0 + $1.price }
-    }
-
-    var weight: Float {
-        categoriesArray.reduce(0.0) { $0 + $1.weight }
-    }
-}
-

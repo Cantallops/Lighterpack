@@ -8,46 +8,13 @@ struct GearListCategorySection: View {
     @AppStorage(SettingKey.optionalFieldWorn.rawValue) var showWorn: Bool = true
     @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
     @AppStorage(SettingKey.optionalFieldConsumable.rawValue) var showConsumable: Bool = true
-    @Environment(\.editMode) var editMode
 
     @ObservedObject var category: DBCategory
     var body: some View {
-        Section(
-            header:
-                EditableSectionHeader(
-                    title: $category.name,
-                    placeholder: "Category name",
-                    disabled: editMode?.wrappedValue != .active
-                ) {
-                    if editMode?.wrappedValue == .active {
-                        Button {
-
-                        } label: {
-                            Icon(.remove)
-                        }
-                        .font(.title2)
-                        .accentColor(.init(.systemRed))
-                        .foregroundColor(.init(.systemRed))
-                    }
-                }
-        ) {
+        Section(header: SectionHeader(title: category.name)) {
             ForEach(category.items.array as! [DBCategoryItem]) { (item: DBCategoryItem) in
                 CategoryItemCell(categoryItem: item)
-            }.onDelete { idx in
-
             }
-
-            if editMode?.wrappedValue != .active {
-                Button {
-
-                } label: {
-                    HStack {
-                        Icon(.add)
-                        Text("Add item")
-                    }
-                }
-            }
-
             DisclosureGroup {
                 if showWorn && category.wornQuantity > 0 {
                     resumeCell(

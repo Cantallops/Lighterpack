@@ -28,13 +28,3 @@ extension DBCategoryItem {
 extension DBCategoryItem : Identifiable {
 
 }
-
-extension DBCategoryItem {
-    var weight: Float { item.weight * Float(quantity) }
-    var price: Float { item.price * Float(quantity) }
-
-    var formattedWeight: String {
-        let weightUnit = WeigthUnit(rawValue: item.authorUnit) ?? .oz
-        return weight.formattedWeight(weightUnit)
-    }
-}

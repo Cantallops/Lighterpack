@@ -32,6 +32,8 @@ struct Icon: View {
         static let add = Token(rawValue: "plus.circle.fill")
         static let star = Token(rawValue: "star.fill")
         static let link = Token(rawValue: "link", originalColor: .systemBlue)
+        static let editList = Token(rawValue: "pencil")
+        static let share = Token(rawValue: "square.and.arrow.up")
 
         static let quantity = Token(rawValue: "xmark")
 

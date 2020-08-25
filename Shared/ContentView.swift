@@ -8,13 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @FetchRequest(
-      entity: DBItem.entity(),
-      sortDescriptors: [
-        NSSortDescriptor(keyPath: \DBItem.name, ascending: true)
-      ]
-    ) var items: FetchedResults<DBItem>
-
 
     var body: some View {
         TabView {

@@ -73,9 +73,14 @@ private struct GearListPieSectionView: View {
             consumableText = consumable.formattedPrice(currencySymbol)
             baseText = base.formattedPrice(currencySymbol)
         }
+        var selectedId: AnyHashable = configuration.selectedNode?.id
+        if let item = configuration.selectedNode?.relatedObject?.wrappedValue as? DBCategoryItem {
+            selectedId = item.category.pieId
+        }
         return Section(header: header) {
             ForEach(configuration.nodes) { (node: Node) -> AnyView in
                 let category = node.relatedObject!.wrappedValue as! DBCategory
+                let selectionColor = node.backgroundColor?.opacity(0.3)
                 return Button {
                     configuration.selectedNode = node
                     configuration.focusedNode = node
@@ -89,11 +94,9 @@ private struct GearListPieSectionView: View {
                         case .weight: Text((node.value ?? 0).formattedWeight(totalUnit))
                         case .price: Text((node.value ?? 0).formattedPrice(currencySymbol))
                         }
-
                     }
                 }
-                .foregroundColor(Color(.label))
-                .listRowBackground(configuration.selectedNode?.id == node.id ? node.backgroundColor?.opacity(0.3) : Color(.tertiarySystemBackground))
+                .buttonStyle(CategoryButtonStyle(selectedColor: selectionColor, selected: selectedId == node.id))
                 .eraseToAnyView()
             }
             DisclosureGroup {
@@ -235,7 +238,6 @@ struct GearListPieSection: View {
 
 
 private extension DBList {
-
     func pieNodes(
         currencySymbol: String,
         totalUnit: WeigthUnit,
@@ -252,7 +254,7 @@ private extension DBList {
                 }
             }
             return Node(
-                id: "Cat\(category.id)",
+                id: category.pieId,
                 name: name,
                 showName: false,
                 value: value,
@@ -270,6 +272,11 @@ private extension DBList {
 }
 
 private extension DBCategory {
+
+    var pieId: String {
+        "Cat\(id)"
+    }
+
     func pieNodes(
         currencySymbol: String,
         totalUnit: WeigthUnit,
@@ -285,25 +292,52 @@ private extension DBCategory {
             })
             .enumerated()
             .map { (offset: Int, item: DBCategoryItem) in
-                var name = "\(item.item.name): \(item.formattedWeight)"
-                var value: Double = Double(item.weight)
-                if showPrice {
-                    name = "\(name) \(item.price.formattedPrice(currencySymbol))"
-                    if viewMode == .price {
-                        value = Double(item.price)
-                    }
-                }
                 let variation: CGFloat = (CGFloat(offset) / CGFloat(items.count))/2
-                return Node(
-                    id: "Item\(item.item.id)",
-                    name: name,
-                    showName: false,
-                    isFocusable: false,
-                    value: value,
-                    relatedObject: AnyObjectEquatable(item),
-                    backgroundColor: Color(hex: hexColor)?
-                        .variant(by: variation)
-                )
+                let color = Color(hex: hexColor)?.variant(by: variation)
+                return item.pieNode(currencySymbol: currencySymbol, color: color, showPrice: showPrice, calculateUsing: viewMode)
             }
     }
+}
+
+private extension DBCategoryItem {
+    var pieId: String {
+        "Item\(item.id)"
+    }
+    func pieNode(
+        currencySymbol: String,
+        color: Color?,
+        showPrice: Bool,
+        calculateUsing viewMode: GearListPieSectionView.ViewMode
+    ) -> Node {
+        var name = "\(item.name): \(formattedWeight)"
+        var value: Double = Double(weight)
+        if showPrice {
+            name = "\(name) \(price.formattedPrice(currencySymbol))"
+            if viewMode == .price {
+                value = Double(price)
+            }
+        }
+        return Node(
+            id: pieId,
+            name: name,
+            showName: false,
+            isFocusable: false,
+            value: value,
+            relatedObject: AnyObjectEquatable(self),
+            backgroundColor: color
+        )
+    }
+}
+
+struct CategoryButtonStyle: ButtonStyle {
+
+    let selectedColor: Color?
+    let selected: Bool
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .foregroundColor(Color(.label))
+            .listRowBackground(configuration.isPressed || selected ? selectedColor : Color(.secondarySystemGroupedBackground))
+    }
+
 }

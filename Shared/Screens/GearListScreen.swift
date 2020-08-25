@@ -16,57 +16,57 @@ struct GearListScreen: View {
 
     @ObservedObject var list: DBList
 
-    @Environment(\.editMode) var editMode
-    private var isEditing: Bool { editMode?.wrappedValue == .active }
+    private enum SheetStatus {
+        case edit
+        case share
+    }
+    @State private var sheetStatus: SheetStatus?
 
     var body: some View {
-        Form {
-            if isEditing {
-                TextField("Title's name", text: $list.name)
-            } else {
-                GearListPieSection(list: list)
-            }
+        List {
+            GearListPieSection(list: list)
 
             if showDesc {
                 Section(header: SectionHeader(title: "Description")) {
-                    if isEditing {
-                        TextEditor(text: $list.desc)
-                            .frame(minHeight: 100)
-                    } else {
-                        Text(list.desc)
-                    }
+                    Text(list.desc)
                 }
             }
             ForEach(list.categoriesArray) { (category: DBCategory) in
                 GearListCategorySection(category: category)
             }
-            if !isEditing {
-                Section {
-                    Button {
-
-                    } label: {
-                        HStack {
-                            Icon(.addCategory)
-                            Text("Add category")
-                        }
+            Section {
+                Button {
+                    sheetStatus = .edit
+                } label: {
+                    HStack {
+                        Icon(.editList)
+                        Text("Edit list")
                     }
-                }
-
-                Section {
-                    Button {
-
-                    } label: {
-                        HStack {
-                            Icon(.remove)
-                            Text("Remove list")
-                        }
-                    }.foregroundColor(Color(.systemRed))
                 }
             }
         }
-        .navigationBarItems(trailing: EditButton())
+        .navigationBarItems(trailing: Button {
+            if list.shareUrl == nil {
+                //load url
+            } else {
+                sheetStatus = .share
+            }
+        } label: {
+            Icon(.share)
+        })
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(list.name)
+        .sheet(isPresented: .init(get: {
+            return sheetStatus != nil
+        }, set: {
+            if !$0 { sheetStatus = nil }
+        })) {
+            switch sheetStatus {
+            case .none: EmptyView()
+            case .edit: Text("Editing")
+            case .share: ShareSheet(activityItems: [list.shareUrl!])
+            }
+        }
     }
 }
 
