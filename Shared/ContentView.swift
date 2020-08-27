@@ -9,31 +9,39 @@ import SwiftUI
 
 struct ContentView: View {
 
+    @EnvironmentObject var sessionStore: SessionStore
+
     var body: some View {
-        TabView {
-            NavigationView {
-                GearListsScreen()
-            }
-                .tabItem {
-                    Icon(.lists)
-                    Text("Lists")
+        if sessionStore.isLoggedIn {
+            TabView {
+                NavigationView {
+                    GearListsScreen()
                 }
+                    .tabItem {
+                        Icon(.lists)
+                        Text("Lists")
+                    }
 
-            NavigationView {
-                ItemsListScreen()
-            }
-                .tabItem {
-                    Icon(.gearList)
-                    Text("Gear")
+                NavigationView {
+                    ItemsListScreen()
                 }
+                    .tabItem {
+                        Icon(.gearList)
+                        Text("Gear")
+                    }
 
-            NavigationView {
-                ProfileScreen()
-            }
-                .tabItem {
-                    Icon(.profile)
-                    Text("Profile")
+                NavigationView {
+                    ProfileScreen()
                 }
+                    .tabItem {
+                        Icon(.profile)
+                        Text("Profile")
+                    }
+            }
+        } else {
+            NavigationView {
+                LoginScreen()
+            }
         }
     }
 }

@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct ProfileScreen: View {
-    @AppStorage(SettingKey.username.rawValue) var username: String = "Not logged"
-    @AppStorage(SettingKey.optionalFieldWorn.rawValue) var showWorn: Bool = true
-    @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
-    @AppStorage(SettingKey.optionalFieldImages.rawValue) var showImages: Bool = true
-    @AppStorage(SettingKey.optionalFieldConsumable.rawValue) var showConsumable: Bool = true
-    @AppStorage(SettingKey.optionalFieldListDescription.rawValue) var showListDescription: Bool = true
-    @AppStorage(SettingKey.currencySymbol.rawValue) var currencySymbol: String = ""
 
-    @AppStorage(SettingKey.itemUnit.rawValue) var itemUnit: WeigthUnit = .oz
-    @AppStorage(SettingKey.totalUnit.rawValue) var totalUnit: WeigthUnit = .oz
+    @EnvironmentObject var settingsStore: SettingsStore
+    @EnvironmentObject var sessionStore: SessionStore
+
+    private var showWorn: Binding<Bool> { $settingsStore.worn }
+    private var showPrice: Binding<Bool> { $settingsStore.price }
+    private var showImages: Binding<Bool> { $settingsStore.images }
+    private var showConsumable: Binding<Bool> { $settingsStore.consumable }
+    private var showListDescription: Binding<Bool> { $settingsStore.listDescription }
+    private var currencySymbol: Binding<String> { $settingsStore.currencySymbol }
+    private var itemUnit: Binding<WeigthUnit> { $settingsStore.itemUnit }
+    private var totalUnit: Binding<WeigthUnit> { $settingsStore.totalUnit }
 
     var body: some View {
         Form {
             Section(header: SectionHeader(title: "Signed in as")) {
-                cell(text: username, icon: .profile)
-                NavigationLink(destination: Text("Account settings")) {
+                cell(text: sessionStore.username, icon: .profile)
+                NavigationLink(destination: AccountSettingsScreen()) {
                     cell(text: "Account settings", icon: .accountSettings)
                 }
             }
@@ -31,27 +33,27 @@ struct ProfileScreen: View {
             Section(header: SectionHeader(title: "Settings")) {
                 HStack {
                     cell(text: "Currency", icon: .currency)
-                    TextField("Currency", text: $currencySymbol)
+                    TextField("Currency", text: currencySymbol)
                         .multilineTextAlignment(.trailing)
                 }
-                Toggle(isOn: $showImages) {
+                Toggle(isOn: showImages) {
                     cell(text: "Item images", icon: .images)
                 }
-                Toggle(isOn: $showPrice) {
+                Toggle(isOn: showPrice) {
                     cell(text: "Item prices", icon: .price)
                 }
 
-                Toggle(isOn: $showWorn) {
+                Toggle(isOn: showWorn) {
                     cell(text: "Worn items", icon: .worn)
                 }
-                Toggle(isOn: $showConsumable) {
+                Toggle(isOn: showConsumable) {
                     cell(text: "Consumable items", icon: .consumable)
                 }
-                Toggle(isOn: $showListDescription) {
+                Toggle(isOn: showListDescription) {
                     cell(text: "List descriptions", icon: .listDescription)
                 }
-                weightSelectorCell(text: "Total unit", binding: $totalUnit, icon: .totalWeightUnit)
-                weightSelectorCell(text: "Item unit", binding: $itemUnit, icon: .itemWeightUnit)
+                weightSelectorCell(text: "Total unit", binding: totalUnit, icon: .totalWeightUnit)
+                weightSelectorCell(text: "Item unit", binding: itemUnit, icon: .itemWeightUnit)
             }
 
             Section {
@@ -59,9 +61,7 @@ struct ProfileScreen: View {
                     cell(text: "Help", icon: .help)
                 }
             }
-            Button {
-
-            } label: {
+            Button(action: sessionStore.logout) {
                 cell(text: "Sign Out", icon: .signOut)
             }.foregroundColor(Color(.systemRed))
 

@@ -1,18 +1,19 @@
 import SwiftUI
 
 struct GearListCell: View {
-    @AppStorage(SettingKey.totalUnit.rawValue) var totalUnit: WeigthUnit = .oz
-    @AppStorage(SettingKey.currencySymbol.rawValue) var currencySymbol: String = ""
-    @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
-    @AppStorage(SettingKey.optionalFieldListDescription.rawValue) var showListDesc: Bool = true
+    @EnvironmentObject var settingsStore: SettingsStore
+    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var currencySymbol: String { settingsStore.currencySymbol }
+    private var showPrice: Bool { settingsStore.price }
+    private var showListDesc: Bool { settingsStore.listDescription }
 
-    var list: DBList
+    var list: GearList
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(list.name)
-                if showListDesc && !list.desc.isEmpty {
-                    Text(list.desc)
+                if showListDesc && !list.description.isEmpty {
+                    Text(list.description)
                         .font(.footnote)
                         .lineLimit(1)
                         .foregroundColor(Color(.secondaryLabel))
@@ -22,9 +23,9 @@ struct GearListCell: View {
             HStack {
                 VStack(alignment: .trailing) {
                     if showPrice {
-                        Text(list.price.formattedPrice(currencySymbol))
+                        Text(list.totalPrice.formattedPrice(currencySymbol))
                     }
-                    Text(list.weight.formattedWeight(totalUnit))
+                    Text(list.totalWeight.formattedWeight(totalUnit))
                 }
             }
         }

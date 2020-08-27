@@ -9,16 +9,18 @@ import SwiftUI
 
 @main
 struct LighterPackApp: App {
+    @Environment(\.scenePhase) var scenePhase
+    @StateObject var appStore: AppStore = .init()
 
-    let context = PersistentContainer.persistentContainer.viewContext
-    let syncEngine = SyncEngine()
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .onAppear {
-                    syncEngine.run()
+                    appStore.fetch()
                 }
-                .environment(\.managedObjectContext, context)
+                .environmentObject(appStore.settingsStore)
+                .environmentObject(appStore.sessionStore)
+                .environmentObject(appStore.libraryStore)
         }
     }
 }

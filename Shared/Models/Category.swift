@@ -2,74 +2,49 @@ import Foundation
 
 struct Category: Codable {
     let id: Int
-    let name: String
-    let categoryItems: [CategoryItem]
-    let subtotalWeight: Float
-    let subtotalWornWeight: Float
-    let subtotalConsumableWeight: Float
-    let subtotalPrice: Float
-    let subtotalConsumablePrice: Float
-    let subtotalQty: Int
-    let activeHover: Bool?
-    let displayColor: String?
-    let color: CategoryColor?
-}
+    var name: String
 
-struct CategoryItem: Codable  {
-    let qty: Int
-    let worn: Bool
-    let consumable: Bool
-    let star: Int
-    let itemId: Int
+    var categoryItems: [CategoryItem]
+    var subtotalWeight: Float
+    var subtotalWornWeight: Float
+    var subtotalConsumableWeight: Float
+    var subtotalPrice: Float
+    var subtotalWornPrice: Float
+    var subtotalConsumablePrice: Float
+    var subtotalQty: Int
+    var subtotalWornQty: Int
+    var subtotalConsumableQty: Int
 
-    init(
-        qty: Int,
-        worn: Bool,
-        consumable: Bool,
-        star: Int,
-        itemId: Int
-    ) {
-        self.qty = qty
-        self.worn = worn
-        self.consumable = consumable
-        self.star = star
-        self.itemId = itemId
-    }
+    var activeHover: Bool?
+    var displayColor: String?
+    var color: CategoryColor?
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.qty = try container.decode(Int.self, forKey: .qty)
-        self.star = try container.decode(Int.self, forKey: .star)
-        self.itemId = try container.decode(Int.self, forKey: .itemId)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.categoryItems = try container.decode([CategoryItem].self, forKey: .categoryItems)
 
-        // Worn and consumable could come as an int
-        self.worn = try container.decodeIntBool(forKey: .worn)
-        self.consumable = try container.decodeIntBool(forKey: .consumable)
+        self.subtotalWeight = try container.decodeIfPresent(Float.self, forKey: .subtotalWeight) ?? 0
+        self.subtotalWornWeight = try container.decodeIfPresent(Float.self, forKey: .subtotalWornWeight) ?? 0
+        self.subtotalConsumableWeight = try container.decodeIfPresent(Float.self, forKey: .subtotalConsumableWeight) ?? 0
+        self.subtotalPrice = try container.decodeIfPresent(Float.self, forKey: .subtotalPrice) ?? 0
+        self.subtotalWornPrice = try container.decodeIfPresent(Float.self, forKey: .subtotalWornPrice) ?? 0
+        self.subtotalConsumablePrice = try container.decodeIfPresent(Float.self, forKey: .subtotalConsumablePrice) ?? 0
+        self.subtotalQty = try container.decodeIfPresent(Int.self, forKey: .subtotalQty) ?? 0
+        self.subtotalWornQty = try container.decodeIfPresent(Int.self, forKey: .subtotalWornQty) ?? 0
+        self.subtotalConsumableQty = try container.decodeIfPresent(Int.self, forKey: .subtotalConsumableQty) ?? 0
 
+        self.activeHover = try container.decodeIfPresent(Bool.self, forKey: .activeHover)
+        self.displayColor = try container.decodeIfPresent(String.self, forKey: .displayColor)
+        self.color = try container.decodeIfPresent(CategoryColor.self, forKey: .color)
     }
 }
 
-extension KeyedDecodingContainer {
-    public func decodeIntBool(forKey key: KeyedDecodingContainer<K>.Key) throws -> Bool {
-        do {
-            return (try decode(Int.self, forKey: key)) != 0
-        } catch DecodingError.typeMismatch {
-            return try decode(Bool.self, forKey: key)
-        }
-    }
-}
+extension Category: Identifiable {}
 
-
-
-struct CategoryColor: Codable {
+public struct CategoryColor: Codable {
     let r: Int
     let g: Int
     let b: Int
-}
-
-enum StarColor: Int, CaseIterable, Codable {
-    case none = 0
-    case yellow
-    case red
-    case green
 }

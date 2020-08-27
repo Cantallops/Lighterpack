@@ -11,15 +11,18 @@ struct Pie: View {
 }
 
 private struct GearListPieSectionView: View {
-    @AppStorage(SettingKey.totalUnit.rawValue) var totalUnit: WeigthUnit = .oz
-    @AppStorage(SettingKey.optionalFieldWorn.rawValue) var showWorn: Bool = true
-    @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
-    @AppStorage(SettingKey.optionalFieldConsumable.rawValue) var showConsumable: Bool = true
-    @AppStorage(SettingKey.currencySymbol.rawValue) var currencySymbol: String = "$"
+
+    @EnvironmentObject var libraryStore: LibraryStore
+    @EnvironmentObject var settingsStore: SettingsStore
+    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var showWorn: Bool { settingsStore.worn }
+    private var showPrice: Bool { settingsStore.price }
+    private var showConsumable: Bool { settingsStore.consumable }
+    private var currencySymbol: String { settingsStore.currencySymbol }
 
     @ObservedObject var configuration: SunburstConfiguration
     @Binding var viewMode: ViewMode
-
+    var list: GearList
     enum ViewMode: Int, CaseIterable {
         case weight
         case price
@@ -35,27 +38,10 @@ private struct GearListPieSectionView: View {
     }
 
     var body: some View {
-        let (total, worn, consumable) = configuration.nodes.reduce((0.0, 0.0, 0.0)) { (result, node) in
-            guard let category = (node.relatedObject?.wrappedValue as? DBCategory) else {
-                return result
-            }
-            var wornValue: Double = 0
-            var consumableValue: Double = 0
-            switch viewMode {
-            case .weight:
-                wornValue = Double(category.wornWeight)
-                consumableValue = Double(category.consumbleWeight)
-            case .price:
-                wornValue = Double(category.wornPrice)
-                consumableValue = Double(category.consumblePrice)
-            }
+        let (total, worn, consumable) = viewMode == .weight ?
+            (list.totalWeight, list.totalWornWeight, list.totalConsumableWeight) :
+            (list.totalPrice, list.totalWornPrice, list.totalConsumablePrice)
 
-            return (
-                result.0 + (node.value ?? 0),
-                showWorn ? (result.1 + wornValue) : 0,
-                showConsumable ? (result.2 + consumableValue) : 0
-             )
-        }
         let base = total - consumable
         var totalText = ""
         var wornText = ""
@@ -73,13 +59,9 @@ private struct GearListPieSectionView: View {
             consumableText = consumable.formattedPrice(currencySymbol)
             baseText = base.formattedPrice(currencySymbol)
         }
-        var selectedId: AnyHashable = configuration.selectedNode?.id
-        if let item = configuration.selectedNode?.relatedObject?.wrappedValue as? DBCategoryItem {
-            selectedId = item.category.pieId
-        }
+        let selectedId: AnyHashable = configuration.selectedNode?.id
         return Section(header: header) {
             ForEach(configuration.nodes) { (node: Node) -> AnyView in
-                let category = node.relatedObject!.wrappedValue as! DBCategory
                 let selectionColor = node.backgroundColor?.opacity(0.3)
                 return Button {
                     configuration.selectedNode = node
@@ -88,7 +70,7 @@ private struct GearListPieSectionView: View {
                     HStack {
                         Icon(.categoryDot)
                             .foregroundColor(node.backgroundColor ?? .clear)
-                        Text(category.name)
+                        Text(node.name)
                         Spacer()
                         switch viewMode {
                         case .weight: Text((node.value ?? 0).formattedWeight(totalUnit))
@@ -129,6 +111,8 @@ private struct GearListPieSectionView: View {
                     Text(totalText)
                 }
             }
+        }.onChange(of: settingsStore.price) { showPrice in
+            if !showPrice && viewMode == .price { viewMode = .weight }
         }
 
     }
@@ -142,8 +126,8 @@ private struct GearListPieSectionView: View {
                     .foregroundColor(.init(.label))
                     .listRowInsets(EdgeInsets())
 
-                if let selected = configuration.selectedNode {
-                    Text(selected.name)
+                if let selected = configuration.selectedNode, let name = selected.desc {
+                    Text(name)
                         .padding(4)
                         .foregroundColor(Color(.label))
                         .background(Color(.systemGray4))
@@ -166,11 +150,10 @@ private struct GearListPieSectionView: View {
 }
 
 struct GearListPieSection: View {
-
-    @AppStorage(SettingKey.totalUnit.rawValue) var totalUnit: WeigthUnit = .oz
-    @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
-    @AppStorage(SettingKey.currencySymbol.rawValue) var currencySymbol: String = "$"
-    @ObservedObject var list: DBList
+    @EnvironmentObject var libraryStore: LibraryStore
+    @EnvironmentObject var settingsStore: SettingsStore
+    
+    var list: GearList
 
     @State private var disposable: AnyCancellable?
     @State private var viewMode: GearListPieSectionView.ViewMode = .weight
@@ -188,7 +171,7 @@ struct GearListPieSection: View {
         }, set: {
             viewMode = $0
             configure()
-        }))
+        }), list: list)
             .onAppear {
                 configure()
             }
@@ -227,8 +210,8 @@ struct GearListPieSection: View {
         return nil
     }
 
-    func calculateNodes(list: DBList) -> ([Node], Double) {
-        let nodes: [Node] = list.pieNodes(currencySymbol: currencySymbol, totalUnit: totalUnit, showPrice: showPrice, calculateUsing: viewMode)
+    func calculateNodes(list: GearList) -> ([Node], Double) {
+        let nodes: [Node] = list.pieNodes(settingsStore: settingsStore, libraryStore: libraryStore, calculateUsing: viewMode)
         let total = nodes.reduce(0.0, { $0 + $1.value! })
         return (nodes, total)
     }
@@ -237,33 +220,31 @@ struct GearListPieSection: View {
 }
 
 
-private extension DBList {
+private extension GearList {
     func pieNodes(
-        currencySymbol: String,
-        totalUnit: WeigthUnit,
-        showPrice: Bool,
+        settingsStore: SettingsStore,
+        libraryStore: LibraryStore,
         calculateUsing viewMode: GearListPieSectionView.ViewMode
     ) -> [Node] {
-        categoriesArray.map { (category: DBCategory) in
-            var name = "\(category.name): \(category.weight.formattedWeight(totalUnit))"
-            var value: Double = Double(category.weight)
-            if showPrice {
-                name = "\(name) \(category.price.formattedPrice(currencySymbol))"
+        libraryStore.categories(ofList: self).map { (category: Category) in
+            var desc = "\(category.name): \(category.subtotalWeight.formattedWeight(settingsStore.totalUnit))"
+            var value: Double = Double(category.subtotalWeight)
+            if settingsStore.price {
+                desc = "\(desc) \(category.subtotalPrice.formattedPrice(settingsStore.currencySymbol))"
                 if viewMode == .price {
-                    value = Double(category.price)
+                    value = Double(category.subtotalPrice)
                 }
             }
             return Node(
-                id: category.pieId,
-                name: name,
+                id: category.id,
+                name: category.name,
+                desc: desc,
                 showName: false,
                 value: value,
-                relatedObject: AnyObjectEquatable(category),
-                backgroundColor: Color(hex: category.hexColor),
+                backgroundColor: Color(category.color),
                 children: category.pieNodes(
-                    currencySymbol: currencySymbol,
-                    totalUnit: totalUnit,
-                    showPrice: showPrice,
+                    settingsStore: settingsStore,
+                    libraryStore: libraryStore,
                     calculateUsing: viewMode
                 )
             )
@@ -271,59 +252,65 @@ private extension DBList {
     }
 }
 
-private extension DBCategory {
+private extension Category {
 
     var pieId: String {
         "Cat\(id)"
     }
 
     func pieNodes(
-        currencySymbol: String,
-        totalUnit: WeigthUnit,
-        showPrice: Bool,
+        settingsStore: SettingsStore,
+        libraryStore: LibraryStore,
         calculateUsing viewMode: GearListPieSectionView.ViewMode
     ) -> [Node] {
-        itemsArray
+        categoryItems
             .sorted(by: {
+                guard let item0 = libraryStore.item(withId: $0.itemId),
+                      let item1 = libraryStore.item(withId: $1.itemId) else { return false }
                 switch viewMode {
-                case .weight: return $0.weight > $1.weight
-                case .price: return $0.price > $1.price
+                case .weight: return item0.weight > item1.weight
+                case .price: return item0.price > item1.price
                 }
             })
             .enumerated()
-            .map { (offset: Int, item: DBCategoryItem) in
-                let variation: CGFloat = (CGFloat(offset) / CGFloat(items.count))/2
-                let color = Color(hex: hexColor)?.variant(by: variation)
-                return item.pieNode(currencySymbol: currencySymbol, color: color, showPrice: showPrice, calculateUsing: viewMode)
+            .map { (offset: Int, item) in
+                let variation: CGFloat = (CGFloat(offset) / CGFloat(categoryItems.count))/2
+                return item.pieNode(
+                    settingsStore: settingsStore,
+                    libraryStore: libraryStore,
+                    color: Color(color)?.variant(by: variation),
+                    calculateUsing: viewMode
+                )
             }
     }
 }
 
-private extension DBCategoryItem {
+private extension CategoryItem {
     var pieId: String {
-        "Item\(item.id)"
+        "Item\(itemId)"
     }
     func pieNode(
-        currencySymbol: String,
+        settingsStore: SettingsStore,
+        libraryStore: LibraryStore,
         color: Color?,
-        showPrice: Bool,
         calculateUsing viewMode: GearListPieSectionView.ViewMode
     ) -> Node {
-        var name = "\(item.name): \(formattedWeight)"
+        guard let item = libraryStore.item(withId: itemId) else { fatalError() }
+        var desc = "\(item.name): \(weight.formattedWeight(item.authorUnit))"
         var value: Double = Double(weight)
-        if showPrice {
-            name = "\(name) \(price.formattedPrice(currencySymbol))"
+        if settingsStore.price {
+            desc = "\(desc) \(price.formattedPrice(settingsStore.currencySymbol))"
             if viewMode == .price {
                 value = Double(price)
             }
         }
         return Node(
-            id: pieId,
-            name: name,
+            id: itemId,
+            name: item.name,
+            desc: desc,
             showName: false,
             isFocusable: false,
             value: value,
-            relatedObject: AnyObjectEquatable(self),
             backgroundColor: color
         )
     }

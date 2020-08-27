@@ -2,60 +2,59 @@ import SwiftUI
 
 struct GearListCategorySection: View {
 
-    @AppStorage(SettingKey.totalUnit.rawValue) var totalUnit: WeigthUnit = .oz
-    @AppStorage(SettingKey.currencySymbol.rawValue) var currencySymbol: String = ""
+    @EnvironmentObject var settingsStore: SettingsStore
+    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var currencySymbol: String { settingsStore.currencySymbol }
+    private var showWorn: Bool { settingsStore.worn }
+    private var showPrice: Bool { settingsStore.price }
+    private var showConsumable: Bool { settingsStore.consumable }
 
-    @AppStorage(SettingKey.optionalFieldWorn.rawValue) var showWorn: Bool = true
-    @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
-    @AppStorage(SettingKey.optionalFieldConsumable.rawValue) var showConsumable: Bool = true
+    var category: Category
 
-    @ObservedObject var category: DBCategory
     var body: some View {
         Section(header: SectionHeader(title: category.name)) {
-            ForEach(category.items.array as! [DBCategoryItem]) { (item: DBCategoryItem) in
+            ForEach(category.categoryItems) { (item: CategoryItem) in
                 CategoryItemCell(categoryItem: item)
             }
             DisclosureGroup {
-                if showWorn && category.wornQuantity > 0 {
+                if showWorn {
                     resumeCell(
                         title: "Worn",
                         icon: .worn,
-                        price: category.wornPrice,
-                        weight: category.wornWeight,
-                        quantity: category.wornQuantity
+                        price: category.subtotalWornPrice,
+                        weight: category.subtotalWornWeight,
+                        quantity: category.subtotalWornQty
                     )
                 }
-                if showConsumable && category.consumbleQuantity > 0 {
+                if showConsumable {
                     resumeCell(
                         title: "Cons.",
                         icon: .consumable,
-                        price: category.consumblePrice,
-                        weight: category.consumbleWeight,
-                        quantity: category.consumbleQuantity
+                        price: category.subtotalConsumablePrice,
+                        weight: category.subtotalConsumableWeight,
+                        quantity: category.subtotalConsumableQty
                     )
                 }
-                if category.baseQuantity > 0 {
-                    resumeCell(
-                        title: "Base",
-                        icon: .baseWeight,
-                        price: category.basePrice,
-                        weight: category.baseWeight,
-                        quantity: category.baseQuantity
-                    )
-                }
+                resumeCell(
+                    title: "Base",
+                    icon: .baseWeight,
+                    price: category.subtotalPrice - category.subtotalConsumablePrice,
+                    weight: category.subtotalWeight - category.subtotalConsumableWeight,
+                    quantity: category.subtotalQty - category.subtotalConsumableQty
+                )
             } label: {
                 resumeCell(
                     title: "Total",
-                    price: category.price,
-                    weight: category.weight,
-                    quantity: category.quantity,
+                    price: category.subtotalPrice,
+                    weight: category.subtotalWeight,
+                    quantity: category.subtotalQty,
                     titleWeight: .bold
                 )
             }
         }
     }
 
-    func resumeCell(title: String, icon: Icon.Token? = nil, price: Float, weight: Float, quantity: Int16, titleWeight: Font.Weight? = nil) -> some View {
+    func resumeCell(title: String, icon: Icon.Token? = nil, price: Float, weight: Float, quantity: Int, titleWeight: Font.Weight? = nil) -> some View {
         HStack {
             if let token = icon {
                 Icon(token)

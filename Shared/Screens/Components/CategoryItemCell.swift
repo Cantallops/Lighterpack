@@ -1,57 +1,63 @@
 import SwiftUI
 
 struct CategoryItemCell: View {
-    @AppStorage(SettingKey.totalUnit.rawValue) var totalUnit: WeigthUnit = .oz
-    @AppStorage(SettingKey.currencySymbol.rawValue) var currencySymbol: String = ""
-    @AppStorage(SettingKey.optionalFieldWorn.rawValue) var showWorn: Bool = true
-    @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
-    @AppStorage(SettingKey.optionalFieldImages.rawValue) var showImages: Bool = true
-    @AppStorage(SettingKey.optionalFieldConsumable.rawValue) var showConsumable: Bool = true
+    @EnvironmentObject var libraryStore: LibraryStore
+    @EnvironmentObject var settingsStore: SettingsStore
+    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var currencySymbol: String { settingsStore.currencySymbol }
+    private var showWorn: Bool { settingsStore.worn }
+    private var showPrice: Bool { settingsStore.price }
+    private var showImages: Bool { settingsStore.images }
+    private var showConsumable: Bool { settingsStore.consumable }
 
-    var categoryItem: DBCategoryItem
+    var categoryItem: CategoryItem
+    var item: Item? { libraryStore.item(withId: categoryItem.itemId) }
+
     var body: some View {
-        HStack {
-            if let url = categoryItem.item.fullImageURL, showImages {
-                NetworkImage(url: url)
-                    .frame(width: 60, height: 60)
-                    .cornerRadius(4)
-            }
-            VStack(alignment: .leading) {
-                Text(categoryItem.item.name)
-                HStack {
-                    if let star = StarColor(rawValue: Int(categoryItem.star)), star != .none {
-                        Icon(.star)
-                            .foregroundColor(star.color)
-                    }
-                    if !categoryItem.item.url.isEmpty {
-                        Icon(.link)
-                    }
-                    if categoryItem.worn && showWorn {
-                        Icon(.worn)
-                    }
-                    if categoryItem.consumable && showConsumable {
-                        Icon(.consumable)
-                    }
-                }.font(.caption)
-                Text(categoryItem.item.desc)
-                    .font(.footnote)
-                    .lineLimit(2)
-                    .foregroundColor(Color(.secondaryLabel))
-            }
-            Spacer()
+        if let item = item {
             HStack {
-                VStack(alignment: .trailing) {
-                    if showPrice {
-                        Text(categoryItem.item.price.formattedPrice(currencySymbol))
-                    }
-                    Text(categoryItem.item.formattedWeight)
+                if let url = item.fullImageURL, showImages {
+                    NetworkImage(url: url)
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(4)
                 }
-                .foregroundColor(Color(.tertiaryLabel))
-                HStack(alignment: .lastTextBaseline, spacing: 0) {
-                    Icon(.quantity)
-                        .font(.caption)
-                    Text(String(categoryItem.quantity))
-                        .font(.title3)
+                VStack(alignment: .leading) {
+                    Text(item.name)
+                    HStack {
+                        if categoryItem.star != .none {
+                            Icon(.star)
+                                .foregroundColor(categoryItem.star.color)
+                        }
+                        if !item.url.isEmpty {
+                            Icon(.link)
+                        }
+                        if categoryItem.worn && showWorn {
+                            Icon(.worn)
+                        }
+                        if categoryItem.consumable && showConsumable {
+                            Icon(.consumable)
+                        }
+                    }.font(.caption)
+                    Text(item.description)
+                        .font(.footnote)
+                        .lineLimit(2)
+                        .foregroundColor(Color(.secondaryLabel))
+                }
+                Spacer()
+                HStack {
+                    VStack(alignment: .trailing) {
+                        if showPrice {
+                            Text(item.price.formattedPrice(currencySymbol))
+                        }
+                        Text(item.formattedWeight)
+                    }
+                    .foregroundColor(Color(.tertiaryLabel))
+                    HStack(alignment: .lastTextBaseline, spacing: 0) {
+                        Icon(.quantity)
+                            .font(.caption)
+                        Text(String(categoryItem.qty))
+                            .font(.title3)
+                    }
                 }
             }
         }

@@ -12,6 +12,16 @@ extension Color {
         guard let uiColor = UIColor(hex: hex) else { return nil }
         self.init(uiColor)
     }
+
+    public init?(_ color: CategoryColor?) {
+        guard let color = color else { return nil }
+        self.init(UIColor(
+                    red: CGFloat(color.r)/255,
+                    green: CGFloat(color.g)/255,
+                    blue: CGFloat(color.b)/255,
+                    alpha: 1)
+        )
+    }
 }
 
 extension Color {

@@ -9,12 +9,14 @@ import SwiftUI
 import Combine
 
 struct GearListScreen: View {
-    @AppStorage(SettingKey.totalUnit.rawValue) var totalUnit: WeigthUnit = .oz
-    @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
-    @AppStorage(SettingKey.optionalFieldListDescription.rawValue) var showDesc: Bool = true
-    @AppStorage(SettingKey.currencySymbol.rawValue) var currencySymbol: String = ""
+    @EnvironmentObject var libraryStore: LibraryStore
+    @EnvironmentObject var settingsStore: SettingsStore
+    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var showPrice: Bool { settingsStore.price }
+    private var showDesc: Bool { settingsStore.listDescription }
+    private var currencySymbol: String { settingsStore.currencySymbol }
 
-    @ObservedObject var list: DBList
+    var list: GearList
 
     private enum SheetStatus {
         case edit
@@ -28,10 +30,10 @@ struct GearListScreen: View {
 
             if showDesc {
                 Section(header: SectionHeader(title: "Description")) {
-                    Text(list.desc)
+                    Text(list.description)
                 }
             }
-            ForEach(list.categoriesArray) { (category: DBCategory) in
+            ForEach(libraryStore.categories(ofList: list)) { (category: Category) in
                 GearListCategorySection(category: category)
             }
             Section {

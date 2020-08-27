@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct ItemCell: View {
-    @AppStorage(SettingKey.currencySymbol.rawValue) var currencySymbol: String = ""
-    @AppStorage(SettingKey.optionalFieldPrice.rawValue) var showPrice: Bool = true
-    @AppStorage(SettingKey.optionalFieldImages.rawValue) var showImages: Bool = true
+    @EnvironmentObject var settingsStore: SettingsStore
+    private var currencySymbol: String { settingsStore.currencySymbol }
+    private var showPrice: Bool { settingsStore.price }
+    private var showImages: Bool { settingsStore.images }
 
-    var item: DBItem
+    var item: Item
     var body: some View {
         HStack {
             if let url = item.fullImageURL, showImages {
@@ -15,7 +16,7 @@ struct ItemCell: View {
             }
             VStack(alignment: .leading) {
                 Text(item.name)
-                Text(item.desc)
+                Text(item.description)
                     .font(.footnote)
                     .lineLimit(2)
                     .foregroundColor(Color(.secondaryLabel))
