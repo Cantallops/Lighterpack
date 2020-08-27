@@ -12,22 +12,16 @@ final class AppStore: ObservableObject {
     private var cancellables: [AnyCancellable] = []
 
     init(
-        lighterPackAccess: LighterPackAccess = .init(),
-        sessionStore: SessionStore = .init(),
-        libraryStore: LibraryStore = .init(),
-        settingsStore: SettingsStore = .init()
+        lighterPackAccess: LighterPackAccess = .init()
     ) {
+        let sessionStore = SessionStore(networkAccess: lighterPackAccess, userDefaults: .standard)
         self.lighterPackAccess = lighterPackAccess
         self.sessionStore = sessionStore
-        self.libraryStore =  libraryStore
-        self.settingsStore = settingsStore
+        self.libraryStore = .init(networkAccess: lighterPackAccess, sessionStore: sessionStore)
+        self.settingsStore = .init()
 
-        self.sessionStore.networkAccess = lighterPackAccess
-        self.libraryStore.sessionStore = sessionStore
-        self.libraryStore.networkAccess = lighterPackAccess
-
-        self.sessionStore.objectWillChange
-            .sink {
+        self.sessionStore.$sessionCookie
+            .sink { _ in
                 self.fetch()
             }.store(in: &cancellables)
     }

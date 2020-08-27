@@ -20,13 +20,16 @@ public struct ForgotPasswordEndpoint: Endpoint {
         guard error.codeStatus == .unauthorized || error.codeStatus == .notFound else {
             return error
         }
+        
         var message = "Invalid username."
         if username.isEmpty {
             message = "Please enter a username."
         }
         return NetworkError(
             codeStatus: error.codeStatus,
-            errorMessage: .init(message: message)
+            error: .form([
+                .init(field: .username, message: message)
+            ])
         )
     }
 }

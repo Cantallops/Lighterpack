@@ -8,10 +8,35 @@ struct LoginScreen: View {
 
     @State private var status: Status = .idle
 
+
     enum Status {
         case idle
         case signing
-        case error(Error)
+        case error(NetworkError.ErrorType)
+
+        var formErrors: [FormErrorEntry] {
+            switch self {
+            case .error(let errorType):
+                switch errorType {
+                case .form(let errors): return errors
+                default: return []
+                }
+            default:
+                return []
+            }
+        }
+
+        var otherError: Error? {
+            switch self {
+            case .error(let errorType):
+                switch errorType {
+                case .form: return nil
+                default: return errorType
+                }
+            default:
+                return nil
+            }
+        }
     }
 
     private var isSigning: Bool {
@@ -24,25 +49,24 @@ struct LoginScreen: View {
     var body: some View {
         Form {
             Section(footer: Group{
-                switch status {
-                case .error(let error):
+                if let error = status.otherError {
                     Text(error.localizedDescription)
                         .foregroundColor(Color(.systemRed))
-                default:
-                    EmptyView()
                 }
-
             }) {
-                HStack {
-                    Icon(.profile)
-                        .frame(width: 25)
-                    TextField("Username", text: $sessionStore.username)
-                }
-                HStack {
-                    Icon(.password)
-                        .frame(width: 25)
-                    SecureField("Password", text: $password, onCommit: signin)
-                }
+                Field(
+                    "Username",
+                    text: $sessionStore.username,
+                    icon: .profile,
+                    error: status.formErrors.of(.username)?.message
+                )
+                Field(
+                    "Password",
+                    text: $password,
+                    icon: .password,
+                    secured: true,
+                    error: status.formErrors.of(.password)?.message
+                )
             }
 
             Section(
@@ -77,30 +101,17 @@ struct LoginScreen: View {
     }
 
     func signin() {
-        guard validate() else { return }
-        status = .signing
+        withAnimation {
+            status = .signing
+        }
         sessionStore.login(username: sessionStore.username, password: password) { result in
-            switch result {
-            case .success: status = .idle
-            case .failure(let error): status = .error(error)
+            withAnimation {
+                switch result {
+                case .success: status = .idle
+                case .failure(let error): status = .error(error)
+                }
             }
         }
-    }
-
-    func validate() -> Bool {
-        var message: String?
-        if sessionStore.username.isEmpty && password.isEmpty {
-            message = "Please enter username and password."
-        } else if sessionStore.username.isEmpty {
-            message = "Please enter a username."
-        } else if password.isEmpty {
-            message = "Please enter a password."
-        }
-        if let message = message {
-            status = .error(ValidationError(message: message))
-            return false
-        }
-        return true
     }
 }
 
@@ -111,10 +122,3 @@ struct LoginScreen_Previews: PreviewProvider {
 }
 
 
-struct ValidationError: Error {
-    var message: String
-}
-
-extension ValidationError: LocalizedError {
-    var errorDescription: String? { message }
-}

@@ -11,7 +11,7 @@ import Combine
 public struct LighterPackAccess {
     var urlSession: URLSession = .shared
     var baseUrl = URL(string: "https://lighterpack.com/")!
-    @UserDefault(.sessionCookie, defaultValue: "") var cookie: String
+    var cookieSubject: CurrentValueSubject<String, Never> = .init("")
 
     public init() {}
 }
@@ -30,7 +30,7 @@ public extension LighterPackAccess {
         }
         var headers = endpoint.headers
         if endpoint.authenticated {
-            headers["Cookie"] = cookie
+            headers["Cookie"] = cookieSubject.value
         }
         headers["Content-Type"] = "application/json"
         request.allHTTPHeaderFields = headers
@@ -47,7 +47,7 @@ public extension LighterPackAccess {
             .tryMap { result -> T in
                 guard let response = result.response as? HTTPURLResponse,
                       let status = response.status else {
-                    throw NetworkError(codeStatus: .internalServerError, errorMessage: nil) // TODO
+                    throw NetworkError(codeStatus: .internalServerError, error: .unknown) // TODO
                 }
                 switch status.responseType {
                 case .success:
@@ -55,8 +55,20 @@ public extension LighterPackAccess {
                     let value = try JSONDecoder().decode(T.self, from: result.data)
                     return value
                 default:
-                    let errorMessage = try? JSONDecoder().decode(ErrorMessage.self, from: result.data)
-                    throw NetworkError(codeStatus: status, errorMessage: errorMessage)
+                    if let formErrorEntry = try? JSONDecoder().decode(FormErrorEntry.self, from: result.data) {
+                        throw NetworkError(codeStatus: status, error: .form([formErrorEntry]))
+                    }
+                    if let formError = try? JSONDecoder().decode(FormErrors.self, from: result.data) {
+                        throw NetworkError(codeStatus: status, error: .form(formError.errors))
+                    }
+                    if let errorMessage = try? JSONDecoder().decode(ErrorMessage.self, from: result.data) {
+                        throw NetworkError(codeStatus: status, error: .messages([errorMessage]))
+                    }
+                    if let errorMessages = try? JSONDecoder().decode(ErrorMessages.self, from: result.data) {
+                        throw NetworkError(codeStatus: status, error: .messages(errorMessages.errors))
+                    }
+                    throw NetworkError(codeStatus: status, error: .unknown)
+
                 }
             }
             .eraseToAnyPublisher()
@@ -65,6 +77,6 @@ public extension LighterPackAccess {
     private func updateCookies(_ response: HTTPURLResponse) {
         guard let setCookie = response.value(forHTTPHeaderField: "Set-Cookie") else { return }
         let components = setCookie.split(separator: ";")
-        cookie = String(components.first ?? "")
+        cookieSubject.send(String(components.first ?? ""))
     }
 }

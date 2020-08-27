@@ -54,8 +54,14 @@ struct Icon: View {
             Image(systemName: token.rawValue)
                 .renderingMode(.template)
         case .original:
-            Image(systemName: token.rawValue)
-                .renderingMode(.original)
+            if let color = token.color {
+                Image(systemName: token.rawValue)
+                    .renderingMode(.template)
+                    .foregroundColor(color)
+            } else {
+                Image(systemName: token.rawValue)
+                    .renderingMode(.original)
+            }
         }
     }
 

@@ -19,7 +19,30 @@ struct RegistrationScreen: View {
     enum Status {
         case idle
         case registering
-        case error(Error)
+        case error(NetworkError.ErrorType)
+
+        var formErrors: [FormErrorEntry] {
+            switch self {
+            case .error(let errorType):
+                switch errorType {
+                case .form(let errors): return errors
+                default: return []
+                }
+            default:
+                return []
+            }
+        }
+        var otherError: Error? {
+            switch self {
+            case .error(let errorType):
+                switch errorType {
+                case .form: return nil
+                default: return errorType
+                }
+            default:
+                return nil
+            }
+        }
     }
 
     private var isRegistering: Bool {
@@ -32,35 +55,37 @@ struct RegistrationScreen: View {
     var body: some View {
         Form {
             Section(footer: Group{
-                switch status {
-                case .error(let error):
+                if let error = status.otherError {
                     Text(error.localizedDescription)
                         .foregroundColor(Color(.systemRed))
-                default:
-                    EmptyView()
                 }
-
-            }) {
-                HStack {
-                    Icon(.profile)
-                        .frame(width: 25)
-                    TextField("Username", text: $sessionStore.username)
-                }
-                HStack {
-                    Icon(.email)
-                        .frame(width: 25)
-                    TextField("Email", text: $email)
-                }
-                HStack {
-                    Icon(.password)
-                        .frame(width: 25)
-                    SecureField("Password", text: $password)
-                }
-                HStack {
-                    Icon(.confirmPassword)
-                        .frame(width: 25)
-                    SecureField("Confirm password", text: $passwordConfirmation, onCommit: register)
-                }
+            })  {
+                Field(
+                    "Username",
+                    text: $sessionStore.username,
+                    icon: .profile,
+                    error: status.formErrors.of(.username)?.message
+                )
+                Field(
+                    "Email",
+                    text: $email,
+                    icon: .email,
+                    error: status.formErrors.of(.email)?.message
+                )
+                Field(
+                    "Password",
+                    text: $password,
+                    icon: .password,
+                    secured: true,
+                    error: status.formErrors.of(.password)?.message
+                )
+                Field(
+                    "Confirm password",
+                    text: $passwordConfirmation,
+                    icon: .confirmPassword,
+                    secured: true,
+                    error: status.formErrors.of(.passwordConfirmation)?.message
+                )
             }
 
             Section {
@@ -85,31 +110,22 @@ struct RegistrationScreen: View {
     }
 
     func register() {
-        guard validate() else { return }
-    }
-
-    func validate() -> Bool {
-        var messages: [String] = []
-        if sessionStore.username.isEmpty {
-            messages.append("Please enter a username.")
+        withAnimation {
+            status = .registering
         }
-        if email.isEmpty {
-            messages.append("Please enter an email.")
+        sessionStore.register(
+            email: email,
+            username: sessionStore.username,
+            password: password,
+            passwordConfirmation: passwordConfirmation
+        ) { result in
+            withAnimation {
+                switch result {
+                case .success: status = .idle
+                case .failure(let error): status = .error(error)
+                }
+            }
         }
-        if password.isEmpty {
-            messages.append("Please enter a password.")
-        }
-        if passwordConfirmation.isEmpty {
-            messages.append("Please enter a password confirmation.")
-        } else if passwordConfirmation != password {
-            messages.append("The password confirmation does not match with the password.")
-        }
-
-        if !messages.isEmpty {
-            status = .error(ValidationError(message: messages.joined(separator: "\n")))
-            return false
-        }
-        return true
     }
 }
 

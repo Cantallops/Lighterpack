@@ -30,21 +30,38 @@ public extension Endpoint {
     func processNetworkError(_ error: NetworkError) -> NetworkError { error }
 }
 
-public struct ErrorMessage: Codable {
-    let message: String
-}
+
 
 public struct NetworkError: Error {
     var codeStatus: HTTPStatusCode
-    var errorMessage: ErrorMessage?
+    var error: ErrorType
+
+    enum ErrorType: Error {
+        case message(String)
+        case messages([ErrorMessage])
+        case form([FormErrorEntry])
+        case unknown
+    }
 }
 
 extension NetworkError: LocalizedError {
     public var errorDescription: String? {
-        return errorMessage?.message ?? "Unknown error please, try again"
+        return error.localizedDescription
     }
+}
 
-    public var failureReason: String? { nil }
-    public var recoverySuggestion: String? { nil }
-    public var helpAnchor: String? { nil }
+
+extension NetworkError.ErrorType: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .messages(let messages):
+            return messages.map { $0.message }.joined(separator: "\n")
+        case .form(let errors):
+            return errors.map { $0.message }.joined(separator: "\n")
+        case .unknown:
+            return "Unknown error please, try again"
+        case .message(let message):
+            return message
+        }
+    }
 }

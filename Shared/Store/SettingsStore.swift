@@ -2,35 +2,76 @@ import Foundation
 import Combine
 
 final class SettingsStore: ObservableObject {
-    let objectWillChange = PassthroughSubject<Void, Never>()
-
-    var totalUnit: WeigthUnit {
-        get { WeigthUnit(rawValue: _totalUnit) ?? .oz }
-        set { _totalUnit = newValue.rawValue }
+    private let userDefaults: UserDefaults
+    
+    @Published var totalUnit: WeigthUnit = .oz {
+        didSet {
+            userDefaults[SettingKey.totalUnit] = totalUnit
+        }
     }
-    @UserDefault(.totalUnit, defaultValue: "oz") private var _totalUnit: String
-    var itemUnit: WeigthUnit {
-        get { WeigthUnit(rawValue: _itemUnit) ?? .oz }
-        set { _itemUnit = newValue.rawValue }
+    @Published var itemUnit: WeigthUnit = .oz {
+        didSet {
+            userDefaults[SettingKey.itemUnit] = itemUnit
+        }
     }
-    @UserDefault(.itemUnit, defaultValue: "oz") private var _itemUnit: String
-    @UserDefault(.defaultListId, defaultValue: 1) var defaultListId: Int
-    @UserDefault(.sequence, defaultValue: 0) var sequence: Int
-    @UserDefault(.showSidebar, defaultValue: false) var showSidebar: Bool
-    @UserDefault(.currencySymbol, defaultValue: "$") var currencySymbol: String
-    @UserDefault(.optionalFieldImages, defaultValue: false) var images: Bool
-    @UserDefault(.optionalFieldPrice, defaultValue: false) var price: Bool
-    @UserDefault(.optionalFieldWorn, defaultValue: true) var worn: Bool
-    @UserDefault(.optionalFieldConsumable, defaultValue: true) var consumable: Bool
-    @UserDefault(.optionalFieldListDescription, defaultValue: false) var listDescription: Bool
+    @Published var defaultListId: Int = 0 {
+        didSet {
+            userDefaults[SettingKey.defaultListId] = defaultListId
+        }
+    }
+    @Published var sequence: Int = 0 {
+        didSet {
+            userDefaults[SettingKey.sequence] = sequence
+        }
+    }
+    @Published var showSidebar: Bool = false {
+        didSet {
+            userDefaults[SettingKey.showSidebar] = showSidebar
+        }
+    }
+    @Published var currencySymbol: String = "$" {
+        didSet {
+            userDefaults[SettingKey.currencySymbol] = currencySymbol
+        }
+    }
+    @Published var images: Bool = false {
+        didSet {
+            userDefaults[SettingKey.optionalFieldImages] = images
+        }
+    }
+    @Published var price: Bool = true {
+        didSet {
+            userDefaults[SettingKey.optionalFieldPrice] = price
+        }
+    }
+    @Published var worn: Bool = true {
+        didSet {
+            userDefaults[SettingKey.optionalFieldWorn] = worn
+        }
+    }
+    @Published var consumable: Bool = true {
+        didSet {
+            userDefaults[SettingKey.optionalFieldConsumable] = consumable
+        }
+    }
+    @Published var listDescription: Bool = true {
+        didSet {
+            userDefaults[SettingKey.optionalFieldListDescription] = listDescription
+        }
+    }
 
-    private var didChangeCancellable: AnyCancellable?
-
-    init() {
-        didChangeCancellable = NotificationCenter.default
-            .publisher(for: UserDefaults.didChangeNotification)
-            .map { _ in () }
-            .receive(on: DispatchQueue.main)
-            .subscribe(objectWillChange)
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
+        self.totalUnit = userDefaults[SettingKey.totalUnit] ?? .oz
+        self.itemUnit = userDefaults[SettingKey.itemUnit] ?? .oz
+        self.defaultListId = userDefaults[SettingKey.defaultListId] ?? 0
+        self.sequence = userDefaults[SettingKey.sequence] ?? 0
+        self.showSidebar = userDefaults[SettingKey.showSidebar] ?? true
+        self.currencySymbol = userDefaults[SettingKey.currencySymbol] ?? "$"
+        self.images = userDefaults[SettingKey.optionalFieldImages] ?? true
+        self.price = userDefaults[SettingKey.optionalFieldPrice] ?? true
+        self.worn = userDefaults[SettingKey.optionalFieldWorn] ?? true
+        self.consumable = userDefaults[SettingKey.optionalFieldConsumable] ?? true
+        self.listDescription = userDefaults[SettingKey.optionalFieldListDescription] ?? true
     }
 }

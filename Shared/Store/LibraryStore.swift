@@ -2,15 +2,20 @@ import Foundation
 import Combine
 
 final class LibraryStore: ObservableObject {
-    var networkAccess: LighterPackAccess = .init()
-    var sessionStore: SessionStore = .init()
+    private let networkAccess: LighterPackAccess
+    private let sessionStore: SessionStore
 
     var sequence: Int = 0
     @Published private(set) var items: [Item] = []
     @Published private(set) var lists: [GearList] = []
     @Published private(set) var categories: [Category] = []
 
-    init() {
+    init(
+        networkAccess: LighterPackAccess,
+        sessionStore: SessionStore
+    ) {
+        self.networkAccess = networkAccess
+        self.sessionStore = sessionStore
     }
 }
 

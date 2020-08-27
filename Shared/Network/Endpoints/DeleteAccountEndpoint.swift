@@ -1,29 +1,23 @@
 import Foundation
 
-public struct RegisterEndpoint: Endpoint {
+public struct DeleteAccountEndpoint: Endpoint {
     public typealias Response = LighterPackResponse
     public var httpMethod: HttpMethod { .POST }
-    public var path: String { "register/" }
+    public var path: String { "delete-account/" }
     public var params: [String : Any]? {
         [
-            "email": email,
             "username": username,
             "password": password
         ]
     }
 
-    let email: String
     let username: String
     let password: String
 
-    public init(email: String, username: String, password: String) {
-        self.email = email
+    public var authenticated: Bool { true }
+
+    public init(username: String, password: String) {
         self.username = username
         self.password = password
-    }
-
-    public func processNetworkError(_ error: NetworkError) -> NetworkError {
-        // FIXME
-        return error
     }
 }

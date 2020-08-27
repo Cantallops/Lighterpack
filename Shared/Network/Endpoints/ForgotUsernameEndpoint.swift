@@ -26,7 +26,7 @@ public struct ForgotUsernameEndpoint: Endpoint {
         }
         return NetworkError(
             codeStatus: error.codeStatus,
-            errorMessage: .init(message: message)
+            error: .form([.init(field: .email, message: message)])
         )
     }
 }

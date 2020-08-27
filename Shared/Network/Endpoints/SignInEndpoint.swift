@@ -23,17 +23,25 @@ public struct SignInEndpoint: Endpoint {
         guard error.codeStatus == .unauthorized || error.codeStatus == .notFound else {
             return error
         }
-        var message = "Invalid username and/or password."
+        var networkError: NetworkError.ErrorType = .messages([
+            .init(message: "Invalid username and/or password.")
+        ])
         if username.isEmpty && password.isEmpty {
-            message = "Please enter username and password."
+            networkError = .messages([
+                .init(message: "Please enter username and password.")
+            ])
         } else if username.isEmpty {
-            message = "Please enter a username."
+            networkError = .form([
+                .init(field: .username, message: "Please enter a username.")
+            ])
         } else if password.isEmpty {
-            message = "Please enter a password."
+            networkError = .form([
+                .init(field: .password, message: "Please enter a password.")
+            ])
         }
         return NetworkError(
             codeStatus: error.codeStatus,
-            errorMessage: .init(message: message)
+            error: networkError
         )
     }
 }

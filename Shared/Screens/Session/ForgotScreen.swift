@@ -48,7 +48,30 @@ struct ForgotScreen: View {
     enum Status {
         case idle
         case requesting
-        case error(Error)
+        case error(NetworkError.ErrorType)
+
+        var formErrors: [FormErrorEntry] {
+            switch self {
+            case .error(let errorType):
+                switch errorType {
+                case .form(let errors): return errors
+                default: return []
+                }
+            default:
+                return []
+            }
+        }
+        var otherError: Error? {
+            switch self {
+            case .error(let errorType):
+                switch errorType {
+                case .form: return nil
+                default: return errorType
+                }
+            default:
+                return nil
+            }
+        }
     }
 
     private var isRequesting: Bool {
@@ -61,24 +84,17 @@ struct ForgotScreen: View {
     var body: some View {
         Form {
             Section(footer: Group{
-                switch status {
-                case .error(let error):
+                if let error = status.otherError {
                     Text(error.localizedDescription)
                         .foregroundColor(Color(.systemRed))
-                default:
-                    EmptyView()
                 }
-
             }) {
-                HStack {
-                    Icon(entryType.icon)
-                        .frame(width: 25)
-                    TextField(
-                        "Enter username or email",
-                        text: $usernameOrEmail,
-                        onCommit: requestCredentials
-                    )
-                }
+                Field(
+                    "Enter username or email",
+                    text: $usernameOrEmail,
+                    icon: entryType.icon,
+                    error: (status.formErrors.of(.username) ?? status.formErrors.of(.email))?.message
+                )
             }
 
             Section {
@@ -120,37 +136,43 @@ struct ForgotScreen: View {
 
     func recoverPassword() {
         sessionStore.forgotPassword(username: usernameOrEmail) { result in
-            switch result {
-            case .success(let message):
-                successMessage = message
-                status = .idle
-            case .failure(let error):
-                status = .error(error)
+            withAnimation {
+                switch result {
+                case .success(let message):
+                    successMessage = message
+                    status = .idle
+                case .failure(let error):
+                    status = .error(error)
+                }
             }
         }
-        status = .requesting
+        withAnimation {
+            status = .requesting
+        }
     }
 
     func recoverUsername() {
         sessionStore.forgotUsername(email: usernameOrEmail) { result in
-            switch result {
-            case .success(let message):
-                successMessage = message
-                status = .idle
-            case .failure(let error):
-                status = .error(error)
+            withAnimation {
+                switch result {
+                case .success(let message):
+                    successMessage = message
+                    status = .idle
+                case .failure(let error):
+                    status = .error(error)
+                }
             }
         }
-        status = .requesting
+        withAnimation {
+            status = .requesting
+        }
     }
 
     func validate() -> Bool {
-        var message: String?
         if usernameOrEmail.isEmpty {
-            message = "Please enter a username or an email."
-        }
-        if let message = message {
-            status = .error(ValidationError(message: message))
+            withAnimation {
+                status = .error(.form([.init(field: .username, message: "Please enter a username or an email.")]))
+            }
             return false
         }
         return true
