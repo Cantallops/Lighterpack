@@ -25,7 +25,6 @@ extension SessionStore {
                 switch result {
                 case .finished:
                     completion(.success(()))
-                    self.sessionCookie = self.networkAccess.cookieSubject.value
                 case .failure(let error):
                     guard let networkError = error as? NetworkError else {
                         completion(.failure(.unknown))

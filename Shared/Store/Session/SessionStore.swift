@@ -17,7 +17,6 @@ final class SessionStore: ObservableObject {
     }
     @Published var sessionCookie: String {
         didSet {
-            networkAccess.cookieSubject.send(sessionCookie)
             userDefaults[SettingKey.sessionCookie] = sessionCookie
         }
     }
@@ -45,6 +44,21 @@ final class SessionStore: ObservableObject {
         sessionCookie = userDefaults[SettingKey.sessionCookie] ?? ""
         version = userDefaults[SettingKey.backendVersion] ?? "0.3"
         syncToken = userDefaults[SettingKey.syncToken] ?? 0
-        networkAccess.cookieSubject.send(sessionCookie)
+        networkAccess.cookieProvider = self
     }
+}
+
+extension SessionStore: CookieProvider {
+    var cookie: String {
+        get {
+            sessionCookie
+        }
+        set {
+            DispatchQueue.main.async {
+                self.sessionCookie = newValue
+            }
+        }
+    }
+
+
 }

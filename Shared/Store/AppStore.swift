@@ -36,10 +36,10 @@ extension AppStore {
             cancellable.cancel()
         }
         fetcher = lighterPackAccess.request(RetrieveInfoEndpoint())
-            .sink(receiveCompletion: { [weak self] result in
-                guard let self = self else { return }
+            .sink(receiveCompletion: { result in
                 switch result {
-                case .finished: break
+                case .finished:
+                    break
                 case .failure(let error):
                     print(error)
                 }
