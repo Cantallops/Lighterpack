@@ -30,6 +30,7 @@ enum FormField: String, Codable {
     case password
     case passwordConfirmation
     case currentPassword
+    case newPassword
 }
 
 extension Array where Element == FormErrorEntry {

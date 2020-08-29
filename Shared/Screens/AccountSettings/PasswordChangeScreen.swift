@@ -1,36 +1,87 @@
 import SwiftUI
 
 struct PasswordChangeScreen: View {
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var sessionStore: SessionStore
+
     @State private var currentPassword: String = ""
     @State private var newPassword: String = ""
     @State private var passwordConfirmation: String = ""
+    @State private var successMessage: String?
 
-    private var isLoading: Bool { return false }
+    private var isLoading: Bool {
+        switch status {
+        case .requesting: return true
+        default: return false
+        }
+    }
+
+    @State private var status: Status = .idle
+
+    enum Status {
+        case idle
+        case requesting
+        case error(NetworkError.ErrorType)
+
+        var formErrors: [FormErrorEntry] {
+            switch self {
+            case .error(let errorType):
+                switch errorType {
+                case .form(let errors): return errors
+                default: return []
+                }
+            default:
+                return []
+            }
+        }
+        var otherError: Error? {
+            switch self {
+            case .error(let errorType):
+                switch errorType {
+                case .form: return nil
+                default: return errorType
+                }
+            default:
+                return nil
+            }
+        }
+    }
 
     var body: some View {
         Form {
             Section {
-                HStack {
-                    Icon(.password)
-                        .frame(width: 25)
-                    SecureField("New password", text: $newPassword)
-                }
-                HStack {
-                    Icon(.confirmPassword)
-                        .frame(width: 25)
-                    SecureField("Confirm password", text: $passwordConfirmation)
-                }
+                Field("Username", text: $sessionStore.username, icon: .profile)
+                    .disabled(true)
+            }
+            Section {
+                Field(
+                    "New password",
+                    text: $newPassword,
+                    icon: .password,
+                    secured: true,
+                    error: status.formErrors.of(.newPassword)?.message
+                )
+
+                Field(
+                    "Confirm password",
+                    text: $passwordConfirmation,
+                    icon: .confirmPassword,
+                    secured: true,
+                    error: status.formErrors.of(.passwordConfirmation)?.message
+                )
             }
 
             Section {
-                HStack {
-                    Icon(.password)
-                        .frame(width: 25)
-                    SecureField("Current password", text: $currentPassword)
-                }
+                Field(
+                    "Current password",
+                    text: $currentPassword,
+                    icon: .password,
+                    secured: true,
+                    error: status.formErrors.of(.currentPassword)?.message
+                )
             }
             Section {
-                Button(action: {}, label: {
+                Button(action: changePassword, label: {
                     HStack {
                         Spacer()
                         if isLoading {
@@ -48,6 +99,32 @@ struct PasswordChangeScreen: View {
         }
         .navigationTitle("Change password")
         .disabled(isLoading)
+        .alert(item: $successMessage) { message in
+            Alert(title: Text(message), dismissButton: .default(Text("Ok"), action: {
+                presentationMode.wrappedValue.dismiss()
+            }))
+        }
+    }
+
+    func changePassword() {
+        withAnimation {
+            status = .requesting
+        }
+        sessionStore.changePassword(
+            username: sessionStore.username,
+            newPassword: newPassword,
+            passwordConfirmation: passwordConfirmation,
+            currentPassword: currentPassword
+        ) { result in
+            withAnimation {
+                switch result {
+                case .success:
+                    successMessage = "Password changed successfully"
+                    status = .idle
+                case .failure(let error): status = .error(error)
+                }
+            }
+        }
     }
 }
 

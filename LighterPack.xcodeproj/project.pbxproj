@@ -45,6 +45,12 @@
 		CA6C073524F7DDFF009C208E /* SessionStore+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073424F7DDFF009C208E /* SessionStore+Login.swift */; };
 		CA6C073724F7DE0A009C208E /* SessionStore+Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073624F7DE0A009C208E /* SessionStore+Logout.swift */; };
 		CA6C073924F7DE18009C208E /* SessionStore+Forgot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073824F7DE18009C208E /* SessionStore+Forgot.swift */; };
+		CA6C073B24F7E08E009C208E /* DeleteAccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073A24F7E08E009C208E /* DeleteAccountScreen.swift */; };
+		CA6C073D24F7E0DD009C208E /* SessionStore+EmailChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073C24F7E0DD009C208E /* SessionStore+EmailChange.swift */; };
+		CA6C073F24F7E0EE009C208E /* SessionStore+PasswordChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073E24F7E0EE009C208E /* SessionStore+PasswordChange.swift */; };
+		CA6C074124F7E2AB009C208E /* ChangePasswordEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */; };
+		CA6C074324F7E5CA009C208E /* String+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074224F7E5CA009C208E /* String+Identifiable.swift */; };
+		CA6C074524FA47B0009C208E /* ChangeEmailEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */; };
 		CA79BCDD24EE2F2E00118788 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCDC24EE2F2E00118788 /* SectionHeader.swift */; };
 		CA79BCDF24EE2F5D00118788 /* AnyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCDE24EE2F5D00118788 /* AnyView.swift */; };
 		CA79BCE224EE376C00118788 /* WeightFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCE124EE376C00118788 /* WeightFormatter.swift */; };
@@ -174,6 +180,12 @@
 		CA6C073424F7DDFF009C208E /* SessionStore+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+Login.swift"; sourceTree = "<group>"; };
 		CA6C073624F7DE0A009C208E /* SessionStore+Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+Logout.swift"; sourceTree = "<group>"; };
 		CA6C073824F7DE18009C208E /* SessionStore+Forgot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+Forgot.swift"; sourceTree = "<group>"; };
+		CA6C073A24F7E08E009C208E /* DeleteAccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreen.swift; sourceTree = "<group>"; };
+		CA6C073C24F7E0DD009C208E /* SessionStore+EmailChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+EmailChange.swift"; sourceTree = "<group>"; };
+		CA6C073E24F7E0EE009C208E /* SessionStore+PasswordChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+PasswordChange.swift"; sourceTree = "<group>"; };
+		CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordEndpoint.swift; sourceTree = "<group>"; };
+		CA6C074224F7E5CA009C208E /* String+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Identifiable.swift"; sourceTree = "<group>"; };
+		CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailEndpoint.swift; sourceTree = "<group>"; };
 		CA79BCDC24EE2F2E00118788 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		CA79BCDE24EE2F5D00118788 /* AnyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyView.swift; sourceTree = "<group>"; };
 		CA79BCE124EE376C00118788 /* WeightFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightFormatter.swift; sourceTree = "<group>"; };
@@ -378,6 +390,7 @@
 				CA098B0524ED1972005B632D /* DictionaryLookup.swift */,
 				CABC93AE24EFBEB500020600 /* Color.swift */,
 				CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */,
+				CA6C074224F7E5CA009C208E /* String+Identifiable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -419,10 +432,12 @@
 			isa = PBXGroup;
 			children = (
 				CABC965A24F7328E00020600 /* SessionStore.swift */,
-				CA6C073224F7DD91009C208E /* SessionStore+Register.swift */,
+				CA6C073C24F7E0DD009C208E /* SessionStore+EmailChange.swift */,
+				CA6C073824F7DE18009C208E /* SessionStore+Forgot.swift */,
 				CA6C073424F7DDFF009C208E /* SessionStore+Login.swift */,
 				CA6C073624F7DE0A009C208E /* SessionStore+Logout.swift */,
-				CA6C073824F7DE18009C208E /* SessionStore+Forgot.swift */,
+				CA6C073E24F7E0EE009C208E /* SessionStore+PasswordChange.swift */,
+				CA6C073224F7DD91009C208E /* SessionStore+Register.swift */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -472,6 +487,7 @@
 				CABC964724F6713900020600 /* AccountSettingsScreen.swift */,
 				CABC964A24F689D000020600 /* PasswordChangeScreen.swift */,
 				CABC964E24F689E900020600 /* EmailChangeScreen.swift */,
+				CA6C073A24F7E08E009C208E /* DeleteAccountScreen.swift */,
 			);
 			path = AccountSettings;
 			sourceTree = "<group>";
@@ -518,6 +534,8 @@
 				CABC964024F66A6700020600 /* ForgotUsernameEndpoint.swift */,
 				CABC964324F66A7C00020600 /* RegisterEndpoint.swift */,
 				CABC967124F7A9A300020600 /* DeleteAccountEndpoint.swift */,
+				CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */,
+				CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -749,6 +767,8 @@
 				CA6C073924F7DE18009C208E /* SessionStore+Forgot.swift in Sources */,
 				CABC93AF24EFBEB600020600 /* Color.swift in Sources */,
 				CA098AF424ED00A5005B632D /* APIClient.swift in Sources */,
+				CA6C074324F7E5CA009C208E /* String+Identifiable.swift in Sources */,
+				CA6C073F24F7E0EE009C208E /* SessionStore+PasswordChange.swift in Sources */,
 				CABC966F24F7733C00020600 /* KeyedDecodingContainer.swift in Sources */,
 				CABC966424F7433E00020600 /* Store.swift in Sources */,
 				CABC967524F7AAA500020600 /* TextField.swift in Sources */,
@@ -760,6 +780,7 @@
 				CABC959324F4B90100020600 /* ShareSheet.swift in Sources */,
 				CA098B0E24ED2E8E005B632D /* Item.swift in Sources */,
 				CA098AD924ECDECE005B632D /* Settings.swift in Sources */,
+				CA6C074524FA47B0009C208E /* ChangeEmailEndpoint.swift in Sources */,
 				CABC964124F66A6700020600 /* ForgotUsernameEndpoint.swift in Sources */,
 				CA098A1D24EC17E6005B632D /* LighterPackApp.swift in Sources */,
 				CA79BCDF24EE2F5D00118788 /* AnyView.swift in Sources */,
@@ -770,11 +791,14 @@
 				CA098AED24ECFD15005B632D /* UserDefaults.swift in Sources */,
 				CA79BCE624EE59E400118788 /* ItemsListScreen.swift in Sources */,
 				CABC958124F4066900020600 /* Icon.swift in Sources */,
+				CA6C073D24F7E0DD009C208E /* SessionStore+EmailChange.swift in Sources */,
+				CA6C074124F7E2AB009C208E /* ChangePasswordEndpoint.swift in Sources */,
 				CABC966C24F7730900020600 /* BaseResponse.swift in Sources */,
 				CABC963B24F6651500020600 /* ForgotScreen.swift in Sources */,
 				CABC966124F740DF00020600 /* AppStore.swift in Sources */,
 				CABC965E24F73C6200020600 /* LibraryStore.swift in Sources */,
 				CA30256524ED696F00FCD4FE /* GearListScreen.swift in Sources */,
+				CA6C073B24F7E08E009C208E /* DeleteAccountScreen.swift in Sources */,
 				CA098AE024ECDF92005B632D /* WeightUnit.swift in Sources */,
 				CABC965424F692BC00020600 /* Label.swift in Sources */,
 				CABC93B624EFC3FF00020600 /* GearListPieSection.swift in Sources */,

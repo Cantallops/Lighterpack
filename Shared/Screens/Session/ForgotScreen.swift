@@ -8,10 +8,6 @@
 import SwiftUI
 import Combine
 
-extension String: Identifiable {
-    public var id: String { self }
-}
-
 struct ForgotScreen: View {
     @Environment(\.presentationMode) var presentationMode
 

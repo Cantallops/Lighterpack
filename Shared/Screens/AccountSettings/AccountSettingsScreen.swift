@@ -20,12 +20,9 @@ struct AccountSettingsScreen: View {
                 }
             }
 
-            Button {
-
-            } label: {
-                cell(text: "Delete account", icon: .remove, rendering: .template)
-            }.foregroundColor(Color(.systemRed))
-
+            NavigationLink(destination: DeleteAccountScreen()) {
+                cell(text: "Delete account", icon: .remove, rendering: .template).foregroundColor(Color(.systemRed))
+            }
 
         }
         .listStyle(InsetGroupedListStyle())
