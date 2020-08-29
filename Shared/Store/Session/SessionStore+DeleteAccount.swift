@@ -27,8 +27,8 @@ extension SessionStore {
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished:
-                    self.logout()
                     completion(.success(()))
+                    self.logout()
                 case .failure(let error):
                     guard let networkError = error as? NetworkError else {
                         completion(.failure(.unknown))

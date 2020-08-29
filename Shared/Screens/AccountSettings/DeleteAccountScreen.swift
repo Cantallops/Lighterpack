@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct DeleteAccountScreen: View {
-    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var sessionStore: SessionStore
 
     @State private var currentPassword: String = ""
     @State private var confirmationText: String = ""
-    @State private var successMessage: String?
+    @EnvironmentObject var visualFeedback: VisualFeedbackState
 
     private var isLoading: Bool {
         switch status {
@@ -111,11 +110,6 @@ struct DeleteAccountScreen: View {
         }
         .navigationTitle("Delete account")
         .disabled(isLoading)
-        .alert(item: $successMessage) { message in
-            Alert(title: Text(message), dismissButton: .default(Text("Ok"), action: {
-                presentationMode.wrappedValue.dismiss()
-            }))
-        }
     }
 
     func deleteAccont() {
@@ -130,12 +124,21 @@ struct DeleteAccountScreen: View {
             withAnimation {
                 switch result {
                 case .success:
-                    successMessage = "Password changed successfully"
+                    success()
                     status = .idle
                 case .failure(let error): status = .error(error)
                 }
             }
         }
+    }
+
+    func success() {
+        visualFeedback.notify(
+            .init(
+                message: "Account deleted permanently",
+                style: .success
+            )
+        )
     }
 }
 

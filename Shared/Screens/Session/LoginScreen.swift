@@ -4,6 +4,7 @@ import Combine
 struct LoginScreen: View {
 
     @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var visualFeedback: VisualFeedbackState
     @State private var password: String = ""
 
     @State private var status: Status = .idle
@@ -107,7 +108,14 @@ struct LoginScreen: View {
         sessionStore.login(username: sessionStore.username, password: password) { result in
             withAnimation {
                 switch result {
-                case .success: status = .idle
+                case .success:
+                    visualFeedback.notify(
+                        .init(
+                            message: "Logged in as \(sessionStore.username)",
+                            style: .success
+                        )
+                    )
+                    status = .idle
                 case .failure(let error): status = .error(error)
                 }
             }

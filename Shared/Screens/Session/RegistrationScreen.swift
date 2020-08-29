@@ -10,6 +10,7 @@ import Combine
 
 struct RegistrationScreen: View {
     @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var visualFeedback: VisualFeedbackState
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var passwordConfirmation: String = ""
@@ -121,7 +122,14 @@ struct RegistrationScreen: View {
         ) { result in
             withAnimation {
                 switch result {
-                case .success: status = .idle
+                case .success:
+                    visualFeedback.notify(
+                        .init(
+                            message: "Register as \(sessionStore.username)",
+                            style: .success
+                        )
+                    )
+                    status = .idle
                 case .failure(let error): status = .error(error)
                 }
             }

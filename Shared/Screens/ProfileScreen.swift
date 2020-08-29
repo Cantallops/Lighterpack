@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileScreen: View {
 
+    @EnvironmentObject var visualFeedback: VisualFeedbackState
     @EnvironmentObject var settingsStore: SettingsStore
     @EnvironmentObject var sessionStore: SessionStore
 
@@ -61,7 +62,7 @@ struct ProfileScreen: View {
                     cell(text: "Help", icon: .help)
                 }
             }
-            Button(action: sessionStore.logout) {
+            Button(action: logout) {
                 cell(text: "Sign Out", icon: .signOut)
             }.foregroundColor(Color(.systemRed))
 
@@ -69,6 +70,16 @@ struct ProfileScreen: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Profile & Settings")
+    }
+
+    func logout() {
+        sessionStore.logout()
+        visualFeedback.notify(
+            .init(
+                message: "Logged out succesfully",
+                style: .success
+            )
+        )
     }
 
     private func cell(text: String, icon: Icon.Token, color: Color? = nil, rendering: Icon.RenderingMode = .auto) -> some View {

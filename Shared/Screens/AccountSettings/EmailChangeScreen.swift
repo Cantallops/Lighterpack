@@ -3,10 +3,10 @@ import SwiftUI
 struct EmailChangeScreen: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var visualFeedback: VisualFeedbackState
 
     @State private var email: String = ""
     @State private var currentPassword: String = ""
-    @State private var successMessage: String?
     
     private var isLoading: Bool {
         switch status {
@@ -92,11 +92,6 @@ struct EmailChangeScreen: View {
         }
         .navigationTitle("Change email")
         .disabled(isLoading)
-        .alert(item: $successMessage) { message in
-            Alert(title: Text(message), dismissButton: .default(Text("Ok"), action: {
-                presentationMode.wrappedValue.dismiss()
-            }))
-        }
     }
 
     func changeEmail() {
@@ -111,12 +106,22 @@ struct EmailChangeScreen: View {
             withAnimation {
                 switch result {
                 case .success:
-                    successMessage = "Email changed successfully"
+                    success()
                     status = .idle
                 case .failure(let error): status = .error(error)
                 }
             }
         }
+    }
+
+    func success() {
+        visualFeedback.notify(
+            .init(
+                message: "Email changed successfully",
+                style: .success
+            )
+        )
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

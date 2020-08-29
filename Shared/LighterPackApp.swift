@@ -15,6 +15,7 @@ struct LighterPackApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .receiveVisualFeedback()
                 .onAppear {
                     appStore.fetch()
                 }

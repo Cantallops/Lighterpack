@@ -12,11 +12,11 @@ struct ForgotScreen: View {
     @Environment(\.presentationMode) var presentationMode
 
     @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var visualFeedback: VisualFeedbackState
 
     @State private var usernameOrEmail: String = ""
     @State private var status: Status = .idle
     @State private var entryType: EntryType = .unknown
-    @State private var successMessage: String?
 
 
     enum EntryType {
@@ -112,11 +112,6 @@ struct ForgotScreen: View {
         }
         .navigationTitle("Forgot credentials")
         .disabled(isRequesting)
-        .alert(item: $successMessage) { message in
-            Alert(title: Text(message), dismissButton: .default(Text("Ok"), action: {
-                presentationMode.wrappedValue.dismiss()
-            }))
-        }
         .onChange(of: usernameOrEmail, perform: evaluateEntryType)
 
     }
@@ -135,7 +130,7 @@ struct ForgotScreen: View {
             withAnimation {
                 switch result {
                 case .success(let message):
-                    successMessage = message
+                    successMessage(message)
                     status = .idle
                 case .failure(let error):
                     status = .error(error)
@@ -152,7 +147,7 @@ struct ForgotScreen: View {
             withAnimation {
                 switch result {
                 case .success(let message):
-                    successMessage = message
+                    successMessage(message)
                     status = .idle
                 case .failure(let error):
                     status = .error(error)
@@ -162,6 +157,16 @@ struct ForgotScreen: View {
         withAnimation {
             status = .requesting
         }
+    }
+
+    func successMessage(_ message: String) {
+        visualFeedback.notify(
+            .init(
+                message: message,
+                style: .success
+            )
+        )
+        presentationMode.wrappedValue.dismiss()
     }
 
     func validate() -> Bool {
