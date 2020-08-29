@@ -51,6 +51,7 @@
 		CA6C074124F7E2AB009C208E /* ChangePasswordEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */; };
 		CA6C074324F7E5CA009C208E /* String+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074224F7E5CA009C208E /* String+Identifiable.swift */; };
 		CA6C074524FA47B0009C208E /* ChangeEmailEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */; };
+		CA6C074724FA4ED2009C208E /* SessionStore+DeleteAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074624FA4ED2009C208E /* SessionStore+DeleteAccount.swift */; };
 		CA79BCDD24EE2F2E00118788 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCDC24EE2F2E00118788 /* SectionHeader.swift */; };
 		CA79BCDF24EE2F5D00118788 /* AnyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCDE24EE2F5D00118788 /* AnyView.swift */; };
 		CA79BCE224EE376C00118788 /* WeightFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCE124EE376C00118788 /* WeightFormatter.swift */; };
@@ -186,6 +187,7 @@
 		CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordEndpoint.swift; sourceTree = "<group>"; };
 		CA6C074224F7E5CA009C208E /* String+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Identifiable.swift"; sourceTree = "<group>"; };
 		CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailEndpoint.swift; sourceTree = "<group>"; };
+		CA6C074624FA4ED2009C208E /* SessionStore+DeleteAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+DeleteAccount.swift"; sourceTree = "<group>"; };
 		CA79BCDC24EE2F2E00118788 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		CA79BCDE24EE2F5D00118788 /* AnyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyView.swift; sourceTree = "<group>"; };
 		CA79BCE124EE376C00118788 /* WeightFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightFormatter.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				CABC965A24F7328E00020600 /* SessionStore.swift */,
+				CA6C074624FA4ED2009C208E /* SessionStore+DeleteAccount.swift */,
 				CA6C073C24F7E0DD009C208E /* SessionStore+EmailChange.swift */,
 				CA6C073824F7DE18009C208E /* SessionStore+Forgot.swift */,
 				CA6C073424F7DDFF009C208E /* SessionStore+Login.swift */,
@@ -759,6 +762,7 @@
 				CA6C073324F7DD91009C208E /* SessionStore+Register.swift in Sources */,
 				CABC957E24F4033200020600 /* PriceFormatter.swift in Sources */,
 				CA6C073024F7AF35009C208E /* FormError.swift in Sources */,
+				CA6C074724FA4ED2009C208E /* SessionStore+DeleteAccount.swift in Sources */,
 				CA30256324ED688D00FCD4FE /* GearListCell.swift in Sources */,
 				CABC963824F65F5500020600 /* RegistrationScreen.swift in Sources */,
 				CABC964424F66A7C00020600 /* RegisterEndpoint.swift in Sources */,

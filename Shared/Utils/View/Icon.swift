@@ -103,8 +103,12 @@ extension Icon.Token {
     static let share = Token(rawValue: "square.and.arrow.up")
 
     static let quantity = Token(rawValue: "xmark")
-
     static let sort = Token(rawValue: "arrow.up.arrow.down")
+
+    static let warning = Token(rawValue: "exclamationmark.triangle.fill")
+    static let info = Token(rawValue: "info.circle.fill")
+    static let confirmation = Token(rawValue: "checkmark.circle.fill")
+
 
     enum Sort {
 

@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DeleteAccountEndpoint: Endpoint {
-    public typealias Response = LighterPackResponse
+    public typealias Response = DeleteAccountResponse
     public var httpMethod: HttpMethod { .POST }
     public var path: String { "delete-account/" }
     public var params: [String : Any]? {
@@ -20,4 +20,8 @@ public struct DeleteAccountEndpoint: Endpoint {
         self.username = username
         self.password = password
     }
+}
+
+public struct DeleteAccountResponse: Codable {
+    let message: String
 }

@@ -71,7 +71,12 @@ struct PasswordChangeScreen: View {
                 )
             }
 
-            Section {
+            Section(footer: Group{
+                if let error = status.otherError {
+                    Text(error.localizedDescription)
+                        .foregroundColor(Color(.systemRed))
+                }
+            }) {
                 Field(
                     "Current password",
                     text: $currentPassword,
