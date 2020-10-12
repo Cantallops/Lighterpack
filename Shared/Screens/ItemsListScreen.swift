@@ -37,32 +37,29 @@ struct ItemsListScreen: View {
         }
     }
 
-    private var filteredItems: [Item] {
-        libraryStore.items.sorted(by: {
-            switch order {
-            case .asc:
-                switch sort {
-                case .default: return false
-                case .weight: return $0.weight < $1.weight
-                case .price: return $0.price < $1.price
-                case .name: return $0.name > $1.name
-                }
-            case .desc:
-                switch sort {
-                case .default: return false
-                case .weight: return $0.weight > $1.weight
-                case .price: return $0.price > $1.price
-                case .name: return $0.name < $1.name
-                }
+    private func filters(lhs: Item, rhs: Item) -> Bool {
+        switch order {
+        case .asc:
+            switch sort {
+            case .default: return false
+            case .weight: return lhs.weight < rhs.weight
+            case .price: return lhs.price < rhs.price
+            case .name: return lhs.name > rhs.name
             }
-        })
+        case .desc:
+            switch sort {
+            case .default: return false
+            case .weight: return lhs.weight > rhs.weight
+            case .price: return lhs.price > rhs.price
+            case .name: return lhs.name < rhs.name
+            }
+        }
     }
 
     var body: some View {
         List {
             Section {
                 Button {
-
                 } label: {
                     HStack {
                         Icon(.add)
@@ -70,16 +67,18 @@ struct ItemsListScreen: View {
                     }
                 }
             }
-            ForEach(filteredItems) { (item: Item) in
-                ItemCell(item: item)
-            }
+            ForEach(libraryStore.items.sorted(by: filters)) { (item: Item) in
+                NavigationLink(destination: ItemScreen(item: item)) {
+                    ItemCell(item: item)
+                }
+            }.animation(.default)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Gear")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
-                    Picker(selection: $sort, label: Text("Sorting options")) {
+                    Picker(selection: $sort.animation(), label: Text("Sorting options")) {
                         ForEach(Sort.allCases.filter({
                             if showPrice { return true }
                             return $0 != .price
@@ -88,7 +87,7 @@ struct ItemsListScreen: View {
                         }
                     }
 
-                    Picker(selection: $order, label: Text("Order options")) {
+                    Picker(selection: $order.animation(), label: Text("Order options")) {
                         ForEach(Order.allCases, id: \.rawValue) {
                             Label($0.rawValue, icon: $0.icon).tag($0)
                         }

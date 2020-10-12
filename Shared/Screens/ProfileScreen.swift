@@ -19,8 +19,8 @@ struct ProfileScreen: View {
     private var showConsumable: Binding<Bool> { $settingsStore.consumable }
     private var showListDescription: Binding<Bool> { $settingsStore.listDescription }
     private var currencySymbol: Binding<String> { $settingsStore.currencySymbol }
-    private var itemUnit: Binding<WeigthUnit> { $settingsStore.itemUnit }
-    private var totalUnit: Binding<WeigthUnit> { $settingsStore.totalUnit }
+    private var itemUnit: Binding<WeightUnit> { $settingsStore.itemUnit }
+    private var totalUnit: Binding<WeightUnit> { $settingsStore.totalUnit }
 
     var body: some View {
         Form {
@@ -92,12 +92,12 @@ struct ProfileScreen: View {
         }
     }
 
-    private func weightSelectorCell(text: String, binding: Binding<WeigthUnit>, icon: Icon.Token, color: Color? = nil) -> some View {
+    private func weightSelectorCell(text: String, binding: Binding<WeightUnit>, icon: Icon.Token, color: Color? = nil) -> some View {
         HStack {
             cell(text: text, icon: icon, color: color)
             Spacer()
             Picker(selection: binding, label: EmptyView()) {
-                ForEach(WeigthUnit.allCases, id: \.rawValue) {
+                ForEach(WeightUnit.allCases, id: \.rawValue) {
                     Text($0.rawValue).tag($0)
                 }
             }.pickerStyle(SegmentedPickerStyle())

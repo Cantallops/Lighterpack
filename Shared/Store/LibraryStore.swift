@@ -33,6 +33,54 @@ extension LibraryStore {
     func category(withId id: Int) -> Category? {
         categories.first { $0.id == id }
     }
+
+    func remove(category: Category) {
+        categories.removeAll(where: { $0.id == category.id })
+        recompute()
+    }
+
+    func remove(categoryItems: [CategoryItem], in category: Category) {
+        var modCategory = category
+        let ids = categoryItems.map { $0.id }
+        modCategory.categoryItems.removeAll { categoryItem in
+            ids.contains(categoryItem.id)
+        }
+        replace(category: modCategory)
+    }
+
+    func move(categoryItem: CategoryItem, from source: Category, to destiantion: Category) {
+        var modSourceCategory = source
+        modSourceCategory.categoryItems.removeAll {
+            categoryItem.id == $0.id
+        }
+        var modDestinationCategory = destiantion
+        modDestinationCategory.categoryItems.append(categoryItem)
+        replace(category: modSourceCategory)
+        replace(category: modDestinationCategory)
+    }
+
+    func replace(categoryItem: CategoryItem, in category: Category) {
+        var modCategory = category
+        guard let index = modCategory.categoryItems.firstIndex(where: { $0.id == categoryItem.id }) else {
+            modCategory.categoryItems.append(categoryItem)
+            replace(category: modCategory)
+            return
+        }
+        modCategory.categoryItems[index] = categoryItem
+        replace(category: modCategory)
+    }
+
+    func replace(category: Category) {
+        guard let index = categories.firstIndex(where: { $0.id == category.id }) else {
+            var identifiedCategory = category
+            identifiedCategory.id = sequence
+            categories.append(identifiedCategory)
+            sequence += 1
+            return
+        }
+        categories[index] = category
+        recompute()
+    }
 }
 
 extension LibraryStore {
@@ -44,6 +92,18 @@ extension LibraryStore {
     func item(withId id: Int, using: [Item]) -> Item? {
         items.first { $0.id == id }
     }
+
+    func replace(item: Item) {
+        guard let index = items.firstIndex(where: { $0.id == item.id }) else {
+            var identifiedItem = item
+            identifiedItem.id = sequence
+            items.append(identifiedItem)
+            sequence += 1
+            return
+        }
+        items[index] = item
+        recompute()
+    }
 }
 
 extension LibraryStore {
@@ -52,14 +112,32 @@ extension LibraryStore {
         categories = recompute(library.categories, using: items)
         lists = recompute(library.lists, using: categories)
     }
+
+    private func recompute() {
+        categories = recompute(categories, using: items)
+        lists = recompute(lists, using: categories)
+    }
+
+    func replace(list: GearList) {
+        guard let index = lists.firstIndex(where: { $0.id == list.id }) else {
+            var identifiedList = list
+            identifiedList.id = sequence
+            lists.append(identifiedList)
+            sequence += 1
+            return
+        }
+        lists[index] = list
+    }
 }
 
 private extension LibraryStore {
 
     func recompute(_ categoryItems: [CategoryItem], using items: [Item]) -> [CategoryItem] {
-        categoryItems.map { oldCategoryItem -> CategoryItem in
+        categoryItems.compactMap { oldCategoryItem -> CategoryItem? in
             var newCategoryItem = oldCategoryItem
-            guard let item = item(withId: oldCategoryItem.itemId, using: items) else { return newCategoryItem }
+            guard let item = item(withId: oldCategoryItem.itemId, using: items) else {
+                return nil
+            }
 
             newCategoryItem.price = item.price * Float(oldCategoryItem.qty)
             newCategoryItem.weight = item.weight * Float(oldCategoryItem.qty)
@@ -109,7 +187,7 @@ private extension LibraryStore {
             var newList = preprocessedList
             let categories = self.categories(ofList: preprocessedList, using: categories)
 
-
+            newList.categoryIds = categories.map { $0.id }
             newList.totalWeight = categories.reduce(0, { $0 + $1.subtotalWeight })
             newList.totalWornWeight = categories.reduce(0, { $0 + $1.subtotalWornWeight })
             newList.totalConsumableWeight = categories.reduce(0, { $0 + $1.subtotalConsumableWeight })

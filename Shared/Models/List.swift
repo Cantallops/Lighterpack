@@ -1,7 +1,7 @@
 import Foundation
 
 struct GearList: Codable {
-    let id: Int
+    var id: Int
     var name: String
     var categoryIds: [Int]
     var description: String
@@ -69,6 +69,7 @@ struct GearList: Codable {
 }
 
 extension GearList: Identifiable {}
+extension GearList: Equatable {}
 
 extension GearList {
     var shareUrl: URL? {
@@ -81,5 +82,7 @@ extension GearList {
 
 
 extension GearList {
-    static var placeholder: GearList = .init(id: 0, name: "List", categoryIds: [], description: "Description list", externalId: "", totalWeight: 200, totalWornWeight: 200, totalConsumableWeight: 300, totalBaseWeight: 300, totalPackWeight: 200, totalPrice: 200, totalConsumablePrice: 200, totalWornPrice: 200, totalQty: 100)
+    static var placeholder: GearList = .init(id: -1, name: "List", categoryIds: [], description: "Description list", externalId: "", totalWeight: 200, totalWornWeight: 200, totalConsumableWeight: 300, totalBaseWeight: 300, totalPackWeight: 200, totalPrice: 200, totalConsumablePrice: 200, totalWornPrice: 200, totalQty: 100)
+
+    var isPlaceholder: Bool { self.id == GearList.placeholder.id }
 }

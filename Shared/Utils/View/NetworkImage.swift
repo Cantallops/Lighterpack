@@ -11,13 +11,10 @@ class ImageLoader: ObservableObject {
 
     @Published var status: Status = .downloading
 
-    private var cancellable: AnyCancellable?
-    deinit {
-        cancellable?.cancel()
-    }
+    private var cancellables: Set<AnyCancellable> = .init()
 
     func load(url: URL) {
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
+        URLSession.shared.dataTaskPublisher(for: url)
             .map {
                 guard let image = UIImage(data: $0.data) else {
                     return Status.error(nil)
@@ -27,10 +24,7 @@ class ImageLoader: ObservableObject {
             .replaceError(with: Status.error(nil))
             .receive(on: DispatchQueue.main)
             .assign(to: \.status, on: self)
-    }
-
-    func cancel() {
-        cancellable?.cancel()
+            .store(in: &cancellables)
     }
 }
 
@@ -48,7 +42,6 @@ struct NetworkImage<Placeholder: View>: View {
             .onAppear{
                 loader.load(url: url)
             }
-            .onDisappear(perform: loader.cancel)
     }
     private var image: some View {
         Group {

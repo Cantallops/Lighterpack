@@ -14,7 +14,7 @@ private struct GearListPieSectionView: View {
 
     @EnvironmentObject var libraryStore: LibraryStore
     @EnvironmentObject var settingsStore: SettingsStore
-    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var totalUnit: WeightUnit { settingsStore.totalUnit }
     private var showWorn: Bool { settingsStore.worn }
     private var showPrice: Bool { settingsStore.price }
     private var showConsumable: Bool { settingsStore.consumable }
@@ -49,7 +49,7 @@ private struct GearListPieSectionView: View {
         var baseText = ""
         switch viewMode {
         case .weight:
-            totalText = base.formattedWeight(totalUnit)
+            totalText = total.formattedWeight(totalUnit)
             wornText = worn.formattedWeight(totalUnit)
             consumableText = consumable.formattedWeight(totalUnit)
             baseText = base.formattedWeight(totalUnit)

@@ -1,57 +1,81 @@
 import SwiftUI
 
 struct GearListCategorySection: View {
-
+    @EnvironmentObject var libraryStore: LibraryStore
     @EnvironmentObject var settingsStore: SettingsStore
-    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var totalUnit: WeightUnit { settingsStore.totalUnit }
     private var currencySymbol: String { settingsStore.currencySymbol }
     private var showWorn: Bool { settingsStore.worn }
     private var showPrice: Bool { settingsStore.price }
     private var showConsumable: Bool { settingsStore.consumable }
 
     var category: Category
+    var list: GearList
+    @State private var modifableCategory: Category = .placeholder
 
     var body: some View {
-        Section(header: SectionHeader(title: category.name)) {
-            ForEach(category.categoryItems) { (item: CategoryItem) in
-                CategoryItemCell(categoryItem: item)
+        Section(header: EditableSectionHeader(title: $modifableCategory.name, placeholder: "Category", detail: {
+            Button(action: {
+                libraryStore.remove(category: category)
+            }) {
+                Icon(.remove)
+            }.foregroundColor(Color(.systemRed))
+        })) {
+            ForEach(modifableCategory.categoryItems) { (item: CategoryItem) in
+                CategoryItemCell(categoryItem: item, in: modifableCategory, of: list) { (source, dest) in
+                    libraryStore.remove(categoryItems: [item], in: source)
+                    libraryStore.replace(categoryItem: item, in: dest)
+                }
             }
+            .onDelete(perform: remove)
             DisclosureGroup {
                 if showWorn {
                     resumeCell(
                         title: "Worn",
                         icon: .worn,
-                        price: category.subtotalWornPrice,
-                        weight: category.subtotalWornWeight,
-                        quantity: category.subtotalWornQty
+                        price: modifableCategory.subtotalWornPrice,
+                        weight: modifableCategory.subtotalWornWeight,
+                        quantity: modifableCategory.subtotalWornQty
                     )
                 }
                 if showConsumable {
                     resumeCell(
                         title: "Cons.",
                         icon: .consumable,
-                        price: category.subtotalConsumablePrice,
-                        weight: category.subtotalConsumableWeight,
-                        quantity: category.subtotalConsumableQty
+                        price: modifableCategory.subtotalConsumablePrice,
+                        weight: modifableCategory.subtotalConsumableWeight,
+                        quantity: modifableCategory.subtotalConsumableQty
                     )
                 }
                 resumeCell(
                     title: "Base",
                     icon: .baseWeight,
-                    price: category.subtotalPrice - category.subtotalConsumablePrice,
-                    weight: category.subtotalWeight - category.subtotalConsumableWeight,
-                    quantity: category.subtotalQty - category.subtotalConsumableQty
+                    price: modifableCategory.subtotalPrice - modifableCategory.subtotalConsumablePrice,
+                    weight: modifableCategory.subtotalWeight - modifableCategory.subtotalConsumableWeight,
+                    quantity: modifableCategory.subtotalQty - modifableCategory.subtotalConsumableQty
                 )
             } label: {
                 resumeCell(
                     title: "Total",
-                    price: category.subtotalPrice,
-                    weight: category.subtotalWeight,
-                    quantity: category.subtotalQty,
+                    price: modifableCategory.subtotalPrice,
+                    weight: modifableCategory.subtotalWeight,
+                    quantity: modifableCategory.subtotalQty,
                     titleWeight: .bold
                 )
             }
         }
+        .onAppear {
+            if modifableCategory.isPlaceholder {
+                modifableCategory = category
+            }
+        }.onChange(of: modifableCategory) { category in
+            libraryStore.replace(category: category)
+        }
+    }
+
+    func remove(indexSet: IndexSet) {
+        let categoryItems = indexSet.map { modifableCategory.categoryItems[$0] }
+        libraryStore.remove(categoryItems: categoryItems, in: modifableCategory)
     }
 
     func resumeCell(title: String, icon: Icon.Token? = nil, price: Float, weight: Float, quantity: Int, titleWeight: Font.Weight? = nil) -> some View {

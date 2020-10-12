@@ -1,7 +1,7 @@
 import Foundation
 
-struct Category: Codable {
-    let id: Int
+struct Category {
+    var id: Int
     var name: String
 
     var categoryItems: [CategoryItem]
@@ -18,7 +18,9 @@ struct Category: Codable {
     var activeHover: Bool?
     var displayColor: String?
     var color: CategoryColor?
+}
 
+extension Category: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
@@ -42,9 +44,15 @@ struct Category: Codable {
 }
 
 extension Category: Identifiable {}
+extension Category: Equatable {}
 
-public struct CategoryColor: Codable {
+public struct CategoryColor: Codable, Equatable {
     let r: Int
     let g: Int
     let b: Int
+}
+extension Category {
+    static let placeholder: Category = Category(id: -1, name: "", categoryItems: [], subtotalWeight: 0, subtotalWornWeight: 0, subtotalConsumableWeight: 0, subtotalPrice: 0, subtotalWornPrice: 0, subtotalConsumablePrice: 0, subtotalQty: 0, subtotalWornQty: 0, subtotalConsumableQty: 0, activeHover: nil, displayColor: nil, color: nil)
+
+    var isPlaceholder: Bool { self.id == Category.placeholder.id }
 }

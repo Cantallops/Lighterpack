@@ -2,7 +2,7 @@ import SwiftUI
 
 struct GearListCell: View {
     @EnvironmentObject var settingsStore: SettingsStore
-    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var totalUnit: WeightUnit { settingsStore.totalUnit }
     private var currencySymbol: String { settingsStore.currencySymbol }
     private var showPrice: Bool { settingsStore.price }
     private var showListDesc: Bool { settingsStore.listDescription }

@@ -9,8 +9,8 @@ import Foundation
 
 struct Library: Codable {
     let version: String
-    let totalUnit: WeigthUnit
-    let itemUnit: WeigthUnit
+    let totalUnit: WeightUnit
+    let itemUnit: WeightUnit
     let defaultListId: Int
     let sequence: Int
     let showSidebar: Bool

@@ -20,7 +20,7 @@ final class SessionStore: ObservableObject {
             userDefaults[SettingKey.sessionCookie] = sessionCookie
         }
     }
-    @Published var syncToken: Int = 0 {
+    @Published var syncToken: Int {
         didSet {
             userDefaults[SettingKey.syncToken] = syncToken
         }

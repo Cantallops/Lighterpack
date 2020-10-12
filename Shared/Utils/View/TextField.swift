@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Field: View {
-    private let icon: Icon.Token
+    private let icon: Icon.Token?
     private let error: String?
     private let textField: TextField<Text>
     private let secureField: SecureField<Text>
@@ -19,8 +19,10 @@ struct Field: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Icon(icon)
-                    .frame(width: 25)
+                if let icon = icon {
+                    Icon(icon)
+                        .frame(width: 25)
+                }
                 if secured {
                     secureField
                 } else {
@@ -38,7 +40,7 @@ struct Field: View {
 
 
 extension Field {
-    init<S>(_ title: S, text: Binding<String>, icon: Icon.Token, secured: Bool = false, error: String? = nil, onEditingChanged: @escaping (Bool) -> Void = { _ in }, onCommit: @escaping () -> Void = {}) where S : StringProtocol {
+    init<S>(_ title: S, text: Binding<String>, icon: Icon.Token? = nil, secured: Bool = false, error: String? = nil, onEditingChanged: @escaping (Bool) -> Void = { _ in }, onCommit: @escaping () -> Void = {}) where S : StringProtocol {
         self.icon = icon
         self.error = error
         self.secured = secured

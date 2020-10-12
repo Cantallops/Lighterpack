@@ -6,20 +6,20 @@ struct GearListsScreen: View {
     var body: some View {
         List {
             Section {
-                ForEach(libraryStore.lists) { list in
-                    NavigationLink(destination: GearListScreen(list: list)) {
-                        GearListCell(list: list)
-                    }
-                }
-            }
-
-            Section {
                 Button {
 
                 } label: {
                     HStack {
                         Icon(.add)
                         Text("New list")
+                    }
+                }
+            }
+
+            Section {
+                ForEach(libraryStore.lists) { list in
+                    NavigationLink(destination: GearListScreen(list: list)) {
+                        GearListCell(list: list)
                     }
                 }
             }

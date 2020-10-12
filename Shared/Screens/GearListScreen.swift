@@ -11,12 +11,14 @@ import Combine
 struct GearListScreen: View {
     @EnvironmentObject var libraryStore: LibraryStore
     @EnvironmentObject var settingsStore: SettingsStore
-    private var totalUnit: WeigthUnit { settingsStore.totalUnit }
+    private var totalUnit: WeightUnit { settingsStore.totalUnit }
     private var showPrice: Bool { settingsStore.price }
     private var showDesc: Bool { settingsStore.listDescription }
     private var currencySymbol: String { settingsStore.currencySymbol }
 
     var list: GearList
+
+    @State private var modificableList: GearList = .placeholder
 
     private enum SheetStatus {
         case edit
@@ -27,14 +29,17 @@ struct GearListScreen: View {
     var body: some View {
         List {
             GearListPieSection(list: list)
-
+            Section(header: SectionHeader(title: "Title")) {
+                TextField("Title", text: $modificableList.name)
+            }
             if showDesc {
                 Section(header: SectionHeader(title: "Description")) {
-                    Text(list.description)
+                    TextEditor(text: $modificableList.description)
+                        .frame(maxHeight: 300)
                 }
             }
-            ForEach(libraryStore.categories(ofList: list)) { (category: Category) in
-                GearListCategorySection(category: category)
+            ForEach(libraryStore.categories(ofList: modificableList)) { (category: Category) in
+                GearListCategorySection(category: category, list: modificableList)
             }
             Section {
                 Button {
@@ -57,7 +62,7 @@ struct GearListScreen: View {
             Icon(.share)
         })
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(list.name)
+        .navigationTitle(modificableList.name)
         .sheet(isPresented: .init(get: {
             return sheetStatus != nil
         }, set: {
@@ -68,6 +73,12 @@ struct GearListScreen: View {
             case .edit: Text("Editing")
             case .share: ShareSheet(activityItems: [list.shareUrl!])
             }
+        }.onAppear {
+            if modificableList.isPlaceholder {
+                modificableList = list
+            }
+        }.onChange(of: modificableList) { list in
+            libraryStore.replace(list: list)
         }
     }
 }

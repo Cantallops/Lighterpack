@@ -1,6 +1,6 @@
 import Foundation
 
-enum WeigthUnit: String, CaseIterable, Codable {
+enum WeightUnit: String, CaseIterable, Codable {
     case kg
     case g
     case lb

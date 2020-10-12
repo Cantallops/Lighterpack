@@ -1,6 +1,6 @@
 import Foundation
 
-struct CategoryItem: Codable  {
+struct CategoryItem {
     var qty: Int
     var worn: Bool
     var consumable: Bool
@@ -10,6 +10,9 @@ struct CategoryItem: Codable  {
     var price: Float
     var weight: Float
 
+}
+
+extension CategoryItem: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.qty = try container.decode(Int.self, forKey: .qty)
@@ -28,10 +31,26 @@ struct CategoryItem: Codable  {
 extension CategoryItem: Identifiable {
     var id: Int { itemId }
 }
+extension CategoryItem: Equatable {}
 
 enum StarColor: Int, CaseIterable, Codable {
     case none = 0
     case yellow
     case red
     case green
+
+    var title: String {
+        switch self {
+        case .none: return "None"
+        case .yellow: return "Yellow"
+        case .red: return "Red"
+        case .green: return "Green"
+        }
+    }
+}
+
+extension CategoryItem {
+    static let placeholder: CategoryItem = .init(qty: 0, worn: false, consumable: false, star: .none, itemId: -1, price: 0, weight: 0)
+
+    var isPlaceholder: Bool { self.id == CategoryItem.placeholder.id }
 }

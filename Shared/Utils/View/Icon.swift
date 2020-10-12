@@ -96,10 +96,12 @@ extension Icon.Token {
 
     static let addCategory = Token(rawValue: "rectangle.stack.badge.plus")
     static let remove = Token(rawValue: "minus.circle.fill")
+    static let delete = Token(rawValue: "trash")
     static let add = Token(rawValue: "plus.circle.fill")
     static let star = Token(rawValue: "star.fill")
     static let link = Token(rawValue: "link", originalColor: .systemBlue)
     static let editList = Token(rawValue: "pencil")
+    static let edit = Token(rawValue: "pencil")
     static let share = Token(rawValue: "square.and.arrow.up")
 
     static let quantity = Token(rawValue: "xmark")

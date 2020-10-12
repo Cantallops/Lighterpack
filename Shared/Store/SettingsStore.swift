@@ -4,12 +4,12 @@ import Combine
 final class SettingsStore: ObservableObject {
     private let userDefaults: UserDefaults
     
-    @Published var totalUnit: WeigthUnit = .oz {
+    @Published var totalUnit: WeightUnit = .oz {
         didSet {
             userDefaults[SettingKey.totalUnit] = totalUnit
         }
     }
-    @Published var itemUnit: WeigthUnit = .oz {
+    @Published var itemUnit: WeightUnit = .oz {
         didSet {
             userDefaults[SettingKey.itemUnit] = itemUnit
         }
@@ -58,6 +58,13 @@ final class SettingsStore: ObservableObject {
         didSet {
             userDefaults[SettingKey.optionalFieldListDescription] = listDescription
         }
+    }
+
+    var priceFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencySymbol = currencySymbol
+        return formatter
     }
 
     init(userDefaults: UserDefaults = .standard) {
