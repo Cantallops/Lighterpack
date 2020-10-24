@@ -7,6 +7,7 @@ struct LoginScreen: View {
     @EnvironmentObject var visualFeedback: VisualFeedbackState
     @State private var password: String = ""
 
+    @AppStorage(.username) private var username: String
     @State private var status: Status = .idle
 
 
@@ -57,7 +58,7 @@ struct LoginScreen: View {
             }) {
                 Field(
                     "Username",
-                    text: $sessionStore.username,
+                    text: $username,
                     icon: .profile,
                     error: status.formErrors.of(.username)?.message
                 )
@@ -105,13 +106,13 @@ struct LoginScreen: View {
         withAnimation {
             status = .signing
         }
-        sessionStore.login(username: sessionStore.username, password: password) { result in
+        sessionStore.login(username: username, password: password) { result in
             withAnimation {
                 switch result {
                 case .success:
                     visualFeedback.notify(
                         .init(
-                            message: "Logged in as \(sessionStore.username)",
+                            message: "Logged in as \(username)",
                             style: .success
                         )
                     )

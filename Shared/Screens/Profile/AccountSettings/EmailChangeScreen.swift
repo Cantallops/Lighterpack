@@ -1,27 +1,27 @@
-//
-//  RegistrationScreen.swift
-//  LighterPack
-//
-//  Created by acantallops on 2020/08/26.
-//
-
 import SwiftUI
-import Combine
 
-struct RegistrationScreen: View {
+struct EmailChangeScreen: View {
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var sessionStore: SessionStore
     @EnvironmentObject var visualFeedback: VisualFeedbackState
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var passwordConfirmation: String = ""
 
     @AppStorage(.username) private var username: String
+
+    @State private var email: String = ""
+    @State private var currentPassword: String = ""
+    
+    private var isLoading: Bool {
+        switch status {
+        case .requesting: return true
+        default: return false
+        }
+    }
 
     @State private var status: Status = .idle
 
     enum Status {
         case idle
-        case registering
+        case requesting
         case error(NetworkError.ErrorType)
 
         var formErrors: [FormErrorEntry] {
@@ -47,59 +47,43 @@ struct RegistrationScreen: View {
             }
         }
     }
-
-    private var isRegistering: Bool {
-        switch status {
-        case .registering: return true
-        default: return false
-        }
-    }
-
+    
     var body: some View {
         Form {
+            Section {
+                Field("Username", text: $username, icon: .profile)
+                    .disabled(true)
+                Field(
+                    "New email",
+                    text: $email,
+                    icon: .email,
+                    error: status.formErrors.of(.email)?.message
+                )
+            }
+
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
                         .foregroundColor(Color(.systemRed))
                 }
-            })  {
+            }) {
                 Field(
-                    "Username",
-                    text: $username,
-                    icon: .profile,
-                    error: status.formErrors.of(.username)?.message
-                )
-                Field(
-                    "Email",
-                    text: $email,
-                    icon: .email,
-                    error: status.formErrors.of(.email)?.message
-                )
-                Field(
-                    "Password",
-                    text: $password,
+                    "Current password",
+                    text: $currentPassword,
                     icon: .password,
                     secured: true,
-                    error: status.formErrors.of(.password)?.message
-                )
-                Field(
-                    "Confirm password",
-                    text: $passwordConfirmation,
-                    icon: .confirmPassword,
-                    secured: true,
-                    error: status.formErrors.of(.passwordConfirmation)?.message
+                    error: status.formErrors.of(.currentPassword)?.message
                 )
             }
-
             Section {
-                Button(action: register, label: {
+                Button(action: changeEmail, label: {
                     HStack {
                         Spacer()
-                        if isRegistering {
+                        if isLoading {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
                         } else {
-                            Text("Register")
+                            Text("Change email")
                         }
                         Spacer()
                     }
@@ -108,39 +92,43 @@ struct RegistrationScreen: View {
                 .listRowBackground(Color(.systemOrange))
             }
         }
-        .navigationTitle("Register an account")
-        .disabled(isRegistering)
+        .navigationTitle("Change email")
+        .disabled(isLoading)
     }
 
-    func register() {
+    func changeEmail() {
         withAnimation {
-            status = .registering
+            status = .requesting
         }
-        sessionStore.register(
-            email: email,
+        sessionStore.changeEmail(
             username: username,
-            password: password,
-            passwordConfirmation: passwordConfirmation
+            email: email,
+            currentPassword: currentPassword
         ) { result in
             withAnimation {
                 switch result {
                 case .success:
-                    visualFeedback.notify(
-                        .init(
-                            message: "Register as \(username)",
-                            style: .success
-                        )
-                    )
+                    success()
                     status = .idle
                 case .failure(let error): status = .error(error)
                 }
             }
         }
     }
+
+    func success() {
+        visualFeedback.notify(
+            .init(
+                message: "Email changed successfully",
+                style: .success
+            )
+        )
+        presentationMode.wrappedValue.dismiss()
+    }
 }
 
-struct RegistrationScreen_Previews: PreviewProvider {
+struct EmailChangeScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationScreen()
+        EmailChangeScreen()
     }
 }

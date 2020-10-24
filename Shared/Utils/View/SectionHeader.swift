@@ -15,12 +15,13 @@ extension SectionHeader: View where Detail : View {
     public var body: some View {
         HStack {
             Text(title)
-                .font(.system(.headline, design: .rounded))
+                .font(.system(.title2, design: .rounded))
                 .bold()
                 .foregroundColor(Color(.label))
                 .listRowInsets(.none)
             Spacer()
             detail
+                .font(.system(.title3, design: .rounded))
         }
         .textCase(.none)
         .listRowInsets(EdgeInsets())
@@ -82,11 +83,12 @@ extension EditableSectionHeader: View where Detail : View {
     public var body: some View {
         HStack {
             TextField(placeholder, text: title)
-                .font(.system(.headline, design: .rounded))
+                .font(Font.system(.title2, design: .rounded).bold())
                 .foregroundColor(Color(.label))
                 .disabled(disabled)
             Spacer()
             detail
+                .font(.system(.title3, design: .rounded))
         }
         .textCase(.none)
         .listRowInsets(EdgeInsets())

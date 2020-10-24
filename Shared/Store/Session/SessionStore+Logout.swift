@@ -3,6 +3,6 @@ import Combine
 
 extension SessionStore {
     func logout() {
-        sessionCookie = ""
+        cookie = ""
     }
 }

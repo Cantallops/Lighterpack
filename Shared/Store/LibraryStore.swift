@@ -1,22 +1,13 @@
 import Foundation
 import Combine
+import SwiftUI
 
 final class LibraryStore: ObservableObject {
-    private let networkAccess: LighterPackAccess
-    private let sessionStore: SessionStore
-
     var sequence: Int = 0
     @Published private(set) var items: [Item] = []
     @Published private(set) var lists: [GearList] = []
     @Published private(set) var categories: [Category] = []
 
-    init(
-        networkAccess: LighterPackAccess,
-        sessionStore: SessionStore
-    ) {
-        self.networkAccess = networkAccess
-        self.sessionStore = sessionStore
-    }
 }
 
 extension LibraryStore {
@@ -109,13 +100,47 @@ extension LibraryStore {
 extension LibraryStore {
     func update(with library: Library) {
         items = library.items
-        categories = recompute(library.categories, using: items)
-        lists = recompute(library.lists, using: categories)
+        recompute(items: items, categories: library.categories, lists: library.lists)
     }
 
-    private func recompute() {
-        categories = recompute(categories, using: items)
-        lists = recompute(lists, using: categories)
+    private func recompute(
+        items: [Item]? = nil,
+        categories: [Category]? = nil,
+        lists: [GearList]? = nil
+    ) {
+        
+        let computedCategories = recompute(categories ?? self.categories, using: items ?? self.items)
+        let computedlists = recompute(lists ?? self.lists, using: computedCategories)
+
+        self.categories = computedCategories
+        self.lists = computedlists
+    }
+
+    func binding(forList list: GearList) -> Binding<GearList> {
+        return .init(get: {
+            list
+        }, set: replace)
+    }
+
+    func binding(forItem item: Item) -> Binding<Item> {
+        return .init(get: {
+            item
+        }, set: replace)
+    }
+
+
+    func binding(forCategoryItem item: CategoryItem, in category: Category) -> Binding<CategoryItem> {
+        return .init(get: {
+            item
+        }, set: {
+            self.replace(categoryItem: $0, in: category)
+        })
+    }
+
+    func binding(forCategory category: Category) -> Binding<Category> {
+        return .init(get: {
+            category
+        }, set: replace)
     }
 
     func replace(list: GearList) {

@@ -1,38 +1,17 @@
 import Foundation
 import Combine
+import SwiftUI
 
-final class SessionStore: ObservableObject {
+final class SessionStore: ObservableObject, CookieProvider {
 
     private let userDefaults: UserDefaults
-
-    @Published var username: String {
-        didSet {
-            userDefaults[SettingKey.username] = username
-        }
-    }
-    @Published var version: String {
-        didSet {
-            userDefaults[SettingKey.backendVersion] = version
-        }
-    }
-    @Published var sessionCookie: String {
-        didSet {
-            userDefaults[SettingKey.sessionCookie] = sessionCookie
-        }
-    }
-    @Published var syncToken: Int {
-        didSet {
-            userDefaults[SettingKey.syncToken] = syncToken
-        }
-    }
-
     var cancellables: Set<AnyCancellable> = .init()
-
-    var isLoggedIn: Bool {
-        !sessionCookie.isEmpty
-    }
-
     let networkAccess: LighterPackAccess
+
+    @AppStorage(.username) var username
+    @AppStorage(.syncToken) var syncToken
+    @AppStorage(.backendVersion) var version
+    @AppStorage(.sessionCookie) var cookie
 
     init(
         networkAccess: LighterPackAccess,
@@ -40,25 +19,32 @@ final class SessionStore: ObservableObject {
     ) {
         self.networkAccess = networkAccess
         self.userDefaults = userDefaults
-        username = userDefaults[SettingKey.username] ?? ""
-        sessionCookie = userDefaults[SettingKey.sessionCookie] ?? ""
-        version = userDefaults[SettingKey.backendVersion] ?? "0.3"
-        syncToken = userDefaults[SettingKey.syncToken] ?? 0
+
+        _username = AppStorage(.username, store: userDefaults)
+        _syncToken = AppStorage(.syncToken, store: userDefaults)
+        _version = AppStorage(.backendVersion, store: userDefaults)
+        _cookie = AppStorage(.sessionCookie, store: userDefaults)
+
         networkAccess.cookieProvider = self
+    }
+
+    var isLoggedIn: Bool { return !cookie.isEmpty }
+}
+
+public struct StorageKey<Value> {
+    public var key: String
+    public var defaultValue: Value
+
+    public init(key: String, defaultValue: Value) {
+        self.key = key
+        self.defaultValue = defaultValue
     }
 }
 
-extension SessionStore: CookieProvider {
-    var cookie: String {
-        get {
-            sessionCookie
-        }
-        set {
-            DispatchQueue.main.async {
-                self.sessionCookie = newValue
-            }
-        }
-    }
-
+extension StorageKey {
+    static var username: StorageKey<String> { .init(key: #function, defaultValue: "") }
+    static var sessionCookie: StorageKey<String> { .init(key: #function, defaultValue: "") }
+    static var backendVersion: StorageKey<String> { .init(key: #function, defaultValue: "0") }
+    static var syncToken: StorageKey<Int?> { .init(key: #function, defaultValue: nil) }
 
 }
