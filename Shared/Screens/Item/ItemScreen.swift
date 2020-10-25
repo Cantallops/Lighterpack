@@ -1,4 +1,6 @@
 import SwiftUI
+import Entities
+import DesignSystem
 
 struct ItemScreen: View {
     @EnvironmentObject var settingsStore: SettingsStore

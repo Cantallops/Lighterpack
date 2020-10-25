@@ -1,11 +1,5 @@
-//
-//  Color.swift
-//  LighterPack
-//
-//  Created by acantallops on 2020/08/21.
-//
-
 import SwiftUI
+import Entities
 
 extension Color {
     public init?(hex: String) {

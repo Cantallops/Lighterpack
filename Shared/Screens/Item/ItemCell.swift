@@ -1,3 +1,4 @@
+import Entities
 import SwiftUI
 
 struct ItemCell: View {

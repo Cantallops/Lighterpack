@@ -1,12 +1,6 @@
-//
-//  RegistrationScreen.swift
-//  LighterPack
-//
-//  Created by acantallops on 2020/08/26.
-//
-
 import SwiftUI
 import Combine
+import DesignSystem
 
 struct RegistrationScreen: View {
     @EnvironmentObject var sessionStore: SessionStore

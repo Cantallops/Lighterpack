@@ -1,10 +1,3 @@
-//
-//  FormError.swift
-//  LighterPack (iOS)
-//
-//  Created by acantallops on 2020/08/27.
-//
-
 import Foundation
 
 public struct ErrorMessage: Codable {

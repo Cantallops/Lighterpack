@@ -1,11 +1,6 @@
-//
-//  ProfileScreen.swift
-//  LighterPack (iOS)
-//
-//  Created by acantallops on 2020/08/20.
-//
-
+import Entities
 import SwiftUI
+import DesignSystem
 
 struct ProfileScreen: View {
 

@@ -1,11 +1,4 @@
-//
-//  Library.swift
-//  LighterPack
-//
-//  Created by acantallops on 2020/08/19.
-//
-
-import Foundation
+import Entities
 
 struct Library: Codable {
     let version: String
@@ -16,8 +9,8 @@ struct Library: Codable {
     let showSidebar: Bool
     let currencySymbol: String
     let items: [Item]
-    let categories: [Category]
-    let lists: [GearList]
+    let categories: [Entities.Category]
+    let lists: [List]
     let optionalFields: OptionalFields
 }
 

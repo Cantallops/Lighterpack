@@ -1,11 +1,5 @@
-//
-//  DeleteAccountScreen.swift
-//  LighterPack (iOS)
-//
-//  Created by acantallops on 2020/08/27.
-//
-
 import SwiftUI
+import DesignSystem
 
 struct DeleteAccountScreen: View {
     @EnvironmentObject var sessionStore: SessionStore

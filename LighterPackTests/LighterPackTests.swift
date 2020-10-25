@@ -1,10 +1,3 @@
-//
-//  LighterPackTests.swift
-//  LighterPackTests
-//
-//  Created by acantallops on 2020/08/19.
-//
-
 import XCTest
 import Combine
 @testable import LighterPack
@@ -20,8 +13,6 @@ class LighterPackTests: XCTestCase {
     }
 
     func testExample() {
-        var sync = SyncEngine()
-        sync.run()
     }
 
 }

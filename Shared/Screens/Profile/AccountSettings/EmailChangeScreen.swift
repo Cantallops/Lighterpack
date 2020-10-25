@@ -1,4 +1,5 @@
 import SwiftUI
+import DesignSystem
 
 struct EmailChangeScreen: View {
     @Environment(\.presentationMode) var presentationMode

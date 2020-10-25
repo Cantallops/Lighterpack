@@ -1,4 +1,5 @@
 import SwiftUI
+import DesignSystem
 
 struct GearListsScreen: View {
     @EnvironmentObject var libraryStore: LibraryStore

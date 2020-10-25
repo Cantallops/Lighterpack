@@ -36,19 +36,20 @@ extension AppStore {
         if let cancellable = fetcher {
             cancellable.cancel()
         }
+        libraryStore.status = .loading
         fetcher = lighterPackAccess.request(RetrieveInfoEndpoint())
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished:
                     break
                 case .failure(let error):
-                    print(error)
+                    self.libraryStore.status = .error(error, .init())
                 }
             }, receiveValue: { [weak self] result in
                 do {
                     try self?.sync(result)
-                } catch let error as NSError {
-                    print(error)
+                } catch {
+                    self?.libraryStore.status = .error(error, .init())
                 }
             })
     }

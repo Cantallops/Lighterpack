@@ -1,11 +1,5 @@
-//
-//  AccountSettingsScreen.swift
-//  LighterPack
-//
-//  Created by acantallops on 2020/08/26.
-//
-
 import SwiftUI
+import DesignSystem
 
 struct AccountSettingsScreen: View {
 

@@ -1,12 +1,6 @@
-//
-//  ForgotScreen.swift
-//  LighterPack
-//
-//  Created by acantallops on 2020/08/26.
-//
-
 import SwiftUI
 import Combine
+import DesignSystem
 
 struct ForgotScreen: View {
     @Environment(\.presentationMode) var presentationMode

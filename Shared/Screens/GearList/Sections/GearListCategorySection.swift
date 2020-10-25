@@ -1,4 +1,6 @@
 import SwiftUI
+import Entities
+import DesignSystem
 
 struct GearListCategorySection: View {
     @EnvironmentObject var libraryStore: LibraryStore
@@ -10,8 +12,8 @@ struct GearListCategorySection: View {
     @AppSetting(.showConsumable) private var showConsumable: Bool
     
 
-    @Binding var category: Category
-    var list: GearList
+    @Binding var category: Entities.Category
+    var list: Entities.List
 
     var body: some View {
         Section(header: EditableSectionHeader(title: $category.name, placeholder: "Category", detail: {

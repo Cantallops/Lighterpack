@@ -1,11 +1,6 @@
-//
-//  HomeScreen.swift
-//  LighterPack (iOS)
-//
-//  Created by acantallops on 2020/10/24.
-//
-
 import SwiftUI
+import Entities
+import DesignSystem
 
 struct HomeScreen: View {
     @EnvironmentObject var sessionStore: SessionStore
@@ -74,19 +69,63 @@ private extension HomeScreen {
         ) {}
     }
     var footer: some View {
-        Section {
-            Button(action: showSettings, label: {
-                HStack {
-                    Spacer()
+        Group {
+            Section {
+                Button(action: showSettings, label: {
                     HStack {
-                        Icon(.accountSettings)
-                        Text("Settings")
+                        Spacer()
+                        HStack {
+                            Icon(.accountSettings)
+                            Text("Settings")
+                        }
+                        Spacer()
                     }
-                    Spacer()
+                })
+                .foregroundColor(Color(.secondaryLabel))
+                .listRowBackground(Color(.systemGroupedBackground))
+            }
+
+            Section {
+                Group {
+                    switch libraryStore.status {
+                    case .idle: EmptyView()
+                    case .loading:
+                        HStack {
+                            Spacer()
+                            ProgressView("Updating")
+                            Spacer()
+                        }
+                    case .unsync:
+                        Button(action: {}) {
+                            VStack {
+                                HStack {
+                                    Spacer()
+                                    Text("Not sync with LighterPack server")
+                                    Spacer()
+                                }
+                                Text("Sync now").foregroundColor(.accentColor)
+                            }
+                        }
+                    case .loaded(let date):
+                        HStack {
+                            Spacer()
+                            Text("Updated \(date)")
+                            Spacer()
+                        }
+                    case .error(let error, let date):
+                        HStack {
+                            Spacer()
+                            Icon(.warning)
+                            Text("Error \(error.localizedDescription) \(date)")
+                            Spacer()
+                        }
+                    }
                 }
-            })
-            .foregroundColor(Color(.secondaryLabel))
-            .listRowBackground(Color(.systemGroupedBackground))
+                .font(.system(.footnote, design: .rounded))
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color(.secondaryLabel))
+                .listRowBackground(Color(.systemGroupedBackground))
+            }
         }
     }
 

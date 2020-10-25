@@ -1,10 +1,3 @@
-//
-//  Price.swift
-//  LighterPack
-//
-//  Created by acantallops on 2020/08/24.
-//
-
 import Foundation
 extension SignedInteger {
     func formattedPrice(_ currencySymbol: String) -> String {

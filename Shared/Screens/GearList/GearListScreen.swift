@@ -1,12 +1,7 @@
-//
-//  GearListScreen.swift
-//  LighterPack (iOS)
-//
-//  Created by acantallops on 2020/08/19.
-//
-
+import Entities
 import SwiftUI
 import Combine
+import DesignSystem
 
 struct GearListScreen: View {
     @EnvironmentObject var libraryStore: LibraryStore
@@ -17,7 +12,7 @@ struct GearListScreen: View {
     @AppSetting(.showListDescription) private var showDesc: Bool
     @AppSetting(.currencySymbol) private var currencySymbol: String
 
-    @Binding var list: GearList
+    @Binding var list: Entities.List
 
     private enum SheetStatus {
         case share
@@ -36,7 +31,7 @@ struct GearListScreen: View {
                         .frame(maxHeight: 300)
                 }
             }
-            ForEach(libraryStore.categories(ofList: list)) { (category: Category) in
+            ForEach(libraryStore.categories(ofList: list)) { (category: Entities.Category) in
                 GearListCategorySection(category: libraryStore.binding(forCategory: category), list: list)
             }
         }

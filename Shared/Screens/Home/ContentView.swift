@@ -1,11 +1,5 @@
-//
-//  ContentView.swift
-//  Shared
-//
-//  Created by acantallops on 2020/08/18.
-//
-
 import SwiftUI
+import DesignSystem
 
 struct ContentView: View {
 

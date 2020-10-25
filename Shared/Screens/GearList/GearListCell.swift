@@ -1,4 +1,5 @@
 import SwiftUI
+import Entities
 
 struct GearListCell: View {
     @AppSetting(.totalUnit) private var totalUnit: WeightUnit
@@ -6,7 +7,7 @@ struct GearListCell: View {
     @AppSetting(.showPrice) private var showPrice: Bool
     @AppSetting(.showListDescription) private var showListDesc: Bool
 
-    var list: GearList
+    var list: Entities.List
     var body: some View {
         HStack {
             VStack(alignment: .leading) {

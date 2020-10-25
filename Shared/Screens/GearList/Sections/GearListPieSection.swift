@@ -1,6 +1,8 @@
 import SwiftUI
 import SunburstDiagram
 import Combine
+import Entities
+import DesignSystem
 
 struct Pie: View {
     @ObservedObject var configuration: SunburstConfiguration
@@ -22,7 +24,7 @@ private struct GearListPieSectionView: View {
 
     @ObservedObject var configuration: SunburstConfiguration
     @Binding var viewMode: ViewMode
-    var list: GearList
+    var list: Entities.List
     enum ViewMode: Int, CaseIterable {
         case weight
         case price
@@ -157,7 +159,7 @@ struct GearListPieSection: View {
     @AppSetting(.showPrice) private var showPrice: Bool
     @AppSetting(.currencySymbol) private var currencySymbol: String
     
-    var list: GearList
+    var list: Entities.List
 
     @State private var disposable: AnyCancellable?
     @State private var viewMode: GearListPieSectionView.ViewMode = .weight
@@ -214,7 +216,7 @@ struct GearListPieSection: View {
         return nil
     }
 
-    func calculateNodes(list: GearList) -> ([Node], Double) {
+    func calculateNodes(list: Entities.List) -> ([Node], Double) {
         let nodes: [Node] = list.pieNodes(
             libraryStore: libraryStore,
             showPrice: showPrice,
@@ -230,7 +232,7 @@ struct GearListPieSection: View {
 }
 
 
-private extension GearList {
+private extension Entities.List {
     func pieNodes(
         libraryStore: LibraryStore,
         showPrice: Bool,
@@ -238,7 +240,7 @@ private extension GearList {
         totalUnit: WeightUnit,
         calculateUsing viewMode: GearListPieSectionView.ViewMode
     ) -> [Node] {
-        libraryStore.categories(ofList: self).map { (category: Category) in
+        libraryStore.categories(ofList: self).map { (category: Entities.Category) in
             var desc = "\(category.name): \(category.subtotalWeight.formattedWeight(totalUnit))"
             var value: Double = Double(category.subtotalWeight)
             if showPrice {
@@ -265,7 +267,7 @@ private extension GearList {
     }
 }
 
-private extension Category {
+private extension Entities.Category {
 
     var pieId: String {
         "Cat\(id)"

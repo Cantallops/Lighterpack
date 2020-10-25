@@ -1,4 +1,5 @@
 import Foundation
+import Entities
 
 extension SignedInteger {
     func formattedWeight(_ weightUnit: WeightUnit, showUnit: Bool = true) -> String {

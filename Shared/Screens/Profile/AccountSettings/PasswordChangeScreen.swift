@@ -1,4 +1,5 @@
 import SwiftUI
+import DesignSystem
 
 struct PasswordChangeScreen: View {
     @Environment(\.presentationMode) var presentationMode
