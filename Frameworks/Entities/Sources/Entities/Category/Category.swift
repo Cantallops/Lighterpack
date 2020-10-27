@@ -19,6 +19,40 @@ public struct Category {
     public var activeHover: Bool?
     public var displayColor: String?
     public var color: CategoryColor?
+
+    public init(
+        id: Int,
+        name: String,
+        categoryItems: [CategoryItem],
+        subtotalWeight: Float,
+        subtotalWornWeight: Float,
+        subtotalConsumableWeight: Float,
+        subtotalPrice: Float,
+        subtotalWornPrice: Float,
+        subtotalConsumablePrice: Float,
+        subtotalQty: Int,
+        subtotalWornQty: Int,
+        subtotalConsumableQty: Int,
+        activeHover: Bool?,
+        displayColor: String?,
+        color: CategoryColor?
+    ) {
+        self.id = id
+        self.name = name
+        self.categoryItems = categoryItems
+        self.subtotalWeight = subtotalWeight
+        self.subtotalWornWeight = subtotalWornWeight
+        self.subtotalConsumableWeight = subtotalConsumableWeight
+        self.subtotalPrice = subtotalPrice
+        self.subtotalWornPrice = subtotalWornPrice
+        self.subtotalConsumablePrice = subtotalConsumablePrice
+        self.subtotalQty = subtotalQty
+        self.subtotalWornQty = subtotalWornQty
+        self.subtotalConsumableQty = subtotalConsumableQty
+        self.activeHover = activeHover
+        self.displayColor = displayColor
+        self.color = color
+    }
 }
 
 extension Category: Identifiable {}

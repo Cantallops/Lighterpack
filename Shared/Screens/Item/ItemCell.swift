@@ -2,11 +2,23 @@ import Entities
 import SwiftUI
 
 struct ItemCell: View {
-    @AppSetting(.currencySymbol) private var currencySymbol: String
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.showImages) private var showImages: Bool
+    let item: Item
+    let currencySymbol: String
+    let showPrice: Bool
+    let showImages: Bool
 
-    var item: Item
+    init(
+        item: Item,
+        currencySymbol: String = "$",
+        showPrice: Bool = true,
+        showImages: Bool = true
+    ) {
+        self.item = item
+        self.currencySymbol = currencySymbol
+        self.showPrice = showPrice
+        self.showImages = showImages
+    }
+
     var body: some View {
         HStack {
             if let url = item.fullImageURL, showImages {

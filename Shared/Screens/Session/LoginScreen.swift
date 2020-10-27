@@ -1,21 +1,21 @@
 import SwiftUI
 import Combine
 import DesignSystem
+import Repository
 
 struct LoginScreen: View {
 
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var repository: Repository
     @EnvironmentObject var visualFeedback: VisualFeedbackState
     @State private var password: String = ""
 
-    @AppStorage(.username) private var username: String
     @State private var status: Status = .idle
 
 
     enum Status {
         case idle
         case signing
-        case error(NetworkError.ErrorType)
+        case error(RepositoryError.ErrorType)
 
         var formErrors: [FormErrorEntry] {
             switch self {
@@ -59,7 +59,7 @@ struct LoginScreen: View {
             }) {
                 Field(
                     "Username",
-                    text: $username,
+                    text: $repository.username,
                     icon: .profile,
                     error: status.formErrors.of(.username)?.message
                 )
@@ -107,13 +107,13 @@ struct LoginScreen: View {
         withAnimation {
             status = .signing
         }
-        sessionStore.login(username: username, password: password) { result in
+        repository.login(username: repository.username, password: password) { result in
             withAnimation {
                 switch result {
                 case .success:
                     visualFeedback.notify(
                         .init(
-                            message: "Logged in as \(username)",
+                            message: "Logged in as \(repository.username)",
                             style: .success
                         )
                     )

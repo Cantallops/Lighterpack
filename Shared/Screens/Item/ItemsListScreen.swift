@@ -1,11 +1,10 @@
 import Entities
 import SwiftUI
 import DesignSystem
-import DesignSystem
+import Repository
 
 struct ItemsListScreen: View {
-    @EnvironmentObject var libraryStore: LibraryStore
-    @AppSetting(.showPrice) private var showPrice: Bool
+    @EnvironmentObject var repository: Repository
 
     @State private var sort: Sort = .default
     @State private var order: Order = .desc
@@ -69,9 +68,14 @@ struct ItemsListScreen: View {
                     }
                 }
             }
-            ForEach(libraryStore.items.sorted(by: filters)) { (item: Item) in
-                NavigationLink(destination: ItemScreen(item: libraryStore.binding(forItem: item))) {
-                    ItemCell(item: item)
+            ForEach(repository.getAllItems().sorted(by: filters)) { (item: Item) in
+                NavigationLink(destination: ItemScreen(item: repository.binding(forItem: item))) {
+                    ItemCell(
+                        item: item,
+                        currencySymbol: repository.currencySymbol,
+                        showPrice: repository.showPrice,
+                        showImages: repository.showImages
+                    )
                 }
             }.animation(.default)
         }
@@ -82,7 +86,7 @@ struct ItemsListScreen: View {
                 Menu {
                     Picker(selection: $sort.animation(), label: Text("Sorting options")) {
                         ForEach(Sort.allCases.filter({
-                            if showPrice { return true }
+                            if repository.showPrice { return true }
                             return $0 != .price
                         }), id: \.rawValue) {
                             Label($0.rawValue, icon: $0.icon).tag($0)
@@ -99,9 +103,6 @@ struct ItemsListScreen: View {
                     Label("Sort", icon: .sort)
                 }
             }
-        }.onChange(of: showPrice) { show in
-            guard !show else { return }
-            if sort == .price { sort = .default }
         }
     }
 }

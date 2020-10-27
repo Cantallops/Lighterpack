@@ -1,52 +1,78 @@
 import SwiftUI
 import Entities
 import DesignSystem
+import Repository
 
 struct HomeScreen: View {
-    @EnvironmentObject var sessionStore: SessionStore
-    @EnvironmentObject var libraryStore: LibraryStore
+    
+    @EnvironmentObject var repository: Repository
 
     @State private var isShowingSettings = false
 
     var body: some View {
-        if sessionStore.isLoggedIn {
+        if repository.isLoggedIn {
             NavigationView {
                 List {
+                    Section(
+                        header: HStack {
+                            Text("LighterPack")
+                                .font(.system(.largeTitle, design: .rounded))
+                                .bold()
+                                .foregroundColor(Color(.label))
+                        }
+                        .textCase(.none)
+                        .listRowInsets(EdgeInsets())
+                        .padding(.top)
+                    ){
+
+                    }.unredacted()
+
                     Section(header: SectionHeader(title: "Lists", detail: {
                         Menu(content: {
                             Button(action: {}) {
                                 Label("New list", icon: .add)
                             }
                             Button(action: {}) {
-                                Label("Import", icon: .link)
+                                Label("Import", icon: .import)
                             }
                         }) {
                             Icon(.add)
                         }
-                    })) {
-                        ForEach(libraryStore.lists) { list in
-                            NavigationLink(destination: GearListScreen(list: libraryStore.binding(forList: list))) {
+                    }).unredacted()) {
+                        ForEach(repository.getAllLists()) { list in
+                            NavigationLink(destination: GearListScreen(list: repository.binding(forList: list))) {
                                 GearListCell(list: list)
-                            }
-                        }
-                    }
+                                    .redacted(reason: repository.isPlaceholder ? .placeholder : [])
+                            }.unredacted()
+                        }.onDelete(perform: removeList)
+                    }.disabled(repository.isPlaceholder)
 
                     Section {
                         NavigationLink(destination: ItemsListScreen()) {
                             Label("All gear", icon: .gearList)
-                        }
-                    }
+                                .font(.system(.body, design: .rounded))
+                        }.unredacted()
+                    }.disabled(repository.isPlaceholder)
 
                     footer
 
                 }
+                .redacted(reason: repository.isPlaceholder ? .placeholder : [])
                 .listStyle(InsetGroupedListStyle())
-                .navigationBarTitle("LighterPack")
+                .navigationBarTitle("Home")
+                .navigationBarHidden(true)
             }
             .sheet(isPresented: $isShowingSettings) {
                 NavigationView {
                     ProfileScreen()
+                        .navigationBarItems(
+                            trailing: Button(
+                                action: { isShowingSettings = false },
+                                label: {
+                                    Icon(.close)
+                                }))
                 }
+                .environmentObject(repository)
             }
         } else {
             NavigationView {
@@ -87,37 +113,38 @@ private extension HomeScreen {
 
             Section {
                 Group {
-                    switch libraryStore.status {
+                    switch repository.syncStatus {
                     case .idle: EmptyView()
-                    case .loading:
+                    case .updating:
                         HStack {
                             Spacer()
                             ProgressView("Updating")
                             Spacer()
                         }
-                    case .unsync:
-                        Button(action: {}) {
+                    case .updated(let date):
+                        Button(action: repository.forceSync) {
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    Text("Last update ").bold() + Text(date, style: .relative)  + Text(" ago")
+                                    Text("Sync now").foregroundColor(.accentColor)
+                                }
+                                Spacer()
+                            }
+                        }
+                    case .error(let error, _):
+                        Button(action: repository.forceSync) {
                             VStack {
                                 HStack {
                                     Spacer()
-                                    Text("Not sync with LighterPack server")
+                                    VStack {
+                                        Text("Error").foregroundColor(Color(.systemRed)).bold()
+                                        Text(error.localizedDescription)
+                                    }
                                     Spacer()
                                 }
-                                Text("Sync now").foregroundColor(.accentColor)
+                                Text("Try again").foregroundColor(.accentColor)
                             }
-                        }
-                    case .loaded(let date):
-                        HStack {
-                            Spacer()
-                            Text("Updated \(date)")
-                            Spacer()
-                        }
-                    case .error(let error, let date):
-                        HStack {
-                            Spacer()
-                            Icon(.warning)
-                            Text("Error \(error.localizedDescription) \(date)")
-                            Spacer()
                         }
                     }
                 }
@@ -126,11 +153,18 @@ private extension HomeScreen {
                 .foregroundColor(Color(.secondaryLabel))
                 .listRowBackground(Color(.systemGroupedBackground))
             }
-        }
+        }.unredacted()
     }
 
     func showSettings() {
         isShowingSettings = true
+    }
+
+    func removeList(at indices: IndexSet) {
+        let lists = repository.getAllLists()
+        indices.forEach { index in
+            repository.remove(listWithId: lists[index].id)
+        }
     }
 }
 

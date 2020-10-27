@@ -1,4 +1,6 @@
 import Foundation
+import Entities
+import Repository
 
 public struct SignInEndpoint: Endpoint {
     public typealias Response = LighterPackResponse

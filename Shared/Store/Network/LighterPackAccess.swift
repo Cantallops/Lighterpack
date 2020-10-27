@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Repository
 
 public protocol CookieProvider {
     var cookie: String { get set }

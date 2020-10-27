@@ -1,13 +1,11 @@
 import SwiftUI
 import Entities
 import DesignSystem
+import Repository
 
 struct ItemScreen: View {
-    @EnvironmentObject var settingsStore: SettingsStore
-    @EnvironmentObject var libraryStore: LibraryStore
-    @AppSetting(.currencySymbol) private var currencySymbol: String
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.showImages) private var showImages: Bool
+    @EnvironmentObject var repository: Repository
+
     private var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
         numberFormatter.allowsFloats = true
@@ -22,19 +20,19 @@ struct ItemScreen: View {
     var body: some View {
         Form {
             Section {
-                if let url = item.fullImageURL, showImages {
+                if let url = item.fullImageURL, repository.showImages {
                     NetworkImage(url: url)
                         .aspectRatio(contentMode: .fit)
                         .listRowInsets(EdgeInsets())
                 }
                 Field("Title", text: $item.name)
-                if showPrice {
+                if repository.showPrice {
                     HStack {
                         Text("Price").bold()
                         Spacer()
                         DecimalField(amount: $item.price, formatter: numberFormatter)
                             .multilineTextAlignment(.trailing)
-                        Text(currencySymbol)
+                        Text(repository.currencySymbol)
                             .frame(maxHeight: .infinity)
                             .padding(.horizontal)
                             .frame(width: 60)

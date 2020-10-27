@@ -65,7 +65,7 @@ public struct Icon: View {
 
 public extension Icon.Token {
     typealias Token = Icon.Token
-    static let gearList = Token(rawValue: "folder.fill")
+    static let gearList = Token(rawValue: "shippingbox", originalColor: .systemOrange)
     static let lists = Token(rawValue: "chart.bar.doc.horizontal.fill")
     static let profile = Token(rawValue: "person.crop.circle.fill", originalColor: .systemIndigo)
     static let accountSettings = Token(rawValue: "gearshape.fill", originalColor: .systemGray)
@@ -90,12 +90,13 @@ public extension Icon.Token {
     static let addCategory = Token(rawValue: "rectangle.stack.badge.plus")
     static let remove = Token(rawValue: "minus.circle.fill")
     static let delete = Token(rawValue: "trash")
-    static let add = Token(rawValue: "plus.circle.fill")
+    static let add = Token(rawValue: "plus.circle.fill", originalColor: .systemGreen)
     static let star = Token(rawValue: "star.fill")
     static let link = Token(rawValue: "link", originalColor: .systemBlue)
     static let editList = Token(rawValue: "pencil")
     static let edit = Token(rawValue: "pencil")
     static let share = Token(rawValue: "square.and.arrow.up")
+    static let `import` = Token(rawValue: "square.and.arrow.down")
 
     static let quantity = Token(rawValue: "xmark")
     static let sort = Token(rawValue: "arrow.up.arrow.down")
@@ -103,6 +104,8 @@ public extension Icon.Token {
     static let warning = Token(rawValue: "exclamationmark.triangle.fill")
     static let info = Token(rawValue: "info.circle.fill")
     static let confirmation = Token(rawValue: "checkmark.circle.fill")
+
+    static let close = Token(rawValue: "xmark.circle.fill", originalColor: .tertiaryLabel)
 
 
     enum Sort {

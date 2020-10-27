@@ -3,6 +3,7 @@ import SunburstDiagram
 import Combine
 import Entities
 import DesignSystem
+import Repository
 
 struct Pie: View {
     @ObservedObject var configuration: SunburstConfiguration
@@ -14,13 +15,8 @@ struct Pie: View {
 
 private struct GearListPieSectionView: View {
 
-    @EnvironmentObject var libraryStore: LibraryStore
-
-    @AppSetting(.totalUnit) private var totalUnit: WeightUnit
-    @AppSetting(.showWorn) private var showWorn: Bool
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.showConsumable) private var showConsumable: Bool
-    @AppSetting(.currencySymbol) private var currencySymbol: String
+    @EnvironmentObject var repository: Repository
+    @Environment(\.redactionReasons) private var redactedReasons
 
     @ObservedObject var configuration: SunburstConfiguration
     @Binding var viewMode: ViewMode
@@ -51,15 +47,15 @@ private struct GearListPieSectionView: View {
         var baseText = ""
         switch viewMode {
         case .weight:
-            totalText = total.formattedWeight(totalUnit)
-            wornText = worn.formattedWeight(totalUnit)
-            consumableText = consumable.formattedWeight(totalUnit)
-            baseText = base.formattedWeight(totalUnit)
+            totalText = total.formattedWeight(repository.totalUnit)
+            wornText = worn.formattedWeight(repository.totalUnit)
+            consumableText = consumable.formattedWeight(repository.totalUnit)
+            baseText = base.formattedWeight(repository.totalUnit)
         case .price:
-            totalText = total.formattedPrice(currencySymbol)
-            wornText = worn.formattedPrice(currencySymbol)
-            consumableText = consumable.formattedPrice(currencySymbol)
-            baseText = base.formattedPrice(currencySymbol)
+            totalText = total.formattedPrice(repository.currencySymbol)
+            wornText = worn.formattedPrice(repository.currencySymbol)
+            consumableText = consumable.formattedPrice(repository.currencySymbol)
+            baseText = base.formattedPrice(repository.currencySymbol)
         }
         let selectedId: AnyHashable = configuration.selectedNode?.id
         return Section(header: header) {
@@ -71,51 +67,50 @@ private struct GearListPieSectionView: View {
                 } label: {
                     HStack {
                         Icon(.categoryDot)
-                            .foregroundColor(node.backgroundColor ?? .clear)
+                            .foregroundColor(node.backgroundColor ?? Color(.secondarySystemFill))
+                            .unredacted()
                         Text(node.name)
                         Spacer()
                         switch viewMode {
-                        case .weight: Text((node.value ?? 0).formattedWeight(totalUnit))
-                        case .price: Text((node.value ?? 0).formattedPrice(currencySymbol))
+                        case .weight: Text((node.value ?? 0).formattedWeight(repository.totalUnit))
+                        case .price: Text((node.value ?? 0).formattedPrice(repository.currencySymbol))
                         }
                     }
                 }
                 .buttonStyle(CategoryButtonStyle(selectedColor: selectionColor, selected: selectedId == node.id))
                 .eraseToAnyView()
 
-            }
+            }.disabled(!redactedReasons.isEmpty)
             DisclosureGroup {
-                if showWorn {
+                if repository.showWorn {
                     HStack {
                         Icon(.worn)
                         Text("Worn")
                         Spacer()
-                        Text(wornText)
+                        Text(wornText).redacted(reason: redactedReasons)
                     }
                 }
-                if showConsumable {
+                if repository.showConsumable {
                     HStack {
                         Icon(.consumable)
                         Text("Consumable")
                         Spacer()
-                        Text(consumableText)
+                        Text(consumableText).redacted(reason: redactedReasons)
                     }
                 }
                 HStack {
                     Icon(.baseWeight)
                     Text("Base weight")
                     Spacer()
-                    Text(baseText)
+                    Text(baseText).redacted(reason: redactedReasons)
                 }
             } label: {
                 HStack {
                     Text("Total").fontWeight(.bold)
                     Spacer()
-                    Text(totalText)
+                    Text(totalText).redacted(reason: redactedReasons)
                 }
-            }
-        }.onChange(of: showPrice) { showPrice in
-            if !showPrice && viewMode == .price { viewMode = .weight }
+            }.unredacted()
         }
 
     }
@@ -138,26 +133,24 @@ private struct GearListPieSectionView: View {
                         .eraseToAnyView()
                 }
             }
-            if showPrice {
+            if repository.showPrice {
                 Picker("", selection: $viewMode) {
                     ForEach(ViewMode.allCases, id: \.rawValue) {
                         Text("\($0.name)").tag($0)
                     }
                 }.pickerStyle(SegmentedPickerStyle())
+                .unredacted()
             }
         }
         .listRowInsets(EdgeInsets())
         .textCase(.none)
         .padding(.bottom)
+        .disabled(!redactedReasons.isEmpty)
     }
 }
 
 struct GearListPieSection: View {
-    @EnvironmentObject var libraryStore: LibraryStore
-
-    @AppSetting(.totalUnit) private var totalUnit: WeightUnit
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.currencySymbol) private var currencySymbol: String
+    @EnvironmentObject var repository: Repository
     
     var list: Entities.List
 
@@ -172,21 +165,26 @@ struct GearListPieSection: View {
     }()
 
     var body: some View {
-        GearListPieSectionView(configuration: conf, viewMode: .init(get: {
-            viewMode
-        }, set: {
-            viewMode = $0
-            configure()
-        }), list: list)
-            .onAppear {
+        GearListPieSectionView(
+            configuration: conf,
+            viewMode: .init(get: {
+                viewMode
+            }, set: {
+                viewMode = $0
                 configure()
-            }
-    }
+            }),
+            list: list
+        ).onAppear {
+            configure()
+        }.onReceive(repository.objectWillChange.eraseToAnyPublisher()) { _ in
+            configure()
+        }
+}
 
     func configure() {
         disposable = Just(list)
-            .receive(on: DispatchQueue.global(qos: .userInteractive))
             .map(calculateNodes)
+            .receive(on: DispatchQueue.global(qos: .userInteractive))
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { (nodes, total) in
                 let selectedId = conf.selectedNode?.id as? String
@@ -218,10 +216,7 @@ struct GearListPieSection: View {
 
     func calculateNodes(list: Entities.List) -> ([Node], Double) {
         let nodes: [Node] = list.pieNodes(
-            libraryStore: libraryStore,
-            showPrice: showPrice,
-            currencySymbol: currencySymbol,
-            totalUnit: totalUnit,
+            repository: repository,
             calculateUsing: viewMode
         )
         let total = nodes.reduce(0.0, { $0 + $1.value! })
@@ -234,17 +229,17 @@ struct GearListPieSection: View {
 
 private extension Entities.List {
     func pieNodes(
-        libraryStore: LibraryStore,
-        showPrice: Bool,
-        currencySymbol: String,
-        totalUnit: WeightUnit,
+        repository: Repository,
         calculateUsing viewMode: GearListPieSectionView.ViewMode
     ) -> [Node] {
-        libraryStore.categories(ofList: self).map { (category: Entities.Category) in
-            var desc = "\(category.name): \(category.subtotalWeight.formattedWeight(totalUnit))"
+        categoryIds.compactMap { (categoryID) in
+            guard let category = repository.get(categoryWithId: categoryID)  else {
+                return nil
+            }
+            var desc = "\(category.name): \(category.subtotalWeight.formattedWeight(repository.totalUnit))"
             var value: Double = Double(category.subtotalWeight)
-            if showPrice {
-                desc = "\(desc) \(category.subtotalPrice.formattedPrice(currencySymbol))"
+            if repository.showPrice {
+                desc = "\(desc) \(category.subtotalPrice.formattedPrice(repository.currencySymbol))"
                 if viewMode == .price {
                     value = Double(category.subtotalPrice)
                 }
@@ -257,9 +252,7 @@ private extension Entities.List {
                 value: value,
                 backgroundColor: Color(category.color),
                 children: category.pieNodes(
-                    libraryStore: libraryStore,
-                    showPrice: showPrice,
-                    currencySymbol: currencySymbol,
+                    repository: repository,
                     calculateUsing: viewMode
                 )
             )
@@ -274,15 +267,13 @@ private extension Entities.Category {
     }
 
     func pieNodes(
-        libraryStore: LibraryStore,
-        showPrice: Bool,
-        currencySymbol: String,
+        repository: Repository,
         calculateUsing viewMode: GearListPieSectionView.ViewMode
     ) -> [Node] {
         categoryItems
             .sorted(by: {
-                guard let item0 = libraryStore.item(withId: $0.itemId),
-                      let item1 = libraryStore.item(withId: $1.itemId) else { return false }
+                guard let item0 = repository.get(itemWithId: $0.itemId),
+                      let item1 = repository.get(itemWithId: $1.itemId) else { return false }
                 switch viewMode {
                 case .weight: return item0.weight > item1.weight
                 case .price: return item0.price > item1.price
@@ -292,9 +283,7 @@ private extension Entities.Category {
             .map { (offset: Int, item) in
                 let variation: CGFloat = (CGFloat(offset) / CGFloat(categoryItems.count))/2
                 return item.pieNode(
-                    libraryStore: libraryStore,
-                    showPrice: showPrice,
-                    currencySymbol: currencySymbol,
+                    repository: repository,
                     color: Color(color)?.variant(by: variation),
                     calculateUsing: viewMode
                 )
@@ -307,17 +296,15 @@ private extension CategoryItem {
         "Item\(itemId)"
     }
     func pieNode(
-        libraryStore: LibraryStore,
-        showPrice: Bool,
-        currencySymbol: String,
+        repository: Repository,
         color: Color?,
         calculateUsing viewMode: GearListPieSectionView.ViewMode
     ) -> Node {
-        guard let item = libraryStore.item(withId: itemId) else { fatalError() }
+        guard let item = repository.get(itemWithId: itemId) else { fatalError() }
         var desc = "\(item.name): \(weight.formattedWeight(item.authorUnit))"
         var value: Double = Double(weight)
-        if showPrice {
-            desc = "\(desc) \(price.formattedPrice(currencySymbol))"
+        if repository.showPrice {
+            desc = "\(desc) \(price.formattedPrice(repository.currencySymbol))"
             if viewMode == .price {
                 value = Double(price)
             }

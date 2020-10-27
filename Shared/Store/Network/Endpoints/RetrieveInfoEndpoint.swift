@@ -1,4 +1,5 @@
 import Foundation
+import Entities
 
 public struct RetrieveInfoEndpoint: Endpoint {
     public typealias Response = LighterPackResponse

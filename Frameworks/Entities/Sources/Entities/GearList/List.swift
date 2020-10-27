@@ -16,7 +16,7 @@ public struct List {
     public var totalWornPrice: Float
     public var totalQty: Int
 
-    init(
+    public init(
         id: Int,
         name: String,
         categoryIds: [Int],

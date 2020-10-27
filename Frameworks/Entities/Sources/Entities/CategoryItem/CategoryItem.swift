@@ -6,9 +6,26 @@ public struct CategoryItem {
     public var consumable: Bool
     public var star: StarColor
     public let itemId: Int
-
     public var price: Float
     public var weight: Float
+
+    public init(
+        qty: Int,
+        worn: Bool,
+        consumable: Bool,
+        star: StarColor,
+        itemId: Int,
+        price: Float,
+        weight: Float
+    ) {
+        self.qty = qty
+        self.worn = worn
+        self.consumable = consumable
+        self.star = star
+        self.itemId = itemId
+        self.price = price
+        self.weight = weight
+    }
 
 }
 

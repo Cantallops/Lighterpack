@@ -11,8 +11,6 @@
 		CA098A1B24EC17E6005B632D /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098A1A24EC17E6005B632D /* Tests_macOS.swift */; };
 		CA098A1D24EC17E6005B632D /* LighterPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F424EC17E5005B632D /* LighterPackApp.swift */; };
 		CA098A1E24EC17E6005B632D /* LighterPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F424EC17E5005B632D /* LighterPackApp.swift */; };
-		CA098A1F24EC17E6005B632D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F524EC17E5005B632D /* ContentView.swift */; };
-		CA098A2024EC17E6005B632D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F524EC17E5005B632D /* ContentView.swift */; };
 		CA098A2124EC17E6005B632D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA0989F624EC17E6005B632D /* Assets.xcassets */; };
 		CA098A2224EC17E6005B632D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA0989F624EC17E6005B632D /* Assets.xcassets */; };
 		CA098AF124ED0044005B632D /* LighterPackAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098AF024ED0044005B632D /* LighterPackAccess.swift */; };
@@ -22,27 +20,14 @@
 		CA098AFD24ED110A005B632D /* LighterPackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098AFC24ED110A005B632D /* LighterPackTests.swift */; };
 		CA098B0624ED1972005B632D /* DictionaryLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098B0524ED1972005B632D /* DictionaryLookup.swift */; };
 		CA098B0724ED1972005B632D /* DictionaryLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098B0524ED1972005B632D /* DictionaryLookup.swift */; };
-		CA098B1524ED2FA4005B632D /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098B1424ED2FA4005B632D /* Library.swift */; };
-		CA098B1624ED2FA4005B632D /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098B1424ED2FA4005B632D /* Library.swift */; };
-		CA30256024ED679600FCD4FE /* GearListsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30255F24ED679600FCD4FE /* GearListsScreen.swift */; };
 		CA30256324ED688D00FCD4FE /* GearListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30256224ED688D00FCD4FE /* GearListCell.swift */; };
 		CA30256524ED696F00FCD4FE /* GearListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30256424ED696F00FCD4FE /* GearListScreen.swift */; };
 		CA30256724ED6CDB00FCD4FE /* CategoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30256624ED6CDB00FCD4FE /* CategoryItemCell.swift */; };
-		CA3D82832542A8A800D76431 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D82822542A8A800D76431 /* AppSetting.swift */; };
-		CA3D82942542B5E100D76431 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3D82822542A8A800D76431 /* AppSetting.swift */; };
 		CA455BB524FCF0CA00DF4C78 /* ItemScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA455BB424FCF0CA00DF4C78 /* ItemScreen.swift */; };
-		CA6C073024F7AF35009C208E /* FormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C072F24F7AF35009C208E /* FormError.swift */; };
-		CA6C073324F7DD91009C208E /* SessionStore+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073224F7DD91009C208E /* SessionStore+Register.swift */; };
-		CA6C073524F7DDFF009C208E /* SessionStore+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073424F7DDFF009C208E /* SessionStore+Login.swift */; };
-		CA6C073724F7DE0A009C208E /* SessionStore+Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073624F7DE0A009C208E /* SessionStore+Logout.swift */; };
-		CA6C073924F7DE18009C208E /* SessionStore+Forgot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073824F7DE18009C208E /* SessionStore+Forgot.swift */; };
 		CA6C073B24F7E08E009C208E /* DeleteAccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073A24F7E08E009C208E /* DeleteAccountScreen.swift */; };
-		CA6C073D24F7E0DD009C208E /* SessionStore+EmailChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073C24F7E0DD009C208E /* SessionStore+EmailChange.swift */; };
-		CA6C073F24F7E0EE009C208E /* SessionStore+PasswordChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073E24F7E0EE009C208E /* SessionStore+PasswordChange.swift */; };
 		CA6C074124F7E2AB009C208E /* ChangePasswordEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */; };
 		CA6C074324F7E5CA009C208E /* String+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074224F7E5CA009C208E /* String+Identifiable.swift */; };
 		CA6C074524FA47B0009C208E /* ChangeEmailEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */; };
-		CA6C074724FA4ED2009C208E /* SessionStore+DeleteAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074624FA4ED2009C208E /* SessionStore+DeleteAccount.swift */; };
 		CA6C074A24FA5691009C208E /* FeedbackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074924FA5691009C208E /* FeedbackLayer.swift */; };
 		CA79BCE224EE376C00118788 /* WeightFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCE124EE376C00118788 /* WeightFormatter.swift */; };
 		CA79BCE424EE4A3F00118788 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCE324EE4A3F00118788 /* NetworkImage.swift */; };
@@ -78,16 +63,8 @@
 		CABC964C24F689D000020600 /* PasswordChangeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964A24F689D000020600 /* PasswordChangeScreen.swift */; };
 		CABC965124F68A6B00020600 /* EmailChangeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964E24F689E900020600 /* EmailChangeScreen.swift */; };
 		CABC965224F68A6C00020600 /* EmailChangeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964E24F689E900020600 /* EmailChangeScreen.swift */; };
-		CABC965824F7328400020600 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC965724F7328400020600 /* SettingsStore.swift */; };
-		CABC965924F7328400020600 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC965724F7328400020600 /* SettingsStore.swift */; };
-		CABC965B24F7328E00020600 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC965A24F7328E00020600 /* SessionStore.swift */; };
-		CABC965C24F7328E00020600 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC965A24F7328E00020600 /* SessionStore.swift */; };
-		CABC965E24F73C6200020600 /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC965D24F73C6200020600 /* LibraryStore.swift */; };
-		CABC965F24F73C6200020600 /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC965D24F73C6200020600 /* LibraryStore.swift */; };
 		CABC966124F740DF00020600 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966024F740DF00020600 /* AppStore.swift */; };
 		CABC966224F740DF00020600 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966024F740DF00020600 /* AppStore.swift */; };
-		CABC966C24F7730900020600 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966B24F7730900020600 /* BaseResponse.swift */; };
-		CABC966D24F7730900020600 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966B24F7730900020600 /* BaseResponse.swift */; };
 		CABC966F24F7733C00020600 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */; };
 		CABC967024F7733C00020600 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */; };
 		CABC967224F7A9A300020600 /* DeleteAccountEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC967124F7A9A300020600 /* DeleteAccountEndpoint.swift */; };
@@ -97,9 +74,9 @@
 		CADC4BC324ED616400D36160 /* RetrieveInfoEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC4BC224ED616400D36160 /* RetrieveInfoEndpoint.swift */; };
 		CADC4BC524ED618400D36160 /* SaveEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC4BC424ED618400D36160 /* SaveEndpoint.swift */; };
 		CAF5534E254553B400560B43 /* Entities in Frameworks */ = {isa = PBXBuildFile; productRef = CAF5534D254553B400560B43 /* Entities */; };
-		CAF5536D2545546400560B43 /* Item+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF5536C2545546400560B43 /* Item+Codable.swift */; };
+		CAF5536D2545546400560B43 /* Item+Formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF5536C2545546400560B43 /* Item+Formatted.swift */; };
 		CAF553AB25455AE200560B43 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = CAF553AA25455AE200560B43 /* DesignSystem */; };
-		CAFFB1B6254330D20039CB43 /* AppStorage+StoreKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFFB1B5254330D20039CB43 /* AppStorage+StoreKey.swift */; };
+		CAF553E025455E5800560B43 /* Repository in Frameworks */ = {isa = PBXBuildFile; productRef = CAF553DF25455E5800560B43 /* Repository */; };
 		CAFFB1DC25443DB90039CB43 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFFB1DB25443DB90039CB43 /* HomeScreen.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,7 +106,6 @@
 
 /* Begin PBXFileReference section */
 		CA0989F424EC17E5005B632D /* LighterPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighterPackApp.swift; sourceTree = "<group>"; };
-		CA0989F524EC17E5005B632D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CA0989F624EC17E6005B632D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA0989FB24EC17E6005B632D /* LighterPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LighterPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA0989FE24EC17E6005B632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -148,26 +124,15 @@
 		CA098AFC24ED110A005B632D /* LighterPackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighterPackTests.swift; sourceTree = "<group>"; };
 		CA098AFE24ED110A005B632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA098B0524ED1972005B632D /* DictionaryLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryLookup.swift; sourceTree = "<group>"; };
-		CA098B1424ED2FA4005B632D /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
-		CA30255F24ED679600FCD4FE /* GearListsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearListsScreen.swift; sourceTree = "<group>"; };
 		CA30256224ED688D00FCD4FE /* GearListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearListCell.swift; sourceTree = "<group>"; };
 		CA30256424ED696F00FCD4FE /* GearListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearListScreen.swift; sourceTree = "<group>"; };
 		CA30256624ED6CDB00FCD4FE /* CategoryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemCell.swift; sourceTree = "<group>"; };
-		CA3D82822542A8A800D76431 /* AppSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetting.swift; sourceTree = "<group>"; };
 		CA455BB424FCF0CA00DF4C78 /* ItemScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemScreen.swift; sourceTree = "<group>"; };
 		CA4FF63D254053540006540D /* SwiftSunburstDiagram */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftSunburstDiagram; path = ../../Frameworks/SwiftSunburstDiagram; sourceTree = "<group>"; };
-		CA6C072F24F7AF35009C208E /* FormError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormError.swift; sourceTree = "<group>"; };
-		CA6C073224F7DD91009C208E /* SessionStore+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+Register.swift"; sourceTree = "<group>"; };
-		CA6C073424F7DDFF009C208E /* SessionStore+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+Login.swift"; sourceTree = "<group>"; };
-		CA6C073624F7DE0A009C208E /* SessionStore+Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+Logout.swift"; sourceTree = "<group>"; };
-		CA6C073824F7DE18009C208E /* SessionStore+Forgot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+Forgot.swift"; sourceTree = "<group>"; };
 		CA6C073A24F7E08E009C208E /* DeleteAccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreen.swift; sourceTree = "<group>"; };
-		CA6C073C24F7E0DD009C208E /* SessionStore+EmailChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+EmailChange.swift"; sourceTree = "<group>"; };
-		CA6C073E24F7E0EE009C208E /* SessionStore+PasswordChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+PasswordChange.swift"; sourceTree = "<group>"; };
 		CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordEndpoint.swift; sourceTree = "<group>"; };
 		CA6C074224F7E5CA009C208E /* String+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Identifiable.swift"; sourceTree = "<group>"; };
 		CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailEndpoint.swift; sourceTree = "<group>"; };
-		CA6C074624FA4ED2009C208E /* SessionStore+DeleteAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionStore+DeleteAccount.swift"; sourceTree = "<group>"; };
 		CA6C074924FA5691009C208E /* FeedbackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackLayer.swift; sourceTree = "<group>"; };
 		CA79BCE124EE376C00118788 /* WeightFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightFormatter.swift; sourceTree = "<group>"; };
 		CA79BCE324EE4A3F00118788 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
@@ -188,20 +153,16 @@
 		CABC964724F6713900020600 /* AccountSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsScreen.swift; sourceTree = "<group>"; };
 		CABC964A24F689D000020600 /* PasswordChangeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeScreen.swift; sourceTree = "<group>"; };
 		CABC964E24F689E900020600 /* EmailChangeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailChangeScreen.swift; sourceTree = "<group>"; };
-		CABC965724F7328400020600 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
-		CABC965A24F7328E00020600 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
-		CABC965D24F73C6200020600 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		CABC966024F740DF00020600 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
-		CABC966B24F7730900020600 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.swift; sourceTree = "<group>"; };
 		CABC967124F7A9A300020600 /* DeleteAccountEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountEndpoint.swift; sourceTree = "<group>"; };
 		CADC4BBF24ED613100D36160 /* SignInEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEndpoint.swift; sourceTree = "<group>"; };
 		CADC4BC224ED616400D36160 /* RetrieveInfoEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveInfoEndpoint.swift; sourceTree = "<group>"; };
 		CADC4BC424ED618400D36160 /* SaveEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEndpoint.swift; sourceTree = "<group>"; };
 		CAF553462545539500560B43 /* Entities */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Entities; path = Frameworks/Entities; sourceTree = "<group>"; };
-		CAF5536C2545546400560B43 /* Item+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+Codable.swift"; sourceTree = "<group>"; };
+		CAF5536C2545546400560B43 /* Item+Formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+Formatted.swift"; sourceTree = "<group>"; };
 		CAF5539F25455A7B00560B43 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DesignSystem; path = Frameworks/DesignSystem; sourceTree = "<group>"; };
-		CAFFB1B5254330D20039CB43 /* AppStorage+StoreKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage+StoreKey.swift"; sourceTree = "<group>"; };
+		CAF553D925455E4C00560B43 /* Repository */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Repository; path = Frameworks/Repository; sourceTree = "<group>"; };
 		CAFFB1DB25443DB90039CB43 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,6 +173,7 @@
 			files = (
 				CAF553AB25455AE200560B43 /* DesignSystem in Frameworks */,
 				CABC928324EF491700020600 /* SunburstDiagram in Frameworks */,
+				CAF553E025455E5800560B43 /* Repository in Frameworks */,
 				CAF5534E254553B400560B43 /* Entities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +212,7 @@
 		CA0989EE24EC17E4005B632D = {
 			isa = PBXGroup;
 			children = (
+				CAF553D925455E4C00560B43 /* Repository */,
 				CAF5539F25455A7B00560B43 /* DesignSystem */,
 				CAF553462545539500560B43 /* Entities */,
 				CA4FF63D254053540006540D /* SwiftSunburstDiagram */,
@@ -327,7 +290,7 @@
 		CA098ACB24ECDDD9005B632D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CAF5536C2545546400560B43 /* Item+Codable.swift */,
+				CAF5536C2545546400560B43 /* Item+Formatted.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -335,7 +298,6 @@
 		CA098AEF24ED002E005B632D /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				CABC966724F76E7100020600 /* Response */,
 				CADC4BBE24ED611C00D36160 /* Endpoints */,
 				CA098AF024ED0044005B632D /* LighterPackAccess.swift */,
 				CA098AF324ED00A5005B632D /* APIClient.swift */,
@@ -360,7 +322,6 @@
 				CABC93AE24EFBEB500020600 /* Color.swift */,
 				CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */,
 				CA6C074224F7E5CA009C208E /* String+Identifiable.swift */,
-				CAFFB1B5254330D20039CB43 /* AppStorage+StoreKey.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -375,39 +336,6 @@
 				CABC966624F743CF00020600 /* Session */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		CA3D82932542B5DA00D76431 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				CA3D82822542A8A800D76431 /* AppSetting.swift */,
-				CABC965724F7328400020600 /* SettingsStore.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		CA6C072E24F7AF24009C208E /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				CA6C072F24F7AF35009C208E /* FormError.swift */,
-			);
-			path = Error;
-			sourceTree = "<group>";
-		};
-		CA6C073124F7DD7F009C208E /* Session */ = {
-			isa = PBXGroup;
-			children = (
-				CABC965A24F7328E00020600 /* SessionStore.swift */,
-				CA6C074624FA4ED2009C208E /* SessionStore+DeleteAccount.swift */,
-				CA6C073C24F7E0DD009C208E /* SessionStore+EmailChange.swift */,
-				CA6C073824F7DE18009C208E /* SessionStore+Forgot.swift */,
-				CA6C073424F7DDFF009C208E /* SessionStore+Login.swift */,
-				CA6C073624F7DE0A009C208E /* SessionStore+Logout.swift */,
-				CA6C073E24F7E0EE009C208E /* SessionStore+PasswordChange.swift */,
-				CA6C073224F7DD91009C208E /* SessionStore+Register.swift */,
-				CA3D82932542B5DA00D76431 /* Settings */,
-			);
-			path = Session;
 			sourceTree = "<group>";
 		};
 		CA6C074824FA567B009C208E /* Feedback */ = {
@@ -466,7 +394,6 @@
 		CABC965624F7326500020600 /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				CAFFB22225444D680039CB43 /* Local */,
 				CA098AEF24ED002E005B632D /* Network */,
 				CABC966024F740DF00020600 /* AppStore.swift */,
 			);
@@ -481,16 +408,6 @@
 				CABC963A24F6651500020600 /* ForgotScreen.swift */,
 			);
 			path = Session;
-			sourceTree = "<group>";
-		};
-		CABC966724F76E7100020600 /* Response */ = {
-			isa = PBXGroup;
-			children = (
-				CA6C072E24F7AF24009C208E /* Error */,
-				CA098B1424ED2FA4005B632D /* Library.swift */,
-				CABC966B24F7730900020600 /* BaseResponse.swift */,
-			);
-			path = Response;
 			sourceTree = "<group>";
 		};
 		CADC4BBE24ED611C00D36160 /* Endpoints */ = {
@@ -541,7 +458,6 @@
 				CABC93B124EFC3C300020600 /* Sections */,
 				CA30256224ED688D00FCD4FE /* GearListCell.swift */,
 				CA30256624ED6CDB00FCD4FE /* CategoryItemCell.swift */,
-				CA30255F24ED679600FCD4FE /* GearListsScreen.swift */,
 				CA30256424ED696F00FCD4FE /* GearListScreen.swift */,
 			);
 			path = GearList;
@@ -569,27 +485,9 @@
 		CAFFB1DA25443DA90039CB43 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CA0989F524EC17E5005B632D /* ContentView.swift */,
 				CAFFB1DB25443DB90039CB43 /* HomeScreen.swift */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		CAFFB22125444D440039CB43 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				CABC965D24F73C6200020600 /* LibraryStore.swift */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
-		CAFFB22225444D680039CB43 /* Local */ = {
-			isa = PBXGroup;
-			children = (
-				CA6C073124F7DD7F009C208E /* Session */,
-				CAFFB22125444D440039CB43 /* Library */,
-			);
-			path = Local;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -612,6 +510,7 @@
 				CABC928224EF491700020600 /* SunburstDiagram */,
 				CAF5534D254553B400560B43 /* Entities */,
 				CAF553AA25455AE200560B43 /* DesignSystem */,
+				CAF553DF25455E5800560B43 /* Repository */,
 			);
 			productName = "LighterPack (iOS)";
 			productReference = CA0989FB24EC17E6005B632D /* LighterPack.app */;
@@ -789,51 +688,35 @@
 			files = (
 				CA30256724ED6CDB00FCD4FE /* CategoryItemCell.swift in Sources */,
 				CADC4BC024ED613100D36160 /* SignInEndpoint.swift in Sources */,
-				CA098A1F24EC17E6005B632D /* ContentView.swift in Sources */,
-				CA6C073724F7DE0A009C208E /* SessionStore+Logout.swift in Sources */,
 				CABC959624F4BBCB00020600 /* LoginScreen.swift in Sources */,
 				CABC927A24EE5E7F00020600 /* ProfileScreen.swift in Sources */,
 				CA79BCE824EE5A3300118788 /* ItemCell.swift in Sources */,
 				CABC967224F7A9A300020600 /* DeleteAccountEndpoint.swift in Sources */,
-				CA6C073524F7DDFF009C208E /* SessionStore+Login.swift in Sources */,
-				CA098B1524ED2FA4005B632D /* Library.swift in Sources */,
-				CA6C073324F7DD91009C208E /* SessionStore+Register.swift in Sources */,
 				CABC957E24F4033200020600 /* PriceFormatter.swift in Sources */,
-				CA6C073024F7AF35009C208E /* FormError.swift in Sources */,
-				CA6C074724FA4ED2009C208E /* SessionStore+DeleteAccount.swift in Sources */,
 				CA30256324ED688D00FCD4FE /* GearListCell.swift in Sources */,
 				CA6C074A24FA5691009C208E /* FeedbackLayer.swift in Sources */,
 				CABC963824F65F5500020600 /* RegistrationScreen.swift in Sources */,
 				CABC964424F66A7C00020600 /* RegisterEndpoint.swift in Sources */,
 				CABC964B24F689D000020600 /* PasswordChangeScreen.swift in Sources */,
-				CA6C073924F7DE18009C208E /* SessionStore+Forgot.swift in Sources */,
 				CABC93AF24EFBEB600020600 /* Color.swift in Sources */,
 				CA098AF424ED00A5005B632D /* APIClient.swift in Sources */,
 				CA6C074324F7E5CA009C208E /* String+Identifiable.swift in Sources */,
-				CAFFB1B6254330D20039CB43 /* AppStorage+StoreKey.swift in Sources */,
-				CA6C073F24F7E0EE009C208E /* SessionStore+PasswordChange.swift in Sources */,
 				CABC966F24F7733C00020600 /* KeyedDecodingContainer.swift in Sources */,
-				CAF5536D2545546400560B43 /* Item+Codable.swift in Sources */,
-				CA3D82832542A8A800D76431 /* AppSetting.swift in Sources */,
+				CAF5536D2545546400560B43 /* Item+Formatted.swift in Sources */,
 				CA455BB524FCF0CA00DF4C78 /* ItemScreen.swift in Sources */,
 				CABC965224F68A6C00020600 /* EmailChangeScreen.swift in Sources */,
-				CABC965B24F7328E00020600 /* SessionStore.swift in Sources */,
 				CABC964824F6713900020600 /* AccountSettingsScreen.swift in Sources */,
 				CABC93B324EFC3CE00020600 /* GearListCategorySection.swift in Sources */,
 				CA6C074524FA47B0009C208E /* ChangeEmailEndpoint.swift in Sources */,
 				CABC964124F66A6700020600 /* ForgotUsernameEndpoint.swift in Sources */,
 				CA098A1D24EC17E6005B632D /* LighterPackApp.swift in Sources */,
 				CA098B0624ED1972005B632D /* DictionaryLookup.swift in Sources */,
-				CA30256024ED679600FCD4FE /* GearListsScreen.swift in Sources */,
 				CA098AF124ED0044005B632D /* LighterPackAccess.swift in Sources */,
 				CA79BCE224EE376C00118788 /* WeightFormatter.swift in Sources */,
 				CA79BCE624EE59E400118788 /* ItemsListScreen.swift in Sources */,
-				CA6C073D24F7E0DD009C208E /* SessionStore+EmailChange.swift in Sources */,
 				CA6C074124F7E2AB009C208E /* ChangePasswordEndpoint.swift in Sources */,
-				CABC966C24F7730900020600 /* BaseResponse.swift in Sources */,
 				CABC963B24F6651500020600 /* ForgotScreen.swift in Sources */,
 				CABC966124F740DF00020600 /* AppStore.swift in Sources */,
-				CABC965E24F73C6200020600 /* LibraryStore.swift in Sources */,
 				CA30256524ED696F00FCD4FE /* GearListScreen.swift in Sources */,
 				CA6C073B24F7E08E009C208E /* DeleteAccountScreen.swift in Sources */,
 				CABC93B624EFC3FF00020600 /* GearListPieSection.swift in Sources */,
@@ -843,7 +726,6 @@
 				CABC963E24F66A5C00020600 /* ForgotPasswordEndpoint.swift in Sources */,
 				CAFFB1DC25443DB90039CB43 /* HomeScreen.swift in Sources */,
 				CA79BCE424EE4A3F00118788 /* NetworkImage.swift in Sources */,
-				CABC965824F7328400020600 /* SettingsStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,19 +736,12 @@
 				CADC4BC124ED614D00D36160 /* SignInEndpoint.swift in Sources */,
 				CABC964224F66A6700020600 /* ForgotUsernameEndpoint.swift in Sources */,
 				CABC957F24F4033300020600 /* PriceFormatter.swift in Sources */,
-				CA098A2024EC17E6005B632D /* ContentView.swift in Sources */,
 				CABC959724F4BBCB00020600 /* LoginScreen.swift in Sources */,
 				CABC963624F6512300020600 /* HTTPStatusCode.swift in Sources */,
-				CABC966D24F7730900020600 /* BaseResponse.swift in Sources */,
 				CABC965124F68A6B00020600 /* EmailChangeScreen.swift in Sources */,
-				CA3D82942542B5E100D76431 /* AppSetting.swift in Sources */,
-				CA098B1624ED2FA4005B632D /* Library.swift in Sources */,
 				CABC93B724EFC3FF00020600 /* GearListPieSection.swift in Sources */,
 				CABC966224F740DF00020600 /* AppStore.swift in Sources */,
-				CABC965F24F73C6200020600 /* LibraryStore.swift in Sources */,
 				CA098AF524ED00A5005B632D /* APIClient.swift in Sources */,
-				CABC965924F7328400020600 /* SettingsStore.swift in Sources */,
-				CABC965C24F7328E00020600 /* SessionStore.swift in Sources */,
 				CABC967324F7A9A300020600 /* DeleteAccountEndpoint.swift in Sources */,
 				CA098A1E24EC17E6005B632D /* LighterPackApp.swift in Sources */,
 				CA098B0724ED1972005B632D /* DictionaryLookup.swift in Sources */,
@@ -1351,6 +1226,10 @@
 		CAF553AA25455AE200560B43 /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;
+		};
+		CAF553DF25455E5800560B43 /* Repository */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Repository;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

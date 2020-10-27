@@ -1,28 +1,17 @@
 import Entities
 import SwiftUI
 import DesignSystem
+import Repository
 
 struct ProfileScreen: View {
 
     @EnvironmentObject var visualFeedback: VisualFeedbackState
-
-    @EnvironmentObject var sessionStore: SessionStore
-
-    @AppStorage(.username) private var username: String
-
-    @AppSetting(.currencySymbol) private var currencySymbol: String
-    @AppSetting(.itemUnit) private var itemUnit: WeightUnit
-    @AppSetting(.totalUnit) private var totalUnit: WeightUnit
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.showWorn) private var showWorn: Bool
-    @AppSetting(.showImages) private var showImages: Bool
-    @AppSetting(.showConsumable) private var showConsumable: Bool
-    @AppSetting(.showListDescription) private var showListDescription: Bool
+    @EnvironmentObject var repository: Repository
 
     var body: some View {
         Form {
             Section(header: SectionHeader(title: "Signed in as")) {
-                cell(text: username, icon: .profile)
+                cell(text: repository.username, icon: .profile)
                 NavigationLink(destination: AccountSettingsScreen()) {
                     cell(text: "Account settings", icon: .accountSettings)
                 }
@@ -31,27 +20,27 @@ struct ProfileScreen: View {
             Section(header: SectionHeader(title: "Settings")) {
                 HStack {
                     cell(text: "Currency", icon: .currency)
-                    TextField("Currency", text: $currencySymbol)
+                    TextField("Currency", text: $repository.currencySymbol)
                         .multilineTextAlignment(.trailing)
                 }
-                Toggle(isOn: $showImages) {
+                Toggle(isOn: $repository.showImages) {
                     cell(text: "Item images", icon: .images)
                 }
-                Toggle(isOn: $showPrice) {
+                Toggle(isOn: $repository.showPrice) {
                     cell(text: "Item prices", icon: .price)
                 }
 
-                Toggle(isOn: $showWorn) {
+                Toggle(isOn: $repository.showWorn) {
                     cell(text: "Worn items", icon: .worn)
                 }
-                Toggle(isOn: $showConsumable) {
+                Toggle(isOn: $repository.showConsumable) {
                     cell(text: "Consumable items", icon: .consumable)
                 }
-                Toggle(isOn: $showListDescription) {
+                Toggle(isOn: $repository.showListDescription) {
                     cell(text: "List descriptions", icon: .listDescription)
                 }
-                weightSelectorCell(text: "Total unit", binding: $totalUnit, icon: .totalWeightUnit)
-                weightSelectorCell(text: "Item unit", binding: $itemUnit, icon: .itemWeightUnit)
+                weightSelectorCell(text: "Total unit", binding: $repository.totalUnit, icon: .totalWeightUnit)
+                weightSelectorCell(text: "Item unit", binding: $repository.itemUnit, icon: .itemWeightUnit)
             }
 
             Section {
@@ -70,7 +59,7 @@ struct ProfileScreen: View {
     }
 
     func logout() {
-        sessionStore.logout()
+        repository.logout()
         visualFeedback.notify(
             .init(
                 message: "Logged out succesfully",

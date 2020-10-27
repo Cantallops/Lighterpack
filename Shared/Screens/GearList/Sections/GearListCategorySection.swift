@@ -1,34 +1,27 @@
 import SwiftUI
 import Entities
 import DesignSystem
+import Repository
 
 struct GearListCategorySection: View {
-    @EnvironmentObject var libraryStore: LibraryStore
-
-    @AppSetting(.totalUnit) private var totalUnit: WeightUnit
-    @AppSetting(.currencySymbol) private var currencySymbol: String
-    @AppSetting(.showWorn) private var showWorn: Bool
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.showConsumable) private var showConsumable: Bool
-    
+    @EnvironmentObject var repository: Repository
 
     @Binding var category: Entities.Category
-    var list: Entities.List
 
     var body: some View {
         Section(header: EditableSectionHeader(title: $category.name, placeholder: "Category", detail: {
             Button(action: {
-                libraryStore.remove(category: category)
+                repository.remove(categoryWithId: category.id)
             }) {
                 Icon(.remove)
             }.foregroundColor(Color(.systemRed))
         })) {
             ForEach(category.categoryItems) { (item: CategoryItem) in
-                CategoryItemCell(categoryItem: libraryStore.binding(forCategoryItem: item, in: category))
+                CategoryItemCell(categoryItem: repository.binding(forCategoryItem: item, in: category))
             }
             .onDelete(perform: remove)
             DisclosureGroup {
-                if showWorn {
+                if repository.showWorn {
                     resumeCell(
                         title: "Worn",
                         icon: .worn,
@@ -37,7 +30,7 @@ struct GearListCategorySection: View {
                         quantity: category.subtotalWornQty
                     )
                 }
-                if showConsumable {
+                if repository.showConsumable {
                     resumeCell(
                         title: "Cons.",
                         icon: .consumable,
@@ -66,8 +59,7 @@ struct GearListCategorySection: View {
     }
 
     func remove(indexSet: IndexSet) {
-        let categoryItems = indexSet.map { category.categoryItems[$0] }
-        libraryStore.remove(categoryItems: categoryItems, in: category)
+        category.categoryItems.remove(atOffsets: indexSet)
     }
 
     func resumeCell(title: String, icon: Icon.Token? = nil, price: Float, weight: Float, quantity: Int, titleWeight: Font.Weight? = nil) -> some View {
@@ -79,10 +71,10 @@ struct GearListCategorySection: View {
                 .fontWeight(titleWeight)
             Spacer()
             HStack {
-                if showPrice {
-                    Text(price.formattedPrice(currencySymbol)).frame(minWidth: 0, maxWidth: .infinity)
+                if repository.showPrice {
+                    Text(price.formattedPrice(repository.currencySymbol)).frame(minWidth: 0, maxWidth: .infinity)
                 }
-                Text(weight.formattedWeight(totalUnit)).frame(minWidth: 0, maxWidth: .infinity)
+                Text(weight.formattedWeight(repository.totalUnit)).frame(minWidth: 0, maxWidth: .infinity)
                 HStack(alignment: .lastTextBaseline, spacing: 0) {
                     Icon(.quantity)
                         .font(.caption2)

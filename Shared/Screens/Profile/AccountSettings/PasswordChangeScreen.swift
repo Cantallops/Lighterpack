@@ -1,12 +1,11 @@
 import SwiftUI
 import DesignSystem
+import Repository
 
 struct PasswordChangeScreen: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var repository: Repository
     @EnvironmentObject var visualFeedback: VisualFeedbackState
-
-    @AppStorage(.username) private var username: String
 
     @State private var currentPassword: String = ""
     @State private var newPassword: String = ""
@@ -24,7 +23,7 @@ struct PasswordChangeScreen: View {
     enum Status {
         case idle
         case requesting
-        case error(NetworkError.ErrorType)
+        case error(RepositoryError.ErrorType)
 
         var formErrors: [FormErrorEntry] {
             switch self {
@@ -53,7 +52,7 @@ struct PasswordChangeScreen: View {
     var body: some View {
         Form {
             Section {
-                Field("Username", text: $username, icon: .profile)
+                Field("Username", text: $repository.username, icon: .profile)
                     .disabled(true)
             }
             Section {
@@ -113,8 +112,8 @@ struct PasswordChangeScreen: View {
         withAnimation {
             status = .requesting
         }
-        sessionStore.changePassword(
-            username: username,
+        repository.changePassword(
+            username: repository.username,
             newPassword: newPassword,
             passwordConfirmation: passwordConfirmation,
             currentPassword: currentPassword
@@ -124,7 +123,8 @@ struct PasswordChangeScreen: View {
                 case .success:
                     success()
                     status = .idle
-                case .failure(let error): status = .error(error)
+                case .failure(let error):
+                    status = .error(error)
                 }
             }
         }

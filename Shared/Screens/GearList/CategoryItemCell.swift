@@ -1,24 +1,19 @@
 import SwiftUI
 import Entities
 import DesignSystem
+import Repository
 
 struct CategoryItemCell: View {
-    @EnvironmentObject var libraryStore: LibraryStore
+    @EnvironmentObject var repository: Repository
 
-    @AppSetting(.totalUnit) private var totalUnit: WeightUnit
-    @AppSetting(.currencySymbol) private var currencySymbol: String
-    @AppSetting(.showWorn) private var showWorn: Bool
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.showImages) private var showImages: Bool
-    @AppSetting(.showConsumable) private var showConsumable: Bool
 
     @Binding var categoryItem: CategoryItem
-    var item: Item? { libraryStore.item(withId: categoryItem.itemId) }
+    var item: Item? { repository.get(itemWithId: categoryItem.itemId) }
 
     var body: some View {
         if let item = item {
             HStack {
-                if let url = item.fullImageURL, showImages {
+                if let url = item.fullImageURL, repository.showImages {
                     NetworkImage(url: url)
                         .frame(width: 60, height: 60)
                         .cornerRadius(4)
@@ -33,10 +28,10 @@ struct CategoryItemCell: View {
                         if !item.url.isEmpty {
                             Icon(.link)
                         }
-                        if categoryItem.worn && showWorn {
+                        if categoryItem.worn && repository.showWorn {
                             Icon(.worn)
                         }
-                        if categoryItem.consumable && showConsumable {
+                        if categoryItem.consumable && repository.showConsumable {
                             Icon(.consumable)
                         }
                     }.font(.caption)
@@ -48,8 +43,8 @@ struct CategoryItemCell: View {
                 Spacer()
                 HStack {
                     VStack(alignment: .trailing) {
-                        if showPrice {
-                            Text(item.price.formattedPrice(currencySymbol))
+                        if repository.showPrice {
+                            Text(item.price.formattedPrice(repository.currencySymbol))
                         }
                         Text(item.formattedWeight)
                     }

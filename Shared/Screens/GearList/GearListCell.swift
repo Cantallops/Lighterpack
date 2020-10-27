@@ -1,20 +1,20 @@
 import SwiftUI
 import Entities
+import Repository
 
 struct GearListCell: View {
-    @AppSetting(.totalUnit) private var totalUnit: WeightUnit
-    @AppSetting(.currencySymbol) private var currencySymbol: String
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.showListDescription) private var showListDesc: Bool
+
+    @EnvironmentObject var repository: Repository
 
     var list: Entities.List
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(list.name)
-                if showListDesc && !list.description.isEmpty {
+                    .font(.system(.body, design: .rounded))
+                if repository.showListDescription && !list.description.isEmpty {
                     Text(list.description)
-                        .font(.footnote)
+                        .font(.system(.footnote, design: .rounded))
                         .lineLimit(1)
                         .foregroundColor(Color(.secondaryLabel))
                 }
@@ -22,10 +22,14 @@ struct GearListCell: View {
             Spacer()
             HStack {
                 VStack(alignment: .trailing) {
-                    if showPrice {
-                        Text(list.totalPrice.formattedPrice(currencySymbol))
+                    Text(list.totalWeight.formattedWeight(repository.totalUnit))
+                        .font(.system(.body, design: .rounded))
+
+                    if repository.showPrice {
+                        Text(list.totalPrice.formattedPrice(repository.currencySymbol))
+                            .font(.system(.body, design: .rounded))
+                            .foregroundColor(Color(.secondaryLabel))
                     }
-                    Text(list.totalWeight.formattedWeight(totalUnit))
                 }
             }
         }

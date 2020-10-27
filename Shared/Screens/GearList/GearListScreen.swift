@@ -2,15 +2,10 @@ import Entities
 import SwiftUI
 import Combine
 import DesignSystem
+import Repository
 
 struct GearListScreen: View {
-    @EnvironmentObject var libraryStore: LibraryStore
-    @EnvironmentObject var settingsStore: SettingsStore
-
-    @AppSetting(.totalUnit) private var totalUnit: WeightUnit
-    @AppSetting(.showPrice) private var showPrice: Bool
-    @AppSetting(.showListDescription) private var showDesc: Bool
-    @AppSetting(.currencySymbol) private var currencySymbol: String
+    @EnvironmentObject var repository: Repository
 
     @Binding var list: Entities.List
 
@@ -25,14 +20,15 @@ struct GearListScreen: View {
             Section(header: SectionHeader(title: "Title")) {
                 TextField("Title", text: $list.name)
             }
-            if showDesc {
+            if repository.showListDescription {
                 Section(header: SectionHeader(title: "Description")) {
                     TextEditor(text: $list.description)
                         .frame(maxHeight: 300)
                 }
             }
-            ForEach(libraryStore.categories(ofList: list)) { (category: Entities.Category) in
-                GearListCategorySection(category: libraryStore.binding(forCategory: category), list: list)
+
+            ForEach(list.categoryIds.compactMap({ repository.get(categoryWithId: $0)})) { (category: Entities.Category) in
+                GearListCategorySection(category: repository.binding(forCategory: category))
             }
         }
         .navigationBarItems(trailing: Button {

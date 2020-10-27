@@ -1,22 +1,22 @@
 import SwiftUI
 import Combine
 import DesignSystem
+import Repository
 
 struct RegistrationScreen: View {
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var repository: Repository
+
     @EnvironmentObject var visualFeedback: VisualFeedbackState
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var passwordConfirmation: String = ""
-
-    @AppStorage(.username) private var username: String
 
     @State private var status: Status = .idle
 
     enum Status {
         case idle
         case registering
-        case error(NetworkError.ErrorType)
+        case error(RepositoryError.ErrorType)
 
         var formErrors: [FormErrorEntry] {
             switch self {
@@ -59,7 +59,7 @@ struct RegistrationScreen: View {
             })  {
                 Field(
                     "Username",
-                    text: $username,
+                    text: $repository.username,
                     icon: .profile,
                     error: status.formErrors.of(.username)?.message
                 )
@@ -110,9 +110,9 @@ struct RegistrationScreen: View {
         withAnimation {
             status = .registering
         }
-        sessionStore.register(
+        repository.register(
             email: email,
-            username: username,
+            username: repository.username,
             password: password,
             passwordConfirmation: passwordConfirmation
         ) { result in
@@ -121,7 +121,7 @@ struct RegistrationScreen: View {
                 case .success:
                     visualFeedback.notify(
                         .init(
-                            message: "Register as \(username)",
+                            message: "Register as \(repository.username)",
                             style: .success
                         )
                     )

@@ -1,10 +1,24 @@
 import Foundation
 
-public struct LighterPackResponse: Codable {
-    let username: String
-    let library: Library
-    let syncToken: Int
+public struct LighterPackResponse {
+    public let username: String
+    public let library: Library
+    public let syncToken: Int
 
+    public init(
+        username: String,
+        library: Library,
+        syncToken: Int
+    ) {
+        self.username = username
+        self.library = library
+        self.syncToken = syncToken
+    }
+
+}
+
+
+extension LighterPackResponse: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.username = try container.decode(String.self, forKey: .username)

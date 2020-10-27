@@ -1,12 +1,11 @@
 import SwiftUI
 import DesignSystem
+import Repository
 
 struct EmailChangeScreen: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var repository: Repository
     @EnvironmentObject var visualFeedback: VisualFeedbackState
-
-    @AppStorage(.username) private var username: String
 
     @State private var email: String = ""
     @State private var currentPassword: String = ""
@@ -23,7 +22,7 @@ struct EmailChangeScreen: View {
     enum Status {
         case idle
         case requesting
-        case error(NetworkError.ErrorType)
+        case error(RepositoryError.ErrorType)
 
         var formErrors: [FormErrorEntry] {
             switch self {
@@ -52,7 +51,7 @@ struct EmailChangeScreen: View {
     var body: some View {
         Form {
             Section {
-                Field("Username", text: $username, icon: .profile)
+                Field("Username", text: $repository.username, icon: .profile)
                     .disabled(true)
                 Field(
                     "New email",
@@ -101,8 +100,8 @@ struct EmailChangeScreen: View {
         withAnimation {
             status = .requesting
         }
-        sessionStore.changeEmail(
-            username: username,
+        repository.changeEmail(
+            username: repository.username,
             email: email,
             currentPassword: currentPassword
         ) { result in
@@ -111,7 +110,8 @@ struct EmailChangeScreen: View {
                 case .success:
                     success()
                     status = .idle
-                case .failure(let error): status = .error(error)
+                case .failure(let error):
+                    status = .error(error)
                 }
             }
         }

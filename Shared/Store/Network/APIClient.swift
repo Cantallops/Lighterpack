@@ -1,4 +1,5 @@
 import Foundation
+import Repository
 
 public enum HttpMethod: String {
     case GET

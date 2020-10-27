@@ -10,6 +10,28 @@ public struct Item: Codable {
     public var image: String
     public var imageUrl: String
     public var url: String
+
+    public init(
+        id: Int,
+        name: String,
+        description: String,
+        weight: Float,
+        authorUnit: WeightUnit,
+        price: Float,
+        image: String,
+        imageUrl: String,
+        url: String
+    ) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.weight = weight
+        self.authorUnit = authorUnit
+        self.price = price
+        self.image = image
+        self.imageUrl = imageUrl
+        self.url = url
+    }
 }
 
 extension Item: Identifiable {}

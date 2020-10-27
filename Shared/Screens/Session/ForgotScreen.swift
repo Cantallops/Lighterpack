@@ -1,11 +1,12 @@
 import SwiftUI
 import Combine
 import DesignSystem
+import Repository
 
 struct ForgotScreen: View {
     @Environment(\.presentationMode) var presentationMode
 
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var repository: Repository
     @EnvironmentObject var visualFeedback: VisualFeedbackState
 
     @State private var usernameOrEmail: String = ""
@@ -38,7 +39,7 @@ struct ForgotScreen: View {
     enum Status {
         case idle
         case requesting
-        case error(NetworkError.ErrorType)
+        case error(RepositoryError.ErrorType)
 
         var formErrors: [FormErrorEntry] {
             switch self {
@@ -120,7 +121,7 @@ struct ForgotScreen: View {
     }
 
     func recoverPassword() {
-        sessionStore.forgotPassword(username: usernameOrEmail) { result in
+        repository.forgotPassword(username: usernameOrEmail) { result in
             withAnimation {
                 switch result {
                 case .success(let message):
@@ -137,7 +138,7 @@ struct ForgotScreen: View {
     }
 
     func recoverUsername() {
-        sessionStore.forgotUsername(email: usernameOrEmail) { result in
+        repository.forgotUsername(email: usernameOrEmail) { result in
             withAnimation {
                 switch result {
                 case .success(let message):

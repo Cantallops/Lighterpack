@@ -1,10 +1,10 @@
 import SwiftUI
 import DesignSystem
+import Repository
 
 struct DeleteAccountScreen: View {
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var repository: Repository
 
-    @AppStorage(.username) private var username: String
     @State private var currentPassword: String = ""
     @State private var confirmationText: String = ""
     @EnvironmentObject var visualFeedback: VisualFeedbackState
@@ -21,7 +21,7 @@ struct DeleteAccountScreen: View {
     enum Status {
         case idle
         case requesting
-        case error(NetworkError.ErrorType)
+        case error(RepositoryError.ErrorType)
 
         var formErrors: [FormErrorEntry] {
             switch self {
@@ -70,7 +70,7 @@ struct DeleteAccountScreen: View {
                 }
                 .foregroundColor(Color(.white))
                 .listRowBackground(Color(.systemBlue))
-                Field("Username", text: $username, icon: .profile)
+                Field("Username", text: $repository.username, icon: .profile)
                     .disabled(true)
                 Field(
                     "Current password",
@@ -111,8 +111,8 @@ struct DeleteAccountScreen: View {
         withAnimation {
             status = .requesting
         }
-        sessionStore.deleteAccount(
-            username: username,
+        repository.deleteAccount(
+            username: repository.username,
             currentPassword: currentPassword,
             confirmationText: confirmationText
         ) { result in
@@ -121,7 +121,8 @@ struct DeleteAccountScreen: View {
                 case .success:
                     success()
                     status = .idle
-                case .failure(let error): status = .error(error)
+                case .failure(let error):
+                    status = .error(error)
                 }
             }
         }

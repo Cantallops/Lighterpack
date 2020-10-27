@@ -1,78 +1,36 @@
 import Foundation
 import Combine
+import Entities
+import SwiftUI
+import Repository
 
-final class AppStore: ObservableObject {
-
-    let lighterPackAccess: LighterPackAccess
-    let sessionStore: SessionStore
-    let libraryStore: LibraryStore
-    let settingsStore: SettingsStore
-
-    private var fetcher: AnyCancellable?
-    private var cancellables: [AnyCancellable] = []
-
-    init(
-        lighterPackAccess: LighterPackAccess = .init(),
-        userDefaults: UserDefaults = .standard
-    ) {
-        let sessionStore = SessionStore(networkAccess: lighterPackAccess, userDefaults: userDefaults)
-        self.lighterPackAccess = lighterPackAccess
-        self.sessionStore = sessionStore
-        self.libraryStore = .init()
-        self.settingsStore = .init(userDefaults: userDefaults)
-
-        self.sessionStore.cookie.publisher
-            .sink { _ in
-                self.fetch()
-            }.store(in: &cancellables)
-    }
-}
-
-
-extension AppStore {
-
-    func fetch() {
-        guard sessionStore.isLoggedIn else { return }
-        if let cancellable = fetcher {
-            cancellable.cancel()
-        }
-        libraryStore.status = .loading
-        fetcher = lighterPackAccess.request(RetrieveInfoEndpoint())
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.libraryStore.status = .error(error, .init())
-                }
-            }, receiveValue: { [weak self] result in
-                do {
-                    try self?.sync(result)
-                } catch {
-                    self?.libraryStore.status = .error(error, .init())
-                }
-            })
+extension Repository {
+    func binding(forList list: Entities.List) -> Binding<Entities.List> {
+        return .init(get: {
+            list
+        }, set: update)
     }
 
-    private func sync(_ data: LighterPackResponse) throws {
-        sessionStore.username = data.username
-        sessionStore.syncToken = data.syncToken
-        let library = data.library
+    func binding(forItem item: Item) -> Binding<Item> {
+        return .init(get: {
+            item
+        }, set: update)
+    }
 
-        sessionStore.version = library.version
 
-        settingsStore.totalUnit = library.totalUnit
-        settingsStore.itemUnit = library.itemUnit
-        settingsStore.defaultListId = library.defaultListId
-        settingsStore.sequence = library.sequence
-        settingsStore.showSidebar = library.showSidebar
-        settingsStore.currencySymbol = library.currencySymbol
-        settingsStore.showConsumable = library.optionalFields.consumable
-        settingsStore.showWorn = library.optionalFields.worn
-        settingsStore.showImages = library.optionalFields.images
-        settingsStore.showListDescription = library.optionalFields.listDescription
-        settingsStore.showPrice = library.optionalFields.price
+    func binding(forCategoryItem item: CategoryItem, in category: Entities.Category) -> Binding<CategoryItem> {
+        return .init(get: {
+            item
+        }, set: { newCategoyItem in
+            var modifiedCategory = category
+            modifiedCategory.categoryItems.append(newCategoyItem)
+            self.update(category: modifiedCategory)
+        })
+    }
 
-        libraryStore.update(with: library)
+    func binding(forCategory category: Entities.Category) -> Binding<Entities.Category> {
+        return .init(get: {
+            category
+        }, set: update)
     }
 }
