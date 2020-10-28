@@ -85,7 +85,7 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
             promise(.success(LighterPackResponse(username: "Mock", library: self.library, syncToken: 3)))
         }
             .subscribe(on: DispatchQueue.global(qos: .background))
-            .delay(for: 5, scheduler: RunLoop.main)
+            //.delay(for: 5, scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 

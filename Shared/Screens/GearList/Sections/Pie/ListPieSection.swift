@@ -7,16 +7,41 @@ import Repository
 
 struct Pie: View {
     @ObservedObject var configuration: SunburstConfiguration
+    @StateObject var tempConf: SunburstConfiguration = {
+        let conf = SunburstConfiguration(nodes: [])
+        conf.maximumExpandedRingsShownCount = 1
+        conf.startingAngle = 90
+        return conf
+    }()
+
     var body: some View {
-        SunburstView(configuration: configuration)
-            .frame(minHeight: 260)
+        ZStack {
+            SunburstView(configuration: tempConf)
+                .disabled(true)
+                .onFirstAppear {
+                    tempConf.nodes = [
+                        Node(
+                            id: -2,
+                            name: "",
+                            desc: "",
+                            showName: false,
+                            value: 1,
+                            backgroundColor: Color(.secondarySystemFill),
+                            children: []
+                        )
+                    ]
+                    tempConf.calculationMode = .parentDependent(totalValue: 1)
+                }
+            SunburstView(configuration: configuration)
+        }
+        .frame(minHeight: 260)
     }
 }
 
 private struct ListPieSectionView: View {
 
     @EnvironmentObject var repository: Repository
-    @Environment(\.redactionReasons) private var redactedReasons
+    @Environment(\.redactionReasons) private var redactionReasons
 
     @ObservedObject var configuration: SunburstConfiguration
     @Binding var viewMode: ViewMode
@@ -80,14 +105,14 @@ private struct ListPieSectionView: View {
                 .buttonStyle(CategoryButtonStyle(selectedColor: selectionColor, selected: selectedId == node.id))
                 .eraseToAnyView()
 
-            }.disabled(!redactedReasons.isEmpty)
+            }.disabled(!redactionReasons.isEmpty)
             DisclosureGroup {
                 if repository.showWorn {
                     HStack {
                         Icon(.worn)
                         Text("Worn")
                         Spacer()
-                        Text(wornText).redacted(reason: redactedReasons)
+                        Text(wornText).redacted(reason: redactionReasons)
                     }
                 }
                 if repository.showConsumable {
@@ -95,20 +120,20 @@ private struct ListPieSectionView: View {
                         Icon(.consumable)
                         Text("Consumable")
                         Spacer()
-                        Text(consumableText).redacted(reason: redactedReasons)
+                        Text(consumableText).redacted(reason: redactionReasons)
                     }
                 }
                 HStack {
                     Icon(.baseWeight)
                     Text("Base weight")
                     Spacer()
-                    Text(baseText).redacted(reason: redactedReasons)
+                    Text(baseText).redacted(reason: redactionReasons)
                 }
             } label: {
                 HStack {
                     Text("Total").fontWeight(.bold)
                     Spacer()
-                    Text(totalText).redacted(reason: redactedReasons)
+                    Text(totalText).redacted(reason: redactionReasons)
                 }
             }.unredacted()
         }
@@ -145,7 +170,7 @@ private struct ListPieSectionView: View {
         .listRowInsets(EdgeInsets())
         .textCase(.none)
         .padding(.bottom)
-        .disabled(!redactedReasons.isEmpty)
+        .disabled(!redactionReasons.isEmpty)
     }
 }
 

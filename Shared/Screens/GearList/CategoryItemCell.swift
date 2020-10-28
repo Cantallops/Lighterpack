@@ -6,7 +6,6 @@ import Repository
 struct CategoryItemCell: View {
     @EnvironmentObject var repository: Repository
 
-
     @Binding var categoryItem: CategoryItem
     var item: Item? { repository.get(itemWithId: categoryItem.itemId) }
 
@@ -50,9 +49,7 @@ struct CategoryItemCell: View {
                     }
                     .foregroundColor(Color(.tertiaryLabel))
                     HStack(alignment: .lastTextBaseline, spacing: 0) {
-                        Icon(.quantity)
-                            .font(.caption)
-                        Text(String(categoryItem.qty))
+                        Text(String("𝗑\(categoryItem.qty)"))
                             .font(.title3)
                     }
                 }
