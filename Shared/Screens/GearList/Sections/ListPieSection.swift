@@ -13,7 +13,7 @@ struct Pie: View {
     }
 }
 
-private struct GearListPieSectionView: View {
+private struct ListPieSectionView: View {
 
     @EnvironmentObject var repository: Repository
     @Environment(\.redactionReasons) private var redactedReasons
@@ -149,13 +149,13 @@ private struct GearListPieSectionView: View {
     }
 }
 
-struct GearListPieSection: View {
+struct ListPieSection: View {
     @EnvironmentObject var repository: Repository
     
     var list: Entities.List
 
     @State private var disposable: AnyCancellable?
-    @State private var viewMode: GearListPieSectionView.ViewMode = .weight
+    @State private var viewMode: ListPieSectionView.ViewMode = .weight
 
     @StateObject private var conf: SunburstConfiguration = {
         let conf = SunburstConfiguration(nodes: [])
@@ -165,7 +165,7 @@ struct GearListPieSection: View {
     }()
 
     var body: some View {
-        GearListPieSectionView(
+        ListPieSectionView(
             configuration: conf,
             viewMode: .init(get: {
                 viewMode
@@ -230,7 +230,7 @@ struct GearListPieSection: View {
 private extension Entities.List {
     func pieNodes(
         repository: Repository,
-        calculateUsing viewMode: GearListPieSectionView.ViewMode
+        calculateUsing viewMode: ListPieSectionView.ViewMode
     ) -> [Node] {
         categoryIds.compactMap { (categoryID) in
             guard let category = repository.get(categoryWithId: categoryID)  else {
@@ -268,7 +268,7 @@ private extension Entities.Category {
 
     func pieNodes(
         repository: Repository,
-        calculateUsing viewMode: GearListPieSectionView.ViewMode
+        calculateUsing viewMode: ListPieSectionView.ViewMode
     ) -> [Node] {
         categoryItems
             .sorted(by: {
@@ -298,7 +298,7 @@ private extension CategoryItem {
     func pieNode(
         repository: Repository,
         color: Color?,
-        calculateUsing viewMode: GearListPieSectionView.ViewMode
+        calculateUsing viewMode: ListPieSectionView.ViewMode
     ) -> Node {
         guard let item = repository.get(itemWithId: itemId) else { fatalError() }
         var desc = "\(item.name): \(weight.formattedWeight(item.authorUnit))"

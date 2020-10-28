@@ -3,7 +3,7 @@ import Entities
 import DesignSystem
 import Repository
 
-struct GearListCategorySection: View {
+struct ListCategorySection: View {
     @EnvironmentObject var repository: Repository
 
     @Binding var category: Entities.Category

@@ -46,8 +46,8 @@ struct HomeScreen: View {
                         }
                     }).unredacted()) {
                         ForEach(repository.getAllLists()) { list in
-                            NavigationLink(destination: GearListScreen(list: repository.binding(forList: list))) {
-                                GearListCell(list: list)
+                            NavigationLink(destination: ListScreen(list: repository.binding(forList: list))) {
+                                ListCell(list: list)
                                     .redacted(reason: repository.isPlaceholder ? .placeholder : [])
                             }.unredacted()
                         }.onDelete(perform: removeList)

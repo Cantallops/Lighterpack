@@ -27,7 +27,7 @@ struct ListCreateScreen: View {
 
     var body: some View {
         if let list = createdList {
-            GearListScreen(list: repository.binding(forList: list))
+            ListScreen(list: repository.binding(forList: list))
         } else {
             SwiftUI.List {
                 Section(header: SectionHeader(title: "Title")) {

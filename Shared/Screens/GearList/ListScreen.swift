@@ -4,7 +4,7 @@ import Combine
 import DesignSystem
 import Repository
 
-struct GearListScreen: View {
+struct ListScreen: View {
     @EnvironmentObject var repository: Repository
 
     @Binding var list: Entities.List
@@ -16,7 +16,7 @@ struct GearListScreen: View {
 
     var body: some View {
         List {
-            GearListPieSection(list: list)
+            ListPieSection(list: list)
             Section(header: SectionHeader(title: "Title")) {
                 TextField("Title", text: $list.name)
             }
@@ -28,7 +28,7 @@ struct GearListScreen: View {
             }
 
             ForEach(list.categoryIds.compactMap({ repository.get(categoryWithId: $0)})) { (category: Entities.Category) in
-                GearListCategorySection(category: repository.binding(forCategory: category))
+                ListCategorySection(category: repository.binding(forCategory: category))
             }
         }
         .navigationBarItems(trailing: Button {

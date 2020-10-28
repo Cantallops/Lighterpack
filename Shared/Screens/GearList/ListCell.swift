@@ -2,7 +2,7 @@ import SwiftUI
 import Entities
 import Repository
 
-struct GearListCell: View {
+struct ListCell: View {
 
     @EnvironmentObject var repository: Repository
 
@@ -36,15 +36,15 @@ struct GearListCell: View {
     }
 }
 
-struct GearListCell_Previews: PreviewProvider {
+struct ListCell_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            GearListCell(list: .placeholder)
-            GearListCell(list: .placeholder)
+            ListCell(list: .placeholder)
+            ListCell(list: .placeholder)
                 .redacted(reason: .placeholder)
             Group {
-                GearListCell(list: .placeholder)
-                GearListCell(list: .placeholder)
+                ListCell(list: .placeholder)
+                ListCell(list: .placeholder)
                     .redacted(reason: .placeholder)
             }
             .background(Color(.systemBackground))
