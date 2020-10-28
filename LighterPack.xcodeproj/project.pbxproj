@@ -368,8 +368,8 @@
 		CABC93B124EFC3C300020600 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				CAC39F6E2549AE42006A4DC4 /* Pie */,
 				CABC93B224EFC3CE00020600 /* ListCategorySection.swift */,
-				CABC93B524EFC3FF00020600 /* ListPieSection.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -410,6 +410,14 @@
 				CABC963A24F6651500020600 /* ForgotScreen.swift */,
 			);
 			path = Session;
+			sourceTree = "<group>";
+		};
+		CAC39F6E2549AE42006A4DC4 /* Pie */ = {
+			isa = PBXGroup;
+			children = (
+				CABC93B524EFC3FF00020600 /* ListPieSection.swift */,
+			);
+			path = Pie;
 			sourceTree = "<group>";
 		};
 		CADC4BBE24ED611C00D36160 /* Endpoints */ = {

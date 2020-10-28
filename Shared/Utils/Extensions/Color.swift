@@ -2,6 +2,27 @@ import SwiftUI
 import Entities
 
 extension Color {
+
+    var components: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+            #if canImport(UIKit)
+            typealias NativeColor = UIColor
+            #elseif canImport(AppKit)
+            typealias NativeColor = NSColor
+            #endif
+
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            var a: CGFloat = 0
+
+            guard NativeColor(self).getRed(&r, green: &g, blue: &b, alpha: &a) else {
+                // You can handle the failure here as you want
+                return (0, 0, 0, 0)
+            }
+
+            return (r, g, b, a)
+        }
+
     public init?(hex: String) {
         guard let uiColor = UIColor(hex: hex) else { return nil }
         self.init(uiColor)
@@ -14,6 +35,15 @@ extension Color {
                     green: CGFloat(color.g)/255,
                     blue: CGFloat(color.b)/255,
                     alpha: 1)
+        )
+    }
+
+    var categoryColor: CategoryColor {
+        let (r,g,b,_) = components
+        return CategoryColor(
+            r: Int(r*255),
+            g: Int(g*255),
+            b: Int(b*255)
         )
     }
 }

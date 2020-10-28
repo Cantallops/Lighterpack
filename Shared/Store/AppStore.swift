@@ -23,7 +23,12 @@ extension Repository {
             self.get(categoryWithId: category.id)?.categoryItems.first(where: { $0.itemId == item.itemId }) ?? item
         }, set: { newCategoyItem in
             var modifiedCategory = category
-            modifiedCategory.categoryItems.append(newCategoyItem)
+            var items = modifiedCategory.categoryItems
+            guard let index = items.firstIndex(where: { item.id == $0.id }) else {
+                return
+            }
+            items[index] = newCategoyItem
+            modifiedCategory.categoryItems = items
             self.update(category: modifiedCategory)
         })
     }

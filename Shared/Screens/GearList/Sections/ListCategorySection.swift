@@ -9,13 +9,29 @@ struct ListCategorySection: View {
     @Binding var category: Entities.Category
 
     var body: some View {
-        Section(header: EditableSectionHeader(title: $category.name, placeholder: "Category", detail: {
-            Button(action: {
-                repository.remove(categoryWithId: category.id)
-            }) {
-                Icon(.remove)
-            }.foregroundColor(Color(.systemRed))
-        })) {
+        Section(
+            header: EditableSectionHeader(
+                title: $category.name,
+                placeholder: "Category",
+                leadingDetail: {
+                    ColorPicker(
+                        selection: .init(
+                            get: { Color(category.color) ?? .clear },
+                            set: { category.color = $0.categoryColor }
+                        ),
+                        supportsOpacity: false
+                    ) { EmptyView() }
+                    .fixedSize()
+                },
+                detail: {
+                    Button(action: {
+                        repository.remove(categoryWithId: category.id)
+                    }) {
+                        Icon(.remove)
+                    }.foregroundColor(Color(.systemRed))
+                }
+            )
+        ) {
             ForEach(category.categoryItems) { (item: CategoryItem) in
                 CategoryItemCell(categoryItem: repository.binding(forCategoryItem: item, in: category))
             }

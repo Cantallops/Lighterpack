@@ -58,7 +58,8 @@ extension SectionHeader where Detail == AnyView {
     }
 }
 
-public struct EditableSectionHeader<Detail> {
+public struct EditableSectionHeader<LeadingDetail, Detail> {
+    let leadingDetail: LeadingDetail
     let title: Binding<String>
     let placeholder: String
     let disabled: Bool
@@ -66,22 +67,25 @@ public struct EditableSectionHeader<Detail> {
 }
 
 
-extension EditableSectionHeader: View where Detail : View {
+extension EditableSectionHeader: View where LeadingDetail : View, Detail : View {
 
     public init(
         title: Binding<String>,
         placeholder: String,
         disabled: Bool = false,
+        @ViewBuilder leadingDetail: () -> LeadingDetail,
         @ViewBuilder detail: () -> Detail
     ) {
         self.title = title
         self.placeholder = placeholder
         self.disabled = disabled
+        self.leadingDetail = leadingDetail()
         self.detail = detail()
     }
 
     public var body: some View {
         HStack {
+            leadingDetail
             TextField(placeholder, text: title)
                 .font(Font.system(.title2, design: .rounded).bold())
                 .foregroundColor(Color(.label))

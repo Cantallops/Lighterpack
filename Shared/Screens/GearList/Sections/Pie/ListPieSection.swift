@@ -174,7 +174,7 @@ struct ListPieSection: View {
                 configure()
             }),
             list: list
-        ).onAppear {
+        ).onFirstAppear {
             configure()
         }.onReceive(repository.objectWillChange.eraseToAnyPublisher()) { _ in
             configure()
@@ -184,7 +184,7 @@ struct ListPieSection: View {
     func configure() {
         disposable = Just(list)
             .map(calculateNodes)
-            .receive(on: DispatchQueue.global(qos: .userInteractive))
+            //.receive(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { (nodes, total) in
                 let selectedId = conf.selectedNode?.id as? String
@@ -232,10 +232,7 @@ private extension Entities.List {
         repository: Repository,
         calculateUsing viewMode: ListPieSectionView.ViewMode
     ) -> [Node] {
-        categoryIds.compactMap { (categoryID) in
-            guard let category = repository.get(categoryWithId: categoryID)  else {
-                return nil
-            }
+        categoryIds.compactMap { repository.get(categoryWithId: $0) }.compactMap { category in
             var desc = "\(category.name): \(category.subtotalWeight.formattedWeight(repository.totalUnit))"
             var value: Double = Double(category.subtotalWeight)
             if repository.showPrice {
