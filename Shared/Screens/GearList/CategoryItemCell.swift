@@ -63,17 +63,6 @@ struct CategoryItemCell: View {
 
     @ViewBuilder
     private var contextMenu: some View {
-
-        /*Menu("Move to...") {
-            ForEach(libraryStore.categories(ofList: list)) { cat in
-                Button {
-                    onMove(category, cat)
-                } label: {
-                    Text(cat.name)
-                }
-            }
-        }
-        Divider()*/
         Group {
             if categoryItem.qty < Int.max {
                 Button {
@@ -99,20 +88,6 @@ struct CategoryItemCell: View {
                 Label("Consumable", icon: .consumable)
             }
         }
-        
-        /*
-         Slows down the list scroll
-         Menu {
-            Picker(selection: $categoryItem.star, label: Text("Star")) {
-                ForEach(StarColor.allCases, id: \.rawValue) {
-                    Label($0.title, icon: .star)
-                        .tag($0)
-                        .foregroundColor($0.color)
-                }
-            }
-        } label: {
-            Label("Star...", icon: .star)
-        }*/
     }
 }
 

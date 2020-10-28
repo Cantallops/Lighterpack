@@ -12,7 +12,7 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
         totalUnit: .kg,
         itemUnit: .g,
         defaultListId: 0,
-        sequence: 0,
+        sequence: 200,
         showSidebar: true,
         currencySymbol: "$",
         items: (0...32).map {
@@ -90,7 +90,6 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
     }
 
     public func update(library: Library) -> AnyPublisher<LighterPackResponse, Error> {
-
             Future { promise in
                 self.library = library
                 promise(.success(LighterPackResponse(username: "Mock", library: self.library, syncToken: 3)))

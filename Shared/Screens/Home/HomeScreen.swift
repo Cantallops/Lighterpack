@@ -6,8 +6,9 @@ import Repository
 struct HomeScreen: View {
     
     @EnvironmentObject var repository: Repository
-
+    @Namespace private var animation
     @State private var isShowingSettings = false
+    @State private var newList = false
 
     var body: some View {
         if repository.isLoggedIn {
@@ -28,8 +29,13 @@ struct HomeScreen: View {
                     }.unredacted()
 
                     Section(header: SectionHeader(title: "Lists", detail: {
+                        NavigationLink(destination: ListCreateScreen(), isActive: $newList) {
+                            Text("")
+                        }
                         Menu(content: {
-                            Button(action: {}) {
+                            Button(action: {
+                                newList = true
+                            }) {
                                 Label("New list", icon: .add)
                             }
                             Button(action: {}) {

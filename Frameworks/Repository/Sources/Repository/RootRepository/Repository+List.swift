@@ -29,11 +29,13 @@ public extension Repository {
     }
 
     func update(list: List) {
-        guard let index = localRepo.library.lists.firstIndex(where: { $0.id == list.id }) else {
+        var lists = localRepo.library.lists
+        guard let index = lists.firstIndex(where: { $0.id == list.id }) else {
             return
         }
-        guard list != localRepo.library.lists[index] else { return }
-        localRepo.library.lists[index] = list
+        guard list != lists[index] else { return }
+        lists[index] = list
+        localRepo.library.lists = lists
         localRepo.recompute()
         sync()
     }
@@ -88,7 +90,7 @@ public extension Repository {
     }
 }
 
-private extension Repository {
+public extension Repository {
     func get(listWithId id: Int) -> List? {
         let lists = localRepo.library.lists
         guard let index = lists.firstIndex(where: { $0.id == id }) else {

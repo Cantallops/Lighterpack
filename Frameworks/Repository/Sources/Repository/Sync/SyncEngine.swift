@@ -70,8 +70,11 @@ class SyncEngine: ObservableObject {
 
     func sync(forced: Bool = false) {
         Logger.sync.info("\(forced ? "Forced start" : "Start")")
+        if case .updating = status {
+            Logger.sync.info("Already updating, abort")
+            return
+        }
         stopTimer()
-        if case .updating = status { return }
         status = .updating
         remoteRepo
             .getInfo()
@@ -103,13 +106,15 @@ extension SyncEngine {
         }
     }
 
-    func updateLocal(_ response: LighterPackResponse) {
-        Logger.sync.info("Updating local")
-        localRepo.originalLibrary = response.library
+    func updateLocal(_ response: LighterPackResponse, partial: Bool = false) {
+        Logger.sync.info("Updating local (\(partial ? "Partially" : "Full"))")
         localRepo.username = response.username
         localRepo.syncToken = response.syncToken
-        localRepo.library = response.library
-        localRepo.recompute()
+        if !partial {
+            localRepo.originalLibrary = response.library
+            localRepo.library = response.library
+            localRepo.recompute()
+        }
         status = .updated(.init())
         Logger.sync.info("Updated!")
     }
@@ -127,7 +132,7 @@ extension SyncEngine {
                     self?.status = .error(error, .init())
                 }
             }, receiveValue: { [weak self] response in
-                self?.updateLocal(response)
+                self?.updateLocal(response, partial: true)
             })
             .store(in: &syncCancellables)
     }
