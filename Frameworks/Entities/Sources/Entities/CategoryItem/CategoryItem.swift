@@ -35,7 +35,7 @@ public enum StarColor: Int, CaseIterable, Codable {
     case red
     case green
 
-    var title: String {
+    public var title: String {
         switch self {
         case .none: return "None"
         case .yellow: return "Yellow"

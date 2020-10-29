@@ -12,10 +12,10 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
         totalUnit: .kg,
         itemUnit: .g,
         defaultListId: 0,
-        sequence: 200,
+        sequence: 600,
         showSidebar: true,
         currencySymbol: "$",
-        items: (0...32).map {
+        items: (0...200).map {
             Item(
                 id: $0,
                 name: "Item's name \($0)",
@@ -28,17 +28,17 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
                 url: ""
             )
         },
-        categories: (0...4).map { id in
+        categories: (0...20).map { id in
             Entities.Category(
                 id: id,
                 name: "Category \(id)",
                 categoryItems: (0...8).map {
                     CategoryItem(
-                        qty: 1,
-                        worn: false,
-                        consumable: false,
+                        qty: $0%2 == 0 ? 1 : 2,
+                        worn: $0%3 == 1,
+                        consumable: $0%3 != 1,
                         star: .none,
-                        itemId: $0+4+id,
+                        itemId: $0+(9*id),
                         price: 0,
                         weight: 0
                     )
@@ -54,14 +54,14 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
                 subtotalConsumableQty: 0,
                 activeHover: false,
                 displayColor: nil,
-                color: nil
+                color: CategoryColor(r: id*50%255, g: id*10%255, b: id*5%255)
             )
         },
-        lists: (0...3).map {
+        lists: (0...4).map { id in
             return List(
-                id: $0,
-                name: "List \($0)",
-                categoryIds: [0, 1, 2, 3],
+                id: id,
+                name: "List \(id)",
+                categoryIds: (0...4).map { $0 + (4 * id) },
                 description: "Description",
                 externalId: "",
                 totalWeight: 10,
@@ -80,7 +80,7 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
 
     public init() {}
 
-    public func getInfo() -> AnyPublisher<LighterPackResponse, Error> {
+    public func getInfo(cookie: String) -> AnyPublisher<LighterPackResponse, Error> {
         Future { promise in
             promise(.success(LighterPackResponse(username: "Mock", library: self.library, syncToken: 3)))
         }
@@ -89,18 +89,21 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
             .eraseToAnyPublisher()
     }
 
-    public func update(library: Library) -> AnyPublisher<LighterPackResponse, Error> {
+    public func update(username: String, library: Library, syncToken: Int, cookie: String) -> AnyPublisher<Int, Error> {
             Future { promise in
                 self.library = library
-                promise(.success(LighterPackResponse(username: "Mock", library: self.library, syncToken: 3)))
+                promise(.success(3))
             }
                 .subscribe(on: DispatchQueue.global(qos: .background))
                 .eraseToAnyPublisher()
     }
 
 
-    public func login(username: String, password: String) -> AnyPublisher<Void, Error> {
-        Future { promise in promise(.success(()))}.eraseToAnyPublisher()
+    public func login(username: String, password: String) -> AnyPublisher<String, Error> {
+        Future { promise in promise(.success("cookie"))}
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .delay(for: 5, scheduler: RunLoop.main)
+            .eraseToAnyPublisher()
     }
     public func logout(username: String) -> AnyPublisher<Void, Error> {
         Future { promise in promise(.success(()))}.eraseToAnyPublisher()
@@ -108,16 +111,16 @@ public class MockLighterPackRemoteRepository: RemoteRepository {
     public func register(email: String, username: String, password: String) -> AnyPublisher<Void, Error> {
         Future { promise in promise(.success(()))}.eraseToAnyPublisher()
     }
-    public func changeEmail(with email: String, ofUsername usernam: String, password: String) -> AnyPublisher<Void, Error> {
+    public func changeEmail(with email: String, ofUsername username: String, password: String, cookie: String) -> AnyPublisher<Void, Error> {
         Future { promise in promise(.success(()))}.eraseToAnyPublisher()
     }
     public func forgotPassword(ofUsername username: String) -> AnyPublisher<Void, Error> {
         Future { promise in promise(.success(()))}.eraseToAnyPublisher()
     }
-    public func changePassword(ofUsername username: String, password: String, newPassword: String) -> AnyPublisher<Void, Error> {
+    public func changePassword(ofUsername username: String, password: String, newPassword: String, cookie: String) -> AnyPublisher<Void, Error> {
         Future { promise in promise(.success(()))}.eraseToAnyPublisher()
     }
-    public func deleteAccount(username: String, password: String) -> AnyPublisher<Void, Error> {
+    public func deleteAccount(username: String, password: String, cookie: String) -> AnyPublisher<Void, Error> {
         Future { promise in promise(.success(()))}.eraseToAnyPublisher()
     }
 }

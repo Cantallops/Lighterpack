@@ -12,21 +12,18 @@ public struct ChangePasswordEndpoint: Endpoint {
         ]
     }
 
+    public var headers: [String : String] {
+        [
+            "Cookie": cookie
+        ]
+    }
+
     public var authenticated: Bool { true }
 
     let username: String
     let currentPassword: String
     let newPassword: String
-
-    public init(
-        username: String,
-        currentPassword: String,
-        newPassword: String
-    ) {
-        self.username = username
-        self.currentPassword = currentPassword
-        self.newPassword = newPassword
-    }
+    let cookie: String
 }
 
 public struct ChangePasswordResponse: Codable {

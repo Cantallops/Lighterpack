@@ -87,7 +87,7 @@ public extension Icon.Token {
     static let email = Token(rawValue: "envelope.fill", originalColor: .systemBlue)
     static let questionMark = Token(rawValue: "questionmark")
 
-    static let addCategory = Token(rawValue: "rectangle.stack.badge.plus")
+    static let addCategory = Token(rawValue: "rectangle.stack.badge.plus", defaultRenderingMode: .original)
     static let remove = Token(rawValue: "minus.circle.fill")
     static let delete = Token(rawValue: "trash")
     static let add = Token(rawValue: "plus.circle.fill", originalColor: .systemGreen)
@@ -106,7 +106,7 @@ public extension Icon.Token {
     static let confirmation = Token(rawValue: "checkmark.circle.fill")
 
     static let close = Token(rawValue: "xmark.circle.fill", originalColor: .tertiaryLabel)
-
+    static let rearrange = Token(rawValue: "rectangle.stack")
 
     enum Sort {
 

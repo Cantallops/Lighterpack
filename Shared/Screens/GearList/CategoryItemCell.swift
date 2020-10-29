@@ -85,6 +85,18 @@ struct CategoryItemCell: View {
                 Label("Consumable", icon: .consumable)
             }
         }
+        Divider()
+        Menu {
+           Picker(selection: $categoryItem.star, label: Text("Star")) {
+               ForEach(StarColor.allCases, id: \.rawValue) {
+                   Label($0.title, icon: .star)
+                       .tag($0)
+                       .foregroundColor($0.color)
+               }
+           }
+       } label: {
+           Label("Star...", icon: .star)
+       }
     }
 }
 

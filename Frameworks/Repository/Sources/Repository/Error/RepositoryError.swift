@@ -8,6 +8,7 @@ public struct RepositoryError: Error {
         case message(String)
         case messages([ErrorMessage])
         case form([FormErrorEntry])
+        case unauthenticated(String)
         case unknown
     }
 }
@@ -40,6 +41,8 @@ extension RepositoryError.ErrorType: LocalizedError {
             return errors.map { $0.message }.joined(separator: "\n")
         case .unknown:
             return "Unknown error please, try again"
+        case .unauthenticated(let message):
+            return message
         case .message(let message):
             return message
         }

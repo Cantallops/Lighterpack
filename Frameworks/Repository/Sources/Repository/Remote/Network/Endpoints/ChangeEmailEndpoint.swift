@@ -11,22 +11,16 @@ public struct ChangeEmailEndpoint: Endpoint {
             "currentPassword": currentPassword
         ]
     }
-
-    public var authenticated: Bool { true }
+    public var headers: [String : String] {
+        [
+            "Cookie": cookie
+        ]
+    }
 
     let username: String
     let currentPassword: String
     let email: String
-
-    public init(
-        username: String,
-        currentPassword: String,
-        email: String
-    ) {
-        self.username = username
-        self.currentPassword = currentPassword
-        self.email = email
-    }
+    let cookie: String
 }
 
 public struct ChangeEmailResponse: Codable {

@@ -16,8 +16,8 @@ public struct ForgotPasswordEndpoint: Endpoint {
         self.username = username
     }
 
-    public func processNetworkError(_ error: NetworkError) -> NetworkError {
-        guard error.codeStatus == .unauthorized || error.codeStatus == .notFound else {
+    public func processNetworkError(_ error: RepositoryError) -> RepositoryError {
+        guard error.codeStatus == HTTPStatusCode.unauthorized.rawValue || error.codeStatus == HTTPStatusCode.notFound.rawValue else {
             return error
         }
         
@@ -25,7 +25,7 @@ public struct ForgotPasswordEndpoint: Endpoint {
         if username.isEmpty {
             message = "Please enter a username."
         }
-        return NetworkError(
+        return RepositoryError(
             codeStatus: error.codeStatus,
             error: .form([
                 .init(field: .username, message: message)

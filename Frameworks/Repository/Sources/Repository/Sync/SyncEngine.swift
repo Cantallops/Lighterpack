@@ -48,8 +48,7 @@ class SyncEngine: ObservableObject {
     }
 
     func start() {
-        guard !started else { return }
-        started = true
+        guard !started, localRepo.cookie != nil else { return }
         sync()
     }
 
@@ -69,21 +68,34 @@ class SyncEngine: ObservableObject {
     }
 
     func sync(forced: Bool = false) {
+        started = true
         Logger.sync.info("\(forced ? "Forced start" : "Start")")
-        if case .updating = status {
+        guard let cookie = localRepo.cookie else {
+            Logger.sync.info("User not logged in")
+            return
+        }
+        if case .updating = status{
             Logger.sync.info("Already updating, abort")
             return
         }
         stopTimer()
         status = .updating
         remoteRepo
-            .getInfo()
+            .getInfo(cookie: cookie)
             .receive(on: DispatchQueue.global(qos: .utility))
             .sink { [weak self] result in
                 switch result {
                 case .finished: break
                 case .failure(let error):
                     Logger.sync.error("Fail on fetching from repo \(error.localizedDescription)")
+                    if let repoError = error as? RepositoryError {
+                        switch repoError.error {
+                        case .unauthenticated:
+                            self?.localRepo.cookie = nil
+                        default:
+                            break
+                        }
+                    }
                     self?.status = .error(error, .init())
                 }
             } receiveValue: { [weak self] response in
@@ -106,22 +118,31 @@ extension SyncEngine {
         }
     }
 
-    func updateLocal(_ response: LighterPackResponse, partial: Bool = false) {
-        Logger.sync.info("Updating local (\(partial ? "Partially" : "Full"))")
+    func updateLocal(_ response: LighterPackResponse) {
+        Logger.sync.info("Updating local")
         localRepo.username = response.username
         localRepo.syncToken = response.syncToken
-        if !partial {
-            localRepo.originalLibrary = response.library
-            localRepo.library = response.library
-            localRepo.recompute()
-        }
+        localRepo.originalLibrary = response.library
+        localRepo.library = response.library
+        localRepo.recompute()
+        status = .updated(.init())
+        Logger.sync.info("Updated!")
+    }
+
+    func updateSyncToken(_ syncToken: Int) {
+        Logger.sync.info("Updating sync token")
+        localRepo.syncToken = syncToken
         status = .updated(.init())
         Logger.sync.info("Updated!")
     }
 
     func updateRemote(library: Library) {
         Logger.sync.info("Updating remote")
-        remoteRepo.update(library: library)
+        guard let cookie = localRepo.cookie else {
+            Logger.sync.info("User not logged in")
+            return
+        }
+        remoteRepo.update(username: localRepo.username, library: library, syncToken: localRepo.syncToken, cookie: cookie)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
@@ -129,10 +150,18 @@ extension SyncEngine {
                     Logger.sync.info("Remote updated!")
                 case .failure(let error):
                     Logger.sync.error("Fail on updating repo \(error.localizedDescription)")
+                    if let repoError = error as? RepositoryError {
+                        switch repoError.error {
+                        case .unauthenticated:
+                            self?.localRepo.cookie = nil
+                        default:
+                            break
+                        }
+                    }
                     self?.status = .error(error, .init())
                 }
             }, receiveValue: { [weak self] response in
-                self?.updateLocal(response, partial: true)
+                self?.updateSyncToken(response)
             })
             .store(in: &syncCancellables)
     }

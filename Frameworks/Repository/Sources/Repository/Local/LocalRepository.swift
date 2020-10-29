@@ -8,6 +8,8 @@ public protocol LocalRepository {
     var originalLibrary: Library? { get set }
     var syncToken: Int { get set }
 
+    var cookie: String? { get set }
+
     func recompute()
 }
 
@@ -15,14 +17,22 @@ public extension LocalRepository {
     var hasChanges: Bool {
         library != originalLibrary
     }
+
+    mutating func logout() {
+        library = .placeholder
+        originalLibrary = nil
+        syncToken = 0
+        cookie = nil
+    }
 }
 
 
 public class AppLocalRepository: LocalRepository, ObservableObject {
-    @Published public var username: String = "Loading..."
+    @Published public var username: String = ""
     @Published public var library: Library = .placeholder
     @Published public var originalLibrary: Library?
     @Published public var syncToken: Int = 0
+    @Published public var cookie: String?
 
     public init() {}
 

@@ -9,11 +9,21 @@ public extension Repository {
     }
 
     var isLoggedIn: Bool {
-        return true
+        return localRepo.cookie != nil
     }
 
     func logout() {
+        remoteRepo.logout(username: username)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] result in
+                switch result {
+                case .finished: break
+                case .failure: break
+                }
+                self?.localRepo.logout()
+            } receiveValue: { _ in
 
+            }.store(in: &cancellables)
     }
 
     func login(
@@ -45,7 +55,10 @@ public extension Repository {
                     }
                     completion(.failure(networkError.error))
                 }
-            }, receiveValue: { _ in }
+            }, receiveValue: { [weak self] cookie in
+                self?.localRepo.cookie = cookie
+                self?.syncEngine.sync(forced: true)
+            }
         ).store(in: &cancellables)
     }
 
@@ -100,6 +113,10 @@ public extension Repository {
         currentPassword: String,
         completion: @escaping (Result<Void, RepositoryError.ErrorType>) -> Void
     ) {
+        guard let cookie = localRepo.cookie else {
+            completion(.failure(.message("No user is signed in")))
+            return
+        }
         var errors: [FormErrorEntry] = []
         if email.isEmpty {
             errors.append(.init(field: .email, message: "Please enter a new email."))
@@ -111,7 +128,7 @@ public extension Repository {
             completion(.failure(.form(errors)))
             return
         }
-        remoteRepo.changeEmail(with: email, ofUsername: username, password: currentPassword)
+        remoteRepo.changeEmail(with: email, ofUsername: username, password: currentPassword, cookie: cookie)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -180,6 +197,10 @@ public extension Repository {
         currentPassword: String,
         completion: @escaping (Result<Void, RepositoryError.ErrorType>) -> Void
     ) {
+        guard let cookie = localRepo.cookie else {
+            completion(.failure(.message("No user is signed in")))
+            return
+        }
         var errors: [FormErrorEntry] = []
         if newPassword.isEmpty {
             errors.append(.init(field: .newPassword, message: "Please enter a new password."))
@@ -200,7 +221,8 @@ public extension Repository {
         remoteRepo.changePassword(
             ofUsername: username,
             password: currentPassword,
-            newPassword: newPassword
+            newPassword: newPassword,
+            cookie: cookie
         )
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { result in
@@ -224,6 +246,10 @@ public extension Repository {
         confirmationText: String,
         completion: @escaping (Result<Void, RepositoryError.ErrorType>) -> Void
     ) {
+        guard let cookie = localRepo.cookie else {
+            completion(.failure(.message("No user is signed in")))
+            return
+        }
         var errors: [FormErrorEntry] = []
         if currentPassword.isEmpty {
             errors.append(.init(field: .currentPassword, message: "Please enter your current password."))
@@ -237,7 +263,11 @@ public extension Repository {
             completion(.failure(.form(errors)))
             return
         }
-        remoteRepo.deleteAccount(username: username, password: currentPassword)
+        remoteRepo.deleteAccount(
+            username: username,
+            password: currentPassword,
+            cookie: cookie
+        )
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { result in
                 switch result {

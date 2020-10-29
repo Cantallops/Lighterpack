@@ -30,6 +30,15 @@ struct ListScreen: View {
             ForEach(list.categoryIds.compactMap({ repository.get(categoryWithId: $0)})) { (category: Entities.Category) in
                 ListCategorySection(category: repository.binding(forCategory: category))
             }
+
+            Section {
+                Button(action: {}, label: {
+                    Label("Add new category", icon: .addCategory)
+                })
+                Button(action: {}, label: {
+                    Label("Rearrange categories", icon: .rearrange)
+                })
+            }
         }
         .navigationBarItems(trailing: Button {
             if list.shareUrl == nil {

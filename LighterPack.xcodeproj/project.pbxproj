@@ -13,10 +13,6 @@
 		CA098A1E24EC17E6005B632D /* LighterPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F424EC17E5005B632D /* LighterPackApp.swift */; };
 		CA098A2124EC17E6005B632D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA0989F624EC17E6005B632D /* Assets.xcassets */; };
 		CA098A2224EC17E6005B632D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA0989F624EC17E6005B632D /* Assets.xcassets */; };
-		CA098AF124ED0044005B632D /* LighterPackAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098AF024ED0044005B632D /* LighterPackAccess.swift */; };
-		CA098AF224ED0044005B632D /* LighterPackAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098AF024ED0044005B632D /* LighterPackAccess.swift */; };
-		CA098AF424ED00A5005B632D /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098AF324ED00A5005B632D /* APIClient.swift */; };
-		CA098AF524ED00A5005B632D /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098AF324ED00A5005B632D /* APIClient.swift */; };
 		CA098AFD24ED110A005B632D /* LighterPackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098AFC24ED110A005B632D /* LighterPackTests.swift */; };
 		CA098B0624ED1972005B632D /* DictionaryLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098B0524ED1972005B632D /* DictionaryLookup.swift */; };
 		CA098B0724ED1972005B632D /* DictionaryLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098B0524ED1972005B632D /* DictionaryLookup.swift */; };
@@ -25,9 +21,7 @@
 		CA30256724ED6CDB00FCD4FE /* CategoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30256624ED6CDB00FCD4FE /* CategoryItemCell.swift */; };
 		CA455BB524FCF0CA00DF4C78 /* ItemScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA455BB424FCF0CA00DF4C78 /* ItemScreen.swift */; };
 		CA6C073B24F7E08E009C208E /* DeleteAccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C073A24F7E08E009C208E /* DeleteAccountScreen.swift */; };
-		CA6C074124F7E2AB009C208E /* ChangePasswordEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */; };
 		CA6C074324F7E5CA009C208E /* String+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074224F7E5CA009C208E /* String+Identifiable.swift */; };
-		CA6C074524FA47B0009C208E /* ChangeEmailEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */; };
 		CA6C074A24FA5691009C208E /* FeedbackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6C074924FA5691009C208E /* FeedbackLayer.swift */; };
 		CA79BCE224EE376C00118788 /* WeightFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCE124EE376C00118788 /* WeightFormatter.swift */; };
 		CA79BCE424EE4A3F00118788 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79BCE324EE4A3F00118788 /* NetworkImage.swift */; };
@@ -45,34 +39,19 @@
 		CABC957F24F4033300020600 /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC957D24F4033200020600 /* PriceFormatter.swift */; };
 		CABC959624F4BBCB00020600 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC959524F4BBCB00020600 /* LoginScreen.swift */; };
 		CABC959724F4BBCB00020600 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC959524F4BBCB00020600 /* LoginScreen.swift */; };
-		CABC963524F6512300020600 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC963424F6512300020600 /* HTTPStatusCode.swift */; };
-		CABC963624F6512300020600 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC963424F6512300020600 /* HTTPStatusCode.swift */; };
 		CABC963824F65F5500020600 /* RegistrationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC963724F65F5500020600 /* RegistrationScreen.swift */; };
 		CABC963924F65F5500020600 /* RegistrationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC963724F65F5500020600 /* RegistrationScreen.swift */; };
 		CABC963B24F6651500020600 /* ForgotScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC963A24F6651500020600 /* ForgotScreen.swift */; };
 		CABC963C24F6651500020600 /* ForgotScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC963A24F6651500020600 /* ForgotScreen.swift */; };
-		CABC963E24F66A5C00020600 /* ForgotPasswordEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC963D24F66A5C00020600 /* ForgotPasswordEndpoint.swift */; };
-		CABC963F24F66A5C00020600 /* ForgotPasswordEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC963D24F66A5C00020600 /* ForgotPasswordEndpoint.swift */; };
-		CABC964124F66A6700020600 /* ForgotUsernameEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964024F66A6700020600 /* ForgotUsernameEndpoint.swift */; };
-		CABC964224F66A6700020600 /* ForgotUsernameEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964024F66A6700020600 /* ForgotUsernameEndpoint.swift */; };
-		CABC964424F66A7C00020600 /* RegisterEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964324F66A7C00020600 /* RegisterEndpoint.swift */; };
-		CABC964524F66A7C00020600 /* RegisterEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964324F66A7C00020600 /* RegisterEndpoint.swift */; };
 		CABC964824F6713900020600 /* AccountSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964724F6713900020600 /* AccountSettingsScreen.swift */; };
 		CABC964924F6713900020600 /* AccountSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964724F6713900020600 /* AccountSettingsScreen.swift */; };
 		CABC964B24F689D000020600 /* PasswordChangeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964A24F689D000020600 /* PasswordChangeScreen.swift */; };
 		CABC964C24F689D000020600 /* PasswordChangeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964A24F689D000020600 /* PasswordChangeScreen.swift */; };
 		CABC965124F68A6B00020600 /* EmailChangeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964E24F689E900020600 /* EmailChangeScreen.swift */; };
 		CABC965224F68A6C00020600 /* EmailChangeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC964E24F689E900020600 /* EmailChangeScreen.swift */; };
-		CABC966124F740DF00020600 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966024F740DF00020600 /* AppStore.swift */; };
-		CABC966224F740DF00020600 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966024F740DF00020600 /* AppStore.swift */; };
 		CABC966F24F7733C00020600 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */; };
 		CABC967024F7733C00020600 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */; };
-		CABC967224F7A9A300020600 /* DeleteAccountEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC967124F7A9A300020600 /* DeleteAccountEndpoint.swift */; };
-		CABC967324F7A9A300020600 /* DeleteAccountEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC967124F7A9A300020600 /* DeleteAccountEndpoint.swift */; };
-		CADC4BC024ED613100D36160 /* SignInEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC4BBF24ED613100D36160 /* SignInEndpoint.swift */; };
-		CADC4BC124ED614D00D36160 /* SignInEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC4BBF24ED613100D36160 /* SignInEndpoint.swift */; };
-		CADC4BC324ED616400D36160 /* RetrieveInfoEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC4BC224ED616400D36160 /* RetrieveInfoEndpoint.swift */; };
-		CADC4BC524ED618400D36160 /* SaveEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC4BC424ED618400D36160 /* SaveEndpoint.swift */; };
+		CAC39F7A254A5721006A4DC4 /* Repositry+Bindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC39F79254A5721006A4DC4 /* Repositry+Bindings.swift */; };
 		CADD5F4225486E63008B0896 /* ListCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADD5F4125486E63008B0896 /* ListCreateScreen.swift */; };
 		CAF5534E254553B400560B43 /* Entities in Frameworks */ = {isa = PBXBuildFile; productRef = CAF5534D254553B400560B43 /* Entities */; };
 		CAF5536D2545546400560B43 /* Item+Formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF5536C2545546400560B43 /* Item+Formatted.swift */; };
@@ -119,8 +98,6 @@
 		CA098A1624EC17E6005B632D /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA098A1A24EC17E6005B632D /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		CA098A1C24EC17E6005B632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CA098AF024ED0044005B632D /* LighterPackAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighterPackAccess.swift; sourceTree = "<group>"; };
-		CA098AF324ED00A5005B632D /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		CA098AFA24ED110A005B632D /* LighterPackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighterPackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA098AFC24ED110A005B632D /* LighterPackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighterPackTests.swift; sourceTree = "<group>"; };
 		CA098AFE24ED110A005B632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -131,9 +108,7 @@
 		CA455BB424FCF0CA00DF4C78 /* ItemScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemScreen.swift; sourceTree = "<group>"; };
 		CA4FF63D254053540006540D /* SwiftSunburstDiagram */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftSunburstDiagram; path = ../../Frameworks/SwiftSunburstDiagram; sourceTree = "<group>"; };
 		CA6C073A24F7E08E009C208E /* DeleteAccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountScreen.swift; sourceTree = "<group>"; };
-		CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordEndpoint.swift; sourceTree = "<group>"; };
 		CA6C074224F7E5CA009C208E /* String+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Identifiable.swift"; sourceTree = "<group>"; };
-		CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailEndpoint.swift; sourceTree = "<group>"; };
 		CA6C074924FA5691009C208E /* FeedbackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackLayer.swift; sourceTree = "<group>"; };
 		CA79BCE124EE376C00118788 /* WeightFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightFormatter.swift; sourceTree = "<group>"; };
 		CA79BCE324EE4A3F00118788 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
@@ -145,21 +120,13 @@
 		CABC93B524EFC3FF00020600 /* ListPieSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPieSection.swift; sourceTree = "<group>"; };
 		CABC957D24F4033200020600 /* PriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
 		CABC959524F4BBCB00020600 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
-		CABC963424F6512300020600 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
 		CABC963724F65F5500020600 /* RegistrationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreen.swift; sourceTree = "<group>"; };
 		CABC963A24F6651500020600 /* ForgotScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotScreen.swift; sourceTree = "<group>"; };
-		CABC963D24F66A5C00020600 /* ForgotPasswordEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEndpoint.swift; sourceTree = "<group>"; };
-		CABC964024F66A6700020600 /* ForgotUsernameEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotUsernameEndpoint.swift; sourceTree = "<group>"; };
-		CABC964324F66A7C00020600 /* RegisterEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEndpoint.swift; sourceTree = "<group>"; };
 		CABC964724F6713900020600 /* AccountSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsScreen.swift; sourceTree = "<group>"; };
 		CABC964A24F689D000020600 /* PasswordChangeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeScreen.swift; sourceTree = "<group>"; };
 		CABC964E24F689E900020600 /* EmailChangeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailChangeScreen.swift; sourceTree = "<group>"; };
-		CABC966024F740DF00020600 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.swift; sourceTree = "<group>"; };
-		CABC967124F7A9A300020600 /* DeleteAccountEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountEndpoint.swift; sourceTree = "<group>"; };
-		CADC4BBF24ED613100D36160 /* SignInEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEndpoint.swift; sourceTree = "<group>"; };
-		CADC4BC224ED616400D36160 /* RetrieveInfoEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveInfoEndpoint.swift; sourceTree = "<group>"; };
-		CADC4BC424ED618400D36160 /* SaveEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEndpoint.swift; sourceTree = "<group>"; };
+		CAC39F79254A5721006A4DC4 /* Repositry+Bindings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Repositry+Bindings.swift"; sourceTree = "<group>"; };
 		CADD5F4125486E63008B0896 /* ListCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCreateScreen.swift; sourceTree = "<group>"; };
 		CAF553462545539500560B43 /* Entities */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Entities; path = Frameworks/Entities; sourceTree = "<group>"; };
 		CAF5536C2545546400560B43 /* Item+Formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+Formatted.swift"; sourceTree = "<group>"; };
@@ -236,7 +203,6 @@
 				CA0989F624EC17E6005B632D /* Assets.xcassets */,
 				CA098ACB24ECDDD9005B632D /* Models */,
 				CA30255B24ED674F00FCD4FE /* Screens */,
-				CABC965624F7326500020600 /* Store */,
 				CADC4BC624ED620300D36160 /* Utils */,
 			);
 			path = Shared;
@@ -297,17 +263,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		CA098AEF24ED002E005B632D /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				CADC4BBE24ED611C00D36160 /* Endpoints */,
-				CA098AF024ED0044005B632D /* LighterPackAccess.swift */,
-				CA098AF324ED00A5005B632D /* APIClient.swift */,
-				CABC963424F6512300020600 /* HTTPStatusCode.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		CA098AFB24ED110A005B632D /* LighterPackTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +275,7 @@
 		CA098B0424ED1965005B632D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CAC39F79254A5721006A4DC4 /* Repositry+Bindings.swift */,
 				CA098B0524ED1972005B632D /* DictionaryLookup.swift */,
 				CABC93AE24EFBEB500020600 /* Color.swift */,
 				CABC966E24F7733C00020600 /* KeyedDecodingContainer.swift */,
@@ -393,15 +349,6 @@
 			path = AccountSettings;
 			sourceTree = "<group>";
 		};
-		CABC965624F7326500020600 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				CA098AEF24ED002E005B632D /* Network */,
-				CABC966024F740DF00020600 /* AppStore.swift */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
 		CABC966624F743CF00020600 /* Session */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,22 +365,6 @@
 				CABC93B524EFC3FF00020600 /* ListPieSection.swift */,
 			);
 			path = Pie;
-			sourceTree = "<group>";
-		};
-		CADC4BBE24ED611C00D36160 /* Endpoints */ = {
-			isa = PBXGroup;
-			children = (
-				CADC4BBF24ED613100D36160 /* SignInEndpoint.swift */,
-				CADC4BC224ED616400D36160 /* RetrieveInfoEndpoint.swift */,
-				CADC4BC424ED618400D36160 /* SaveEndpoint.swift */,
-				CABC963D24F66A5C00020600 /* ForgotPasswordEndpoint.swift */,
-				CABC964024F66A6700020600 /* ForgotUsernameEndpoint.swift */,
-				CABC964324F66A7C00020600 /* RegisterEndpoint.swift */,
-				CABC967124F7A9A300020600 /* DeleteAccountEndpoint.swift */,
-				CA6C074024F7E2AB009C208E /* ChangePasswordEndpoint.swift */,
-				CA6C074424FA47B0009C208E /* ChangeEmailEndpoint.swift */,
-			);
-			path = Endpoints;
 			sourceTree = "<group>";
 		};
 		CADC4BC624ED620300D36160 /* Utils */ = {
@@ -698,20 +629,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA30256724ED6CDB00FCD4FE /* CategoryItemCell.swift in Sources */,
-				CADC4BC024ED613100D36160 /* SignInEndpoint.swift in Sources */,
 				CABC959624F4BBCB00020600 /* LoginScreen.swift in Sources */,
 				CABC927A24EE5E7F00020600 /* ProfileScreen.swift in Sources */,
 				CA79BCE824EE5A3300118788 /* ItemCell.swift in Sources */,
 				CADD5F4225486E63008B0896 /* ListCreateScreen.swift in Sources */,
-				CABC967224F7A9A300020600 /* DeleteAccountEndpoint.swift in Sources */,
 				CABC957E24F4033200020600 /* PriceFormatter.swift in Sources */,
 				CA30256324ED688D00FCD4FE /* ListCell.swift in Sources */,
 				CA6C074A24FA5691009C208E /* FeedbackLayer.swift in Sources */,
 				CABC963824F65F5500020600 /* RegistrationScreen.swift in Sources */,
-				CABC964424F66A7C00020600 /* RegisterEndpoint.swift in Sources */,
 				CABC964B24F689D000020600 /* PasswordChangeScreen.swift in Sources */,
 				CABC93AF24EFBEB600020600 /* Color.swift in Sources */,
-				CA098AF424ED00A5005B632D /* APIClient.swift in Sources */,
 				CA6C074324F7E5CA009C208E /* String+Identifiable.swift in Sources */,
 				CABC966F24F7733C00020600 /* KeyedDecodingContainer.swift in Sources */,
 				CAF5536D2545546400560B43 /* Item+Formatted.swift in Sources */,
@@ -719,23 +646,15 @@
 				CABC965224F68A6C00020600 /* EmailChangeScreen.swift in Sources */,
 				CABC964824F6713900020600 /* AccountSettingsScreen.swift in Sources */,
 				CABC93B324EFC3CE00020600 /* ListCategorySection.swift in Sources */,
-				CA6C074524FA47B0009C208E /* ChangeEmailEndpoint.swift in Sources */,
-				CABC964124F66A6700020600 /* ForgotUsernameEndpoint.swift in Sources */,
 				CA098A1D24EC17E6005B632D /* LighterPackApp.swift in Sources */,
 				CA098B0624ED1972005B632D /* DictionaryLookup.swift in Sources */,
-				CA098AF124ED0044005B632D /* LighterPackAccess.swift in Sources */,
 				CA79BCE224EE376C00118788 /* WeightFormatter.swift in Sources */,
 				CA79BCE624EE59E400118788 /* ItemsListScreen.swift in Sources */,
-				CA6C074124F7E2AB009C208E /* ChangePasswordEndpoint.swift in Sources */,
 				CABC963B24F6651500020600 /* ForgotScreen.swift in Sources */,
-				CABC966124F740DF00020600 /* AppStore.swift in Sources */,
 				CA30256524ED696F00FCD4FE /* ListScreen.swift in Sources */,
 				CA6C073B24F7E08E009C208E /* DeleteAccountScreen.swift in Sources */,
 				CABC93B624EFC3FF00020600 /* ListPieSection.swift in Sources */,
-				CADC4BC324ED616400D36160 /* RetrieveInfoEndpoint.swift in Sources */,
-				CABC963524F6512300020600 /* HTTPStatusCode.swift in Sources */,
-				CADC4BC524ED618400D36160 /* SaveEndpoint.swift in Sources */,
-				CABC963E24F66A5C00020600 /* ForgotPasswordEndpoint.swift in Sources */,
+				CAC39F7A254A5721006A4DC4 /* Repositry+Bindings.swift in Sources */,
 				CAFFB1DC25443DB90039CB43 /* HomeScreen.swift in Sources */,
 				CA79BCE424EE4A3F00118788 /* NetworkImage.swift in Sources */,
 			);
@@ -745,26 +664,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CADC4BC124ED614D00D36160 /* SignInEndpoint.swift in Sources */,
-				CABC964224F66A6700020600 /* ForgotUsernameEndpoint.swift in Sources */,
 				CABC957F24F4033300020600 /* PriceFormatter.swift in Sources */,
 				CABC959724F4BBCB00020600 /* LoginScreen.swift in Sources */,
-				CABC963624F6512300020600 /* HTTPStatusCode.swift in Sources */,
 				CABC965124F68A6B00020600 /* EmailChangeScreen.swift in Sources */,
 				CABC93B724EFC3FF00020600 /* ListPieSection.swift in Sources */,
-				CABC966224F740DF00020600 /* AppStore.swift in Sources */,
-				CA098AF524ED00A5005B632D /* APIClient.swift in Sources */,
-				CABC967324F7A9A300020600 /* DeleteAccountEndpoint.swift in Sources */,
 				CA098A1E24EC17E6005B632D /* LighterPackApp.swift in Sources */,
 				CA098B0724ED1972005B632D /* DictionaryLookup.swift in Sources */,
 				CABC964924F6713900020600 /* AccountSettingsScreen.swift in Sources */,
-				CABC964524F66A7C00020600 /* RegisterEndpoint.swift in Sources */,
-				CA098AF224ED0044005B632D /* LighterPackAccess.swift in Sources */,
 				CABC963924F65F5500020600 /* RegistrationScreen.swift in Sources */,
 				CABC93B424EFC3CE00020600 /* ListCategorySection.swift in Sources */,
 				CABC963C24F6651500020600 /* ForgotScreen.swift in Sources */,
 				CABC93B024EFBEB600020600 /* Color.swift in Sources */,
-				CABC963F24F66A5C00020600 /* ForgotPasswordEndpoint.swift in Sources */,
 				CABC967024F7733C00020600 /* KeyedDecodingContainer.swift in Sources */,
 				CABC964C24F689D000020600 /* PasswordChangeScreen.swift in Sources */,
 			);

@@ -16,15 +16,15 @@ public struct ForgotUsernameEndpoint: Endpoint {
         self.email = email
     }
 
-    public func processNetworkError(_ error: NetworkError) -> NetworkError {
-        guard error.codeStatus == .unauthorized || error.codeStatus == .notFound else {
+    public func processNetworkError(_ error: RepositoryError) -> RepositoryError {
+        guard error.codeStatus == HTTPStatusCode.unauthorized.rawValue || error.codeStatus == HTTPStatusCode.notFound.rawValue else {
             return error
         }
         var message = "Invalid email."
         if email.isEmpty {
             message = "Please enter an email."
         }
-        return NetworkError(
+        return RepositoryError(
             codeStatus: error.codeStatus,
             error: .form([.init(field: .email, message: message)])
         )

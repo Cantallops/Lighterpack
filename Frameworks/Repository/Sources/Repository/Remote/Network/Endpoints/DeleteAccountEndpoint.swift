@@ -10,16 +10,15 @@ public struct DeleteAccountEndpoint: Endpoint {
             "password": password
         ]
     }
+    public var headers: [String : String] {
+        [
+            "Cookie": cookie
+        ]
+    }
 
     let username: String
     let password: String
-
-    public var authenticated: Bool { true }
-
-    public init(username: String, password: String) {
-        self.username = username
-        self.password = password
-    }
+    let cookie: String
 }
 
 public struct DeleteAccountResponse: Codable {

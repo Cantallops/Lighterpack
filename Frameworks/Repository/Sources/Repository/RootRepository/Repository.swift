@@ -18,7 +18,7 @@ public class Repository: ObservableObject {
 
     public init(
         localRepo: LocalRepository = AppLocalRepository(),
-        remoteRepo: RemoteRepository = MockLighterPackRemoteRepository()
+        remoteRepo: RemoteRepository = AppRemoteRepository()
     ) {
         self.localRepo = localRepo
         self.remoteRepo = remoteRepo

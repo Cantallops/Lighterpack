@@ -294,11 +294,9 @@ private extension Entities.Category {
     ) -> [Node] {
         categoryItems
             .sorted(by: {
-                guard let item0 = repository.get(itemWithId: $0.itemId),
-                      let item1 = repository.get(itemWithId: $1.itemId) else { return false }
                 switch viewMode {
-                case .weight: return item0.weight > item1.weight
-                case .price: return item0.price > item1.price
+                case .weight: return $0.weight > $1.weight
+                case .price: return $0.price > $1.price
                 }
             })
             .enumerated()

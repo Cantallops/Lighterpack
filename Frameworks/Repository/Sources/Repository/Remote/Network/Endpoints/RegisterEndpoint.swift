@@ -24,7 +24,7 @@ public struct RegisterEndpoint: Endpoint {
         self.password = password
     }
 
-    public func processNetworkError(_ error: NetworkError) -> NetworkError {
+    public func processNetworkError(_ error: RepositoryError) -> RepositoryError {
         // FIXME
         return error
     }
