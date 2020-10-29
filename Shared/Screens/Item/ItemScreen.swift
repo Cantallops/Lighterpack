@@ -18,7 +18,7 @@ struct ItemScreen: View {
     @Binding var item: Item
 
     var body: some View {
-        Form {
+        List {
             Section {
                 if let url = item.fullImageURL, repository.showImages {
                     NetworkImage(url: url)
@@ -74,8 +74,25 @@ struct ItemScreen: View {
             }
             Section(header: SectionHeader(title: "Description")) {
                 TextEditor(text: $item.description)
+                    .frame(minHeight: 200)
             }
+
+            Section(
+                header: SectionHeader(title: "Link"),
+                footer: Group {
+                    LinkPreview(link: item.url)
+                        .id(item.url)
+                }
+                .listRowInsets(EdgeInsets())
+                .padding(.top)
+            ) {
+                Field("ex) https://lighterpack.com", text: $item.url, icon: .link)
+                    .keyboardType(.URL)
+                    .autocapitalization(.none)
+            }
+
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle(item.name)
     }
 }

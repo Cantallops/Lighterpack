@@ -45,6 +45,11 @@ struct ListCategorySection: View {
                 CategoryItemCell(categoryItem: repository.binding(forCategoryItem: item, in: category))
             }
             .onDelete(perform: remove)
+            Button(action: {}) {
+                Button(action: {}, label: {
+                    Label("Add new item", icon: .add)
+                })
+            }
             DisclosureGroup {
                 if repository.showWorn {
                     resumeCell(

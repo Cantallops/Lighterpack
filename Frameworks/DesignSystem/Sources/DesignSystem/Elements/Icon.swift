@@ -87,7 +87,7 @@ public extension Icon.Token {
     static let email = Token(rawValue: "envelope.fill", originalColor: .systemBlue)
     static let questionMark = Token(rawValue: "questionmark")
 
-    static let addCategory = Token(rawValue: "rectangle.stack.badge.plus", defaultRenderingMode: .original)
+    static let addCategory = Token(rawValue: "rectangle.badge.plus", defaultRenderingMode: .original)
     static let remove = Token(rawValue: "minus.circle.fill")
     static let delete = Token(rawValue: "trash")
     static let add = Token(rawValue: "plus.circle.fill", originalColor: .systemGreen)

@@ -1,5 +1,6 @@
 import Entities
 import SwiftUI
+import DesignSystem
 
 struct ItemCell: View {
     let item: Item
@@ -27,7 +28,13 @@ struct ItemCell: View {
                     .cornerRadius(4)
             }
             VStack(alignment: .leading) {
-                Text(item.name)
+                HStack {
+                    Text(item.name)
+                    if !item.url.isEmpty && URL(string: item.url) != nil {
+                        Icon(.link)
+                            .font(.system(.footnote))
+                    }
+                }
                 Text(item.description)
                     .font(.footnote)
                     .lineLimit(2)

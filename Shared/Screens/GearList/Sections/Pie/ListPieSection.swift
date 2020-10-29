@@ -257,7 +257,7 @@ private extension Entities.List {
         repository: Repository,
         calculateUsing viewMode: ListPieSectionView.ViewMode
     ) -> [Node] {
-        categoryIds.compactMap { repository.get(categoryWithId: $0) }.compactMap { category in
+        categoryIds.compactMap { repository.get(categoryWithId: $0) }.map { category in
             var desc = "\(category.name): \(category.subtotalWeight.formattedWeight(repository.totalUnit))"
             var value: Double = Double(category.subtotalWeight)
             if repository.showPrice {
