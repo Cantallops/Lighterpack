@@ -18,7 +18,12 @@ public struct Category {
 
     public var activeHover: Bool?
     public var displayColor: String?
-    public var color: CategoryColor?
+    public var color: CategoryColor? {
+        didSet {
+            guard let c = color else { return }
+            displayColor = "rgb(\(c.r),\(c.g),\(c.b)"
+        }
+    }
 
     public init(
         id: Int,
