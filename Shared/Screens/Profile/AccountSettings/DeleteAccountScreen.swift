@@ -55,7 +55,7 @@ struct DeleteAccountScreen: Screen {
                     Text("This action is permanent and cannot be undone.")
                 }
                 .foregroundColor(Color.systemYellow.darker(by: 0.5))
-                .listRowBackground(Color.systemYellow)
+                .listRowBackgroundColor(.systemYellow)
             }
 
             Section(footer: Group{
@@ -69,7 +69,7 @@ struct DeleteAccountScreen: Screen {
                     Text("If you want to delete your account, please enter your current password and the text ") + Text("delete my account").bold()
                 }
                 .foregroundColor(.white)
-                .listRowBackground(Color.systemBlue)
+                .listRowBackgroundColor(.systemBlue)
                 Field("Username", text: $repository.username, icon: .profile)
                     .disabled(true)
                 Field(
@@ -100,7 +100,7 @@ struct DeleteAccountScreen: Screen {
                     }
                 })
                 .foregroundColor(Color.white)
-                .listRowBackground(Color.systemRed)
+                .listRowBackgroundColor(.systemRed)
             }
         }
         .navigationTitle("Delete account")

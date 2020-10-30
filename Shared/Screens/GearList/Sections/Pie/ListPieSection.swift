@@ -153,7 +153,7 @@ private struct ListPieSectionView: View {
                     Text(name)
                         .padding(4)
                         .foregroundColor(.label)
-                        .background(Color.systemGray4)
+                        .backgroundColor(.systemGray4)
                         .cornerRadius(4)
                         .eraseToAnyView()
                 }

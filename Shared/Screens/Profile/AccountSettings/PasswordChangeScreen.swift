@@ -101,7 +101,7 @@ struct PasswordChangeScreen: Screen {
                     }
                 })
                 .foregroundColor(Color.white)
-                .listRowBackground(Color.systemOrange)
+                .listRowBackgroundColor(.systemOrange)
             }
         }
         .navigationTitle("Change password")

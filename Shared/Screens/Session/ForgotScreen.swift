@@ -102,7 +102,7 @@ struct ForgotScreen: Screen {
                     }
                 })
                 .foregroundColor(.white)
-                .listRowBackground(Color.systemOrange)
+                .listRowBackgroundColor(.systemOrange)
             }
         }
         .navigationTitle("Forgot credentials")

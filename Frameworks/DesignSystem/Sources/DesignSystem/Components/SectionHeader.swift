@@ -108,7 +108,7 @@ struct SectionHeader_Previews: PreviewProvider {
             SectionHeader(title: "Title")
                 .padding()
                 .previewDisplayName("Default dark preview")
-                .background(Color.systemBackground)
+                .backgroundColor(.systemBackground)
                 .environment(\.colorScheme, .dark)
 
             SectionHeader(title: "Title", buttonTitle: "See more") {}
@@ -117,7 +117,7 @@ struct SectionHeader_Previews: PreviewProvider {
             SectionHeader(title: "Title", buttonTitle: "See more") {}
                 .padding()
                 .previewDisplayName("Default detail button text dark preview")
-                .background(Color.systemBackground)
+                .backgroundColor(.systemBackground)
                 .environment(\.colorScheme, .dark)
 
             SectionHeader(title: "Title", buttonImage: Image(systemName: "plus.circle.fill")) {}
@@ -126,7 +126,7 @@ struct SectionHeader_Previews: PreviewProvider {
             SectionHeader(title: "Title", buttonImage: Image(systemName: "plus.circle.fill")) {}
                 .padding()
                 .previewDisplayName("Default detail button image dark preview")
-                .background(Color.systemBackground)
+                .backgroundColor(.systemBackground)
                 .environment(\.colorScheme, .dark)
         }
         .previewLayout(PreviewLayout.sizeThatFits)

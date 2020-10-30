@@ -35,3 +35,14 @@ public extension Color {
     static var tertiarySystemFill: Color { .init(.tertiarySystemFill)}
     static var quaternarySystemFill: Color { .init(.quaternarySystemFill)}
 }
+
+public extension View {
+
+    @inlinable func backgroundColor(_ color: Color?) -> some View {
+        self.background(color)
+    }
+
+    @inlinable func listRowBackgroundColor(_ color: Color?) -> some View {
+        self.listRowBackground(color)
+    }
+}

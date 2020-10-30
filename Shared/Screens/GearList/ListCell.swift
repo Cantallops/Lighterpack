@@ -47,7 +47,7 @@ struct ListCell_Previews: PreviewProvider {
                 ListCell(list: .placeholder)
                     .redacted(reason: .placeholder)
             }
-            .background(Color.systemBackground)
+            .backgroundColor(.systemBackground)
             .environment(\.colorScheme, .dark)
         }
         .previewLayout(PreviewLayout.sizeThatFits)

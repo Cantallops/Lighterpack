@@ -114,7 +114,7 @@ private extension HomeScreen {
                     }
                 })
                 .foregroundColor(.secondaryLabel)
-                .listRowBackground(Color.systemGroupedBackground)
+                .listRowBackgroundColor(.systemGroupedBackground)
             }
 
             Section {
@@ -157,7 +157,7 @@ private extension HomeScreen {
                 .font(.system(.footnote, design: .rounded))
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondaryLabel)
-                .listRowBackground(Color.systemGroupedBackground)
+                .listRowBackgroundColor(.systemGroupedBackground)
             }
         }.unredacted()
     }

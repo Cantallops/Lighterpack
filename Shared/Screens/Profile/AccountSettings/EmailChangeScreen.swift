@@ -89,7 +89,7 @@ struct EmailChangeScreen: Screen {
                     }
                 })
                 .foregroundColor(.white)
-                .listRowBackground(Color.systemOrange)
+                .listRowBackgroundColor(.systemOrange)
             }
         }
         .navigationTitle("Change email")

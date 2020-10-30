@@ -99,7 +99,7 @@ struct RegistrationScreen: Screen {
                     }
                 })
                 .foregroundColor(Color.white)
-                .listRowBackground(Color.systemOrange)
+                .listRowBackgroundColor(.systemOrange)
             }
         }
         .navigationTitle("Register an account")

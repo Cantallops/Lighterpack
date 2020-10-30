@@ -94,7 +94,7 @@ struct LoginScreen: Screen {
                     }
                 })
                 .foregroundColor(.white)
-                .listRowBackground(Color.systemOrange)
+                .listRowBackgroundColor(.systemOrange)
             }
         }
         .navigationTitle("Sign in")
