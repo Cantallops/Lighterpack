@@ -24,7 +24,7 @@ public struct Field: View {
             }
             if let error = error, !error.isEmpty {
                 Text(error)
-                    .foregroundColor(Color(.systemRed))
+                    .foregroundColor(.systemRed)
                     .font(.footnote)
             }
         }

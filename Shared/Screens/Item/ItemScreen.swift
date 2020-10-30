@@ -36,7 +36,7 @@ struct ItemScreen: Screen {
                             .frame(maxHeight: .infinity)
                             .padding(.horizontal)
                             .frame(width: 60)
-                            .background(Color(.quaternarySystemFill).opacity(0.5))
+                            .background(Color.quaternarySystemFill.opacity(0.5))
                     }
                     .padding(.leading)
                     .listRowInsets(.init())
@@ -66,7 +66,7 @@ struct ItemScreen: Screen {
                             .frame(width: 60)
                     }
                     .frame(maxHeight: .infinity)
-                    .background(Color(.quaternarySystemFill).opacity(0.5))
+                    .background(Color.quaternarySystemFill.opacity(0.5))
 
                 }
                 .padding(.leading)

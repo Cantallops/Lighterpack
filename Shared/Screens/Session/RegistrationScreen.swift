@@ -54,7 +54,7 @@ struct RegistrationScreen: Screen {
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(.systemRed)
                 }
             })  {
                 Field(
@@ -99,7 +99,7 @@ struct RegistrationScreen: Screen {
                     }
                 })
                 .foregroundColor(Color.white)
-                .listRowBackground(Color(.systemOrange))
+                .listRowBackground(Color.systemOrange)
             }
         }
         .navigationTitle("Register an account")

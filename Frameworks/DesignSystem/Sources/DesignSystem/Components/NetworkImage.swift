@@ -83,7 +83,7 @@ public struct NetworkImage<Placeholder: View>: View {
 
 public extension NetworkImage where Placeholder == AnyView {
     init(url: URL) {
-        self.placeholder = Rectangle().foregroundColor(Color(.secondarySystemFill)).eraseToAnyView()
+        self.placeholder = Rectangle().foregroundColor(.secondarySystemFill).eraseToAnyView()
         self.url = url
     }
 }

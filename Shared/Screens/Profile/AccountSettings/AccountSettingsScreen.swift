@@ -15,7 +15,7 @@ struct AccountSettingsScreen: Screen {
             }
 
             NavigationLink(destination: DeleteAccountScreen()) {
-                cell(text: "Delete account", icon: .remove, rendering: .template).foregroundColor(Color(.systemRed))
+                cell(text: "Delete account", icon: .remove, rendering: .template).foregroundColor(.systemRed)
             }
 
         }

@@ -38,7 +38,7 @@ struct ItemCell: View {
                 Text(item.description)
                     .font(.footnote)
                     .lineLimit(2)
-                    .foregroundColor(Color(.secondaryLabel))
+                    .foregroundColor(.secondaryLabel)
             }
             Spacer()
             HStack {
@@ -64,7 +64,7 @@ struct ItemCell_Previews: PreviewProvider {
                 ItemCell(item: .placeholder)
                     .redacted(reason: .placeholder)
             }
-            .background(Color(.systemBackground))
+            .background(Color.systemBackground)
             .environment(\.colorScheme, .dark)
         }
         .previewLayout(PreviewLayout.sizeThatFits)

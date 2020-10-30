@@ -62,8 +62,8 @@ struct ListCreateScreen: Screen {
                             Spacer()
                         }
                     })
-                    .foregroundColor(Color.white)
-                    .listRowBackground(Color(.systemOrange))
+                    .foregroundColor(.white)
+                    .listRowBackground(Color.systemOrange)
                 }
             }
             .listStyle(InsetGroupedListStyle())

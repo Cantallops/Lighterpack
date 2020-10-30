@@ -32,7 +32,7 @@ public struct LinkPreview: View {
                 HStack {
                     Spacer()
                     Text("URL couldn't be loaded")
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(.systemRed)
                         .font(.system(.footnote, design: .rounded))
                     Button("Try again") {
                         load()
@@ -43,7 +43,7 @@ public struct LinkPreview: View {
                 HStack {
                     Spacer()
                     Text("Invalid url")
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(.systemRed)
                         .font(.system(.footnote, design: .rounded))
                     Spacer()
                 }

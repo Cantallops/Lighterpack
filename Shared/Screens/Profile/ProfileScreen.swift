@@ -50,7 +50,7 @@ struct ProfileScreen: Screen {
             }
             Button(action: logout) {
                 cell(text: "Sign Out", icon: .signOut)
-            }.foregroundColor(Color(.systemRed))
+            }.foregroundColor(.systemRed)
 
 
         }

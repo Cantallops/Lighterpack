@@ -37,7 +37,7 @@ struct CategoryItemCell: View {
                     Text(item.description)
                         .font(.footnote)
                         .lineLimit(2)
-                        .foregroundColor(Color(.secondaryLabel))
+                        .foregroundColor(.secondaryLabel)
                 }
                 Spacer()
                 HStack {
@@ -47,7 +47,7 @@ struct CategoryItemCell: View {
                         }
                         Text(item.formattedWeight)
                     }
-                    .foregroundColor(Color(.tertiaryLabel))
+                    .foregroundColor(.tertiaryLabel)
                     HStack(alignment: .lastTextBaseline, spacing: 0) {
                         Text(String("𝗑\(categoryItem.qty)"))
                             .font(.title3)

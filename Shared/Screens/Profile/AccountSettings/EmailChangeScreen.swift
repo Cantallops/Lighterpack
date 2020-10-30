@@ -64,7 +64,7 @@ struct EmailChangeScreen: Screen {
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(.systemRed)
                 }
             }) {
                 Field(
@@ -88,8 +88,8 @@ struct EmailChangeScreen: Screen {
                         Spacer()
                     }
                 })
-                .foregroundColor(Color.white)
-                .listRowBackground(Color(.systemOrange))
+                .foregroundColor(.white)
+                .listRowBackground(Color.systemOrange)
             }
         }
         .navigationTitle("Change email")

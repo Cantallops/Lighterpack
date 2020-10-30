@@ -26,7 +26,7 @@ struct ListCategorySection: View {
                         .fixedSize()
                     } else {
                         Icon(.categoryDot)
-                            .foregroundColor(Color(.systemGray3))
+                            .foregroundColor(.systemGray3)
                             .unredacted()
                     }
                 },
@@ -36,7 +36,7 @@ struct ListCategorySection: View {
                     }) {
                         Icon(.remove)
                     }
-                    .foregroundColor(Color(.systemRed))
+                    .foregroundColor(.systemRed)
                     .unredacted()
                 }
             )

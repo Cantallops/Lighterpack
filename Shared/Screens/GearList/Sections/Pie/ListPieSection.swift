@@ -26,7 +26,7 @@ struct Pie: View {
                             desc: "",
                             showName: false,
                             value: 1,
-                            backgroundColor: Color(.secondarySystemFill),
+                            backgroundColor: .secondarySystemFill,
                             children: []
                         )
                     ]
@@ -92,7 +92,7 @@ private struct ListPieSectionView: View {
                 } label: {
                     HStack {
                         Icon(.categoryDot)
-                            .foregroundColor(node.backgroundColor ?? Color(.secondarySystemFill))
+                            .foregroundColor(node.backgroundColor ?? .secondarySystemFill)
                             .unredacted()
                         Text(node.name)
                         Spacer()
@@ -146,14 +146,14 @@ private struct ListPieSectionView: View {
                 Pie(configuration: configuration)
                     .padding(.bottom)
                     .textCase(.none)
-                    .foregroundColor(.init(.label))
+                    .foregroundColor(.label)
                     .listRowInsets(EdgeInsets())
 
                 if let selected = configuration.selectedNode, let name = selected.desc {
                     Text(name)
                         .padding(4)
-                        .foregroundColor(Color(.label))
-                        .background(Color(.systemGray4))
+                        .foregroundColor(.label)
+                        .background(Color.systemGray4)
                         .cornerRadius(4)
                         .eraseToAnyView()
                 }
@@ -348,8 +348,8 @@ struct CategoryButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .foregroundColor(Color(.label))
-            .listRowBackground(configuration.isPressed || selected ? selectedColor : Color(.secondarySystemGroupedBackground))
+            .foregroundColor(.label)
+            .listRowBackground(configuration.isPressed || selected ? selectedColor : .secondarySystemGroupedBackground)
     }
 
 }

@@ -54,7 +54,7 @@ struct LoginScreen: Screen {
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(.systemRed)
                 }
             }) {
                 Field(
@@ -76,7 +76,7 @@ struct LoginScreen: Screen {
                 footer: HStack {
                     Spacer()
                     NavigationLink("Forgot username/password?", destination: ForgotScreen())
-                    .foregroundColor(Color(.systemBlue))
+                    .foregroundColor(.systemBlue)
                 }
                 .listRowInsets(EdgeInsets())
                 .padding(.top)
@@ -93,8 +93,8 @@ struct LoginScreen: Screen {
                         Spacer()
                     }
                 })
-                .foregroundColor(Color.white)
-                .listRowBackground(Color(.systemOrange))
+                .foregroundColor(.white)
+                .listRowBackground(Color.systemOrange)
             }
         }
         .navigationTitle("Sign in")

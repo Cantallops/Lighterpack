@@ -54,22 +54,22 @@ struct DeleteAccountScreen: Screen {
                     Icon(.warning)
                     Text("This action is permanent and cannot be undone.")
                 }
-                .foregroundColor(Color(.systemYellow).darker(by: 0.5))
-                .listRowBackground(Color(.systemYellow))
+                .foregroundColor(Color.systemYellow.darker(by: 0.5))
+                .listRowBackground(Color.systemYellow)
             }
 
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(.systemRed)
                 }
             }) {
                 HStack(alignment: .top) {
                     Icon(.info)
                     Text("If you want to delete your account, please enter your current password and the text ") + Text("delete my account").bold()
                 }
-                .foregroundColor(Color(.white))
-                .listRowBackground(Color(.systemBlue))
+                .foregroundColor(.white)
+                .listRowBackground(Color.systemBlue)
                 Field("Username", text: $repository.username, icon: .profile)
                     .disabled(true)
                 Field(
@@ -100,7 +100,7 @@ struct DeleteAccountScreen: Screen {
                     }
                 })
                 .foregroundColor(Color.white)
-                .listRowBackground(Color(.systemRed))
+                .listRowBackground(Color.systemRed)
             }
         }
         .navigationTitle("Delete account")

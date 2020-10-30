@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import DesignSystem
 
 struct AlertFeedback {}
 struct NonIntrusiveFeedback: Identifiable {
@@ -75,10 +76,10 @@ struct NonIntrusiveFeedbackView: View {
 
     var baseColor: Color {
         switch feedback.style {
-        case .info: return Color(.systemBlue)
-        case .warning: return Color(.systemYellow)
-        case .error: return Color(.systemRed)
-        case .success: return Color(.systemGreen)
+        case .info: return .systemBlue
+        case .warning: return .systemYellow
+        case .error: return .systemRed
+        case .success: return .systemGreen
         }
     }
 

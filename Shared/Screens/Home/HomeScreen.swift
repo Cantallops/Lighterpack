@@ -19,7 +19,7 @@ struct HomeScreen: Screen {
                             Text("LighterPack")
                                 .font(.system(.largeTitle, design: .rounded))
                                 .bold()
-                                .foregroundColor(Color(.label))
+                                .foregroundColor(.label)
                         }
                         .textCase(.none)
                         .listRowInsets(EdgeInsets())
@@ -96,7 +96,7 @@ private extension HomeScreen {
                 .bold()
             }
             .textCase(.none)
-            .foregroundColor(Color(.label))
+            .foregroundColor(.label)
             .listRowInsets(EdgeInsets())
         ) {}
     }
@@ -113,8 +113,8 @@ private extension HomeScreen {
                         Spacer()
                     }
                 })
-                .foregroundColor(Color(.secondaryLabel))
-                .listRowBackground(Color(.systemGroupedBackground))
+                .foregroundColor(.secondaryLabel)
+                .listRowBackground(Color.systemGroupedBackground)
             }
 
             Section {
@@ -144,7 +144,7 @@ private extension HomeScreen {
                                 HStack {
                                     Spacer()
                                     VStack {
-                                        Text("Error").foregroundColor(Color(.systemRed)).bold()
+                                        Text("Error").foregroundColor(.systemRed).bold()
                                         Text(error.localizedDescription)
                                     }
                                     Spacer()
@@ -156,8 +156,8 @@ private extension HomeScreen {
                 }
                 .font(.system(.footnote, design: .rounded))
                 .multilineTextAlignment(.center)
-                .foregroundColor(Color(.secondaryLabel))
-                .listRowBackground(Color(.systemGroupedBackground))
+                .foregroundColor(.secondaryLabel)
+                .listRowBackground(Color.systemGroupedBackground)
             }
         }.unredacted()
     }

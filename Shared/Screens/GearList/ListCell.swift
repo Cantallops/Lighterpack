@@ -16,7 +16,7 @@ struct ListCell: View {
                     Text(list.description)
                         .font(.system(.footnote, design: .rounded))
                         .lineLimit(1)
-                        .foregroundColor(Color(.secondaryLabel))
+                        .foregroundColor(.secondaryLabel)
                 }
             }
             Spacer()
@@ -28,7 +28,7 @@ struct ListCell: View {
                     if repository.showPrice {
                         Text(list.totalPrice.formattedPrice(repository.currencySymbol))
                             .font(.system(.body, design: .rounded))
-                            .foregroundColor(Color(.secondaryLabel))
+                            .foregroundColor(.secondaryLabel)
                     }
                 }
             }
@@ -47,7 +47,7 @@ struct ListCell_Previews: PreviewProvider {
                 ListCell(list: .placeholder)
                     .redacted(reason: .placeholder)
             }
-            .background(Color(.systemBackground))
+            .background(Color.systemBackground)
             .environment(\.colorScheme, .dark)
         }
         .previewLayout(PreviewLayout.sizeThatFits)

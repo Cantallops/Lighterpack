@@ -76,7 +76,7 @@ struct PasswordChangeScreen: Screen {
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(.systemRed)
                 }
             }) {
                 Field(
@@ -101,7 +101,7 @@ struct PasswordChangeScreen: Screen {
                     }
                 })
                 .foregroundColor(Color.white)
-                .listRowBackground(Color(.systemOrange))
+                .listRowBackground(Color.systemOrange)
             }
         }
         .navigationTitle("Change password")
