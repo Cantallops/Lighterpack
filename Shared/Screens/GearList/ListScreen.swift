@@ -4,7 +4,7 @@ import Combine
 import DesignSystem
 import Repository
 
-struct ListScreen: View {
+struct ListScreen: Screen {
     @EnvironmentObject var repository: Repository
 
     @Binding var list: Entities.List
@@ -14,7 +14,7 @@ struct ListScreen: View {
     }
     @State private var sheetStatus: SheetStatus?
 
-    var body: some View {
+    var content: some View {
         List {
             ListPieSection(list: list)
             Section(header: SectionHeader(title: "Title")) {

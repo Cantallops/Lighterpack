@@ -20,6 +20,7 @@ public extension Repository {
                 case .finished: break
                 case .failure: break
                 }
+                self?.syncEngine.stop()
                 self?.localRepo.logout()
             } receiveValue: { _ in
 
@@ -39,6 +40,7 @@ public extension Repository {
             errors.append(.init(field: .password, message: "Please enter a password."))
         }
         if !errors.isEmpty {
+            logger.error("❌ \(#function) \(errors.map{ $0.message }.joined(separator: ","))")
             completion(.failure(.form(errors)))
             return
         }
@@ -86,6 +88,7 @@ public extension Repository {
         }
 
         if !errors.isEmpty {
+            logger.error("❌ \(#function) \(errors.map{ $0.message }.joined(separator: ","))")
             completion(.failure(.form(errors)))
             return
         }
@@ -125,6 +128,7 @@ public extension Repository {
             errors.append(.init(field: .currentPassword, message: "Please enter your current password."))
         }
         if !errors.isEmpty {
+            logger.error("❌ \(#function) \(errors.map{ $0.message }.joined(separator: ","))")
             completion(.failure(.form(errors)))
             return
         }
@@ -214,6 +218,7 @@ public extension Repository {
             errors.append(.init(field: .currentPassword, message: "Please enter your current password."))
         }
         if !errors.isEmpty {
+            logger.error("❌ \(#function) \(errors.map{ $0.message }.joined(separator: ","))")
             completion(.failure(.form(errors)))
             return
         }
@@ -260,6 +265,7 @@ public extension Repository {
             errors.append(.init(field: .confirmationText, message: "It is not valid. Please enter 'delete my account' in other to delete it."))
         }
         if !errors.isEmpty {
+            logger.error("❌ \(#function) \(errors.map{ $0.message }.joined(separator: ","))")
             completion(.failure(.form(errors)))
             return
         }

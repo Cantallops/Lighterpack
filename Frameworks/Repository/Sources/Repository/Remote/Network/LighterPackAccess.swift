@@ -1,21 +1,32 @@
 import Foundation
 import Combine
+import os.log
+
+extension Logger {
+    private static var subsystem = Bundle.main.bundleIdentifier!
+
+    static let network = Logger(subsystem: subsystem, category: "Networking")
+}
 
 public class LighterPackAccess {
     var urlSession: URLSession = .shared
     var baseUrl = URL(string: "https://lighterpack.com/")!
+    let logger: Logger = .network
 
     public init() {}
 }
 
-
 public extension LighterPackAccess {
     func request<Request: Endpoint>(_ endpoint: Request) -> AnyPublisher<Request.Response, Error> {
-        guard let components = URLComponents(url: baseUrl.appendingPathComponent(endpoint.path), resolvingAgainstBaseURL: true)
+        logger.info("🔨 \(endpoint.logString)")
+        guard
+            let components = URLComponents(url: baseUrl.appendingPathComponent(endpoint.path), resolvingAgainstBaseURL: true),
+            let url = components.url
             else {
+            logger.error("Couldn't create URLComponents from \(endpoint.logString)")
             fatalError("Couldn't create URLComponents")
         }
-        var request = URLRequest(url: components.url!)
+        var request = URLRequest(url: url)
         request.httpMethod = endpoint.httpMethod.rawValue
         if let params = endpoint.params {
             request.httpBody = try? JSONSerialization.data(withJSONObject: params)
@@ -32,11 +43,13 @@ public extension LighterPackAccess {
 
 
     func run(_ request: URLRequest) -> AnyPublisher<(HTTPURLResponse, Data), Error> {
+        logger.info("🚀 \(request.httpMethod ?? "") \(request)")
         return urlSession
             .dataTaskPublisher(for: request)
-            .tryMap { [weak self] result in
+            .tryMap { [weak self] result -> (HTTPURLResponse, Data) in
                 guard let response = result.response as? HTTPURLResponse,
                       let status = response.status else {
+                    self?.logger.error("❌ \(request.httpMethod ?? "") \(request) failed to retreive response")
                     throw RepositoryError(codeStatus: HTTPStatusCode.internalServerError.rawValue, error: .unknown) // TODO better error
                 }
                 switch status.responseType {
@@ -58,6 +71,14 @@ public extension LighterPackAccess {
                     }
                     throw RepositoryError(codeStatus: status.rawValue, error: .unknown)
                 }
+            }
+            .map { [weak self] result in
+                self?.logger.info("✅ \(request.httpMethod ?? "") \(request)")
+                return result
+            }
+            .mapError { [weak self] error in
+                self?.logger.error("❌ \(request.httpMethod ?? "") \(request) \(error.localizedDescription)")
+                return error
             }
             .eraseToAnyPublisher()
     }

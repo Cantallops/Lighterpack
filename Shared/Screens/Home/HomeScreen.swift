@@ -3,14 +3,14 @@ import Entities
 import DesignSystem
 import Repository
 
-struct HomeScreen: View {
+struct HomeScreen: Screen {
     
     @EnvironmentObject var repository: Repository
     @Namespace private var animation
     @State private var isShowingSettings = false
     @State private var newList = false
 
-    var body: some View {
+    var content: some View {
         if repository.isLoggedIn {
             NavigationView {
                 List {

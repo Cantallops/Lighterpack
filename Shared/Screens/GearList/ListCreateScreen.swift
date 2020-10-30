@@ -3,7 +3,7 @@ import DesignSystem
 import Repository
 import Entities
 
-struct ListCreateScreen: View {
+struct ListCreateScreen: Screen {
     @EnvironmentObject var repository: Repository
 
     @State private var title: String = ""
@@ -25,7 +25,7 @@ struct ListCreateScreen: View {
         }
     }
 
-    var body: some View {
+    var content: some View {
         if let list = createdList {
             ListScreen(list: repository.binding(forList: list))
         } else {

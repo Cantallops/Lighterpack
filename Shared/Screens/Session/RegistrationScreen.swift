@@ -3,7 +3,7 @@ import Combine
 import DesignSystem
 import Repository
 
-struct RegistrationScreen: View {
+struct RegistrationScreen: Screen {
     @EnvironmentObject var repository: Repository
 
     @EnvironmentObject var visualFeedback: VisualFeedbackState
@@ -49,7 +49,7 @@ struct RegistrationScreen: View {
         }
     }
 
-    var body: some View {
+    var content: some View {
         Form {
             Section(footer: Group{
                 if let error = status.otherError {

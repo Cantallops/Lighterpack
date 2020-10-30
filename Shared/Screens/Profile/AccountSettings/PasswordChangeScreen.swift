@@ -2,7 +2,7 @@ import SwiftUI
 import DesignSystem
 import Repository
 
-struct PasswordChangeScreen: View {
+struct PasswordChangeScreen: Screen {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var repository: Repository
     @EnvironmentObject var visualFeedback: VisualFeedbackState
@@ -49,7 +49,7 @@ struct PasswordChangeScreen: View {
         }
     }
 
-    var body: some View {
+    var content: some View {
         Form {
             Section {
                 Field("Username", text: $repository.username, icon: .profile)

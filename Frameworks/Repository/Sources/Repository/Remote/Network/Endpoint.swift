@@ -1,10 +1,5 @@
 import Foundation
 
-public enum HttpMethod: String {
-    case GET
-    case POST
-}
-
 public protocol Endpoint {
     associatedtype Response: Decodable
     var httpMethod: HttpMethod { get }
@@ -31,5 +26,11 @@ public extension Endpoint {
     func processResponse(response: HTTPURLResponse, data: Data) throws -> Response {
         let value = try JSONDecoder().decode(Response.self, from: data)
         return value
+    }
+}
+
+extension Endpoint {
+    var logString: String {
+        "\(httpMethod.rawValue) /\(path)"
     }
 }

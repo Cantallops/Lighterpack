@@ -49,7 +49,23 @@ class SyncEngine: ObservableObject {
 
     func start() {
         guard !started, localRepo.cookie != nil else { return }
+        Logger.sync.info("Start")
         sync()
+    }
+
+    func stop() {
+        Logger.sync.info("Stop")
+        stopTimer()
+    }
+
+    func resume() {
+        guard started else {
+            Logger.sync.info("Not started, resume suspeded, start instead")
+            start()
+            return
+        }
+        Logger.sync.info("Resume")
+        resetTimer()
     }
 
     func resetTimer() {
@@ -69,7 +85,7 @@ class SyncEngine: ObservableObject {
 
     func sync(forced: Bool = false) {
         started = true
-        Logger.sync.info("\(forced ? "Forced start" : "Start")")
+        Logger.sync.info("\(forced ? "Forced sync" : "Sync")")
         guard let cookie = localRepo.cookie else {
             Logger.sync.info("User not logged in")
             return

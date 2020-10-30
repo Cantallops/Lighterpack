@@ -3,7 +3,7 @@ import SwiftUI
 import DesignSystem
 import Repository
 
-struct ItemsListScreen: View {
+struct ItemsListScreen: Screen {
     @EnvironmentObject var repository: Repository
 
     @State private var sort: Sort = .default
@@ -57,7 +57,7 @@ struct ItemsListScreen: View {
         }
     }
 
-    var body: some View {
+    var content: some View {
         List {
             Section {
                 Button {

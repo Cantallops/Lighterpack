@@ -2,7 +2,7 @@ import SwiftUI
 import DesignSystem
 import Repository
 
-struct EmailChangeScreen: View {
+struct EmailChangeScreen: Screen {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var repository: Repository
     @EnvironmentObject var visualFeedback: VisualFeedbackState
@@ -48,7 +48,7 @@ struct EmailChangeScreen: View {
         }
     }
     
-    var body: some View {
+    var content: some View {
         Form {
             Section {
                 Field("Username", text: $repository.username, icon: .profile)

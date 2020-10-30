@@ -1,9 +1,9 @@
 import SwiftUI
 import DesignSystem
 
-struct AccountSettingsScreen: View {
+struct AccountSettingsScreen: Screen {
 
-    var body: some View {
+    var content: some View {
         Form {
             Section {
                 NavigationLink(destination: EmailChangeScreen()) {

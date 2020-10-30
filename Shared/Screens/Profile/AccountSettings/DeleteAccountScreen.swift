@@ -2,7 +2,7 @@ import SwiftUI
 import DesignSystem
 import Repository
 
-struct DeleteAccountScreen: View {
+struct DeleteAccountScreen: Screen {
     @EnvironmentObject var repository: Repository
 
     @State private var currentPassword: String = ""
@@ -47,7 +47,7 @@ struct DeleteAccountScreen: View {
         }
     }
 
-    var body: some View {
+    var content: some View {
         Form {
             Section {
                 HStack(alignment: .top) {

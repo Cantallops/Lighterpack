@@ -3,12 +3,12 @@ import SwiftUI
 import DesignSystem
 import Repository
 
-struct ProfileScreen: View {
+struct ProfileScreen: Screen {
 
     @EnvironmentObject var visualFeedback: VisualFeedbackState
     @EnvironmentObject var repository: Repository
 
-    var body: some View {
+    var content: some View {
         Form {
             Section(header: SectionHeader(title: "Signed in as")) {
                 cell(text: repository.username, icon: .profile)

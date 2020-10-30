@@ -5,6 +5,7 @@ public extension Repository {
     var currencySymbol: String {
         get { localRepo.library.currencySymbol }
         set {
+            logger.info("Set \(#function) \(newValue)")
             localRepo.library.currencySymbol = newValue
             sync()
         }
@@ -12,6 +13,7 @@ public extension Repository {
     var itemUnit: WeightUnit {
         get { localRepo.library.itemUnit }
         set {
+            logger.info("Set \(#function) \(newValue.rawValue)")
             localRepo.library.itemUnit = newValue
             sync()
         }
@@ -19,6 +21,7 @@ public extension Repository {
     var totalUnit: WeightUnit {
         get { localRepo.library.totalUnit }
         set {
+            logger.info("Set \(#function) \(newValue.rawValue)")
             localRepo.library.totalUnit = newValue
             sync()
         }
@@ -26,6 +29,7 @@ public extension Repository {
     var showPrice: Bool {
         get { localRepo.library.optionalFields.price }
         set {
+            logger.info("Set \(#function) \(newValue)")
             localRepo.library.optionalFields.price = newValue
             sync()
         }
@@ -33,6 +37,7 @@ public extension Repository {
     var showWorn: Bool {
         get { localRepo.library.optionalFields.worn }
         set {
+            logger.info("Set \(#function) \(newValue)")
             localRepo.library.optionalFields.worn = newValue
             sync()
         }
@@ -40,6 +45,7 @@ public extension Repository {
     var showImages: Bool {
         get { localRepo.library.optionalFields.images }
         set {
+            logger.info("Set \(#function) \(newValue)")
             localRepo.library.optionalFields.images = newValue
             sync()
         }
@@ -47,6 +53,7 @@ public extension Repository {
     var showConsumable: Bool {
         get { localRepo.library.optionalFields.consumable }
         set {
+            logger.info("Set \(#function) \(newValue)")
             localRepo.library.optionalFields.consumable = newValue
             sync()
         }
@@ -54,6 +61,7 @@ public extension Repository {
     var showListDescription: Bool {
         get { localRepo.library.optionalFields.listDescription }
         set {
+            logger.info("Set \(#function) \(newValue)")
             localRepo.library.optionalFields.listDescription = newValue
             sync()
         }

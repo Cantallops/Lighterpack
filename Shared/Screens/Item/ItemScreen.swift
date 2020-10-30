@@ -3,7 +3,7 @@ import Entities
 import DesignSystem
 import Repository
 
-struct ItemScreen: View {
+struct ItemScreen: Screen {
     @EnvironmentObject var repository: Repository
 
     private var numberFormatter: NumberFormatter {
@@ -17,7 +17,7 @@ struct ItemScreen: View {
 
     @Binding var item: Item
 
-    var body: some View {
+    var content: some View {
         List {
             Section {
                 if let url = item.fullImageURL, repository.showImages {

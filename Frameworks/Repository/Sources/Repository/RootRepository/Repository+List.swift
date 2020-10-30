@@ -29,8 +29,10 @@ public extension Repository {
     }
 
     func update(list: List) {
+        logger.info("Called \(#function) with list id \(list.id)")
         var lists = localRepo.library.lists
         guard let index = lists.firstIndex(where: { $0.id == list.id }) else {
+            logger.fault("List id \(list.id) does not exists")
             return
         }
         guard list != lists[index] else { return }
@@ -48,7 +50,9 @@ public extension Repository {
     }
 
     func remove(listWithId id: Int) {
+        logger.info("Called \(#function) with list id \(id)")
         guard let index = localRepo.library.lists.firstIndex(where: { $0.id == id }) else {
+            logger.fault("List id \(id) does not exists")
             return
         }
         localRepo.library.lists.remove(at: index)
@@ -57,7 +61,9 @@ public extension Repository {
     }
 
     func move(categoriesInListWithId id: Int, from source: IndexSet, to destination: Int) {
+        logger.info("Called \(#function) with list id \(id), source \(source), destination \(destination)")
         guard let index = localRepo.library.lists.firstIndex(where: { $0.id == id }) else {
+            logger.fault("List id \(id) does not exists")
             return
         }
         var list = localRepo.library.lists[index]
@@ -69,6 +75,7 @@ public extension Repository {
     }
 
     func create(list unidentifiedList: List) -> List {
+        logger.info("Called \(#function)")
         let sequence = localRepo.library.sequence
         localRepo.library.sequence += 1
         var identifiedList = unidentifiedList
@@ -78,7 +85,9 @@ public extension Repository {
     }
 
     func create(category: Entities.Category, forListWithId id: Int) {
+        logger.info("Called \(#function) with list id \(id)")
         guard let index = localRepo.library.lists.firstIndex(where: { $0.id == id }) else {
+            logger.fault("List id \(id) does not exists")
             return
         }
         var list = localRepo.library.lists[index]
@@ -92,8 +101,10 @@ public extension Repository {
 
 public extension Repository {
     func get(listWithId id: Int) -> List? {
+        logger.info("Called \(#function) with list id \(id)")
         let lists = localRepo.library.lists
         guard let index = lists.firstIndex(where: { $0.id == id }) else {
+            logger.fault("List id \(id) does not exists")
             return nil
         }
         return lists[index]

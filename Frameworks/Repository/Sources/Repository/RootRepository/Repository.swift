@@ -1,11 +1,19 @@
 import Foundation
 import Combine
 import Entities
+import os.log
+
+extension Logger {
+    private static var subsystem = Bundle.main.bundleIdentifier!
+
+    static let repo = Logger(subsystem: subsystem, category: "MainRepository")
+}
 
 public class Repository: ObservableObject {
 
     let syncEngine: SyncEngine
     let remoteRepo: RemoteRepository
+    let logger: Logger = .repo
 
     @Published var localRepo: LocalRepository
     @Published public var syncStatus: SyncStatus = .idle
