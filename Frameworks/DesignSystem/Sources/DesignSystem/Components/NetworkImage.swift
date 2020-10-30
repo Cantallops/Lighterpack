@@ -1,8 +1,15 @@
 import SwiftUI
 import Combine
-import DesignSystem
+import os.log
+
+extension Logger {
+    private static var subsystem = Bundle.main.bundleIdentifier!
+
+    static let imageLoader = Logger(subsystem: subsystem, category: "ImageLoader")
+}
 
 class ImageLoader: ObservableObject {
+    private let logger: Logger = .imageLoader
 
     enum Status {
         case downloading
@@ -16,10 +23,16 @@ class ImageLoader: ObservableObject {
 
     func load(url: URL) {
         URLSession.shared.dataTaskPublisher(for: url)
-            .map {
-                guard let image = UIImage(data: $0.data) else {
+            .mapError { [weak self] error -> Error in
+                self?.logger.error("❌ Load image \(url)")
+                return error
+            }
+            .map { [weak self] result in
+                guard let image = UIImage(data: result.data) else {
+                    self?.logger.error("❌ Load image \(url)")
                     return Status.error(nil)
                 }
+                self?.logger.info("✅ Load image \(url)")
                 return Status.downloaded(image)
             }
             .replaceError(with: Status.error(nil))
@@ -29,21 +42,23 @@ class ImageLoader: ObservableObject {
     }
 }
 
-struct NetworkImage<Placeholder: View>: View {
+public struct NetworkImage<Placeholder: View>: View {
     @StateObject private var loader = ImageLoader()
     private let placeholder: Placeholder
     private let url: URL
 
-    init(url: URL, placeholder: Placeholder) {
+    public init(url: URL, placeholder: Placeholder) {
         self.placeholder = placeholder
         self.url = url
     }
-    var body: some View {
+
+    public var body: some View {
         image
-            .onAppear{
+            .onFirstAppear {
                 loader.load(url: url)
             }
     }
+
     private var image: some View {
         Group {
             switch loader.status {
@@ -66,7 +81,7 @@ struct NetworkImage<Placeholder: View>: View {
     }
 }
 
-extension NetworkImage where Placeholder == AnyView {
+public extension NetworkImage where Placeholder == AnyView {
     init(url: URL) {
         self.placeholder = Rectangle().foregroundColor(Color(.secondarySystemFill)).eraseToAnyView()
         self.url = url
