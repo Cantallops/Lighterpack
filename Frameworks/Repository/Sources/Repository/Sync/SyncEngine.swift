@@ -177,6 +177,7 @@ extension SyncEngine {
                     self?.status = .error(error, .init())
                 }
             }, receiveValue: { [weak self] response in
+                self?.localRepo.originalLibrary = library
                 self?.updateSyncToken(response)
             })
             .store(in: &syncCancellables)
