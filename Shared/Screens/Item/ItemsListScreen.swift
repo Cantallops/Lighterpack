@@ -77,7 +77,7 @@ struct ItemsListScreen: Screen {
                         showImages: repository.showImages
                     )
                 }
-            }.animation(.default)
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Gear")
