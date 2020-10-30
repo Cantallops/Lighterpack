@@ -147,7 +147,7 @@ private struct ListPieSectionView: View {
                     .padding(.bottom)
                     .textCase(.none)
                     .foregroundColor(.label)
-                    .listRowInsets(EdgeInsets())
+                    .removeListRowInsets()
 
                 if let selected = configuration.selectedNode, let name = selected.desc {
                     Text(name)
@@ -167,7 +167,7 @@ private struct ListPieSectionView: View {
                 .unredacted()
             }
         }
-        .listRowInsets(EdgeInsets())
+        .removeListRowInsets()
         .textCase(.none)
         .padding(.bottom)
         .disabled(!redactionReasons.isEmpty)

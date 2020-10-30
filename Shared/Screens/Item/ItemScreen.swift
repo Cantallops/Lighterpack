@@ -23,7 +23,7 @@ struct ItemScreen: Screen {
                 if let url = item.fullImageURL, repository.showImages {
                     NetworkImage(url: url)
                         .aspectRatio(contentMode: .fit)
-                        .listRowInsets(EdgeInsets())
+                        .removeListRowInsets()
                 }
                 Field("Title", text: $item.name)
                 if repository.showPrice {
@@ -39,15 +39,14 @@ struct ItemScreen: Screen {
                             .backgroundColor(Color.quaternarySystemFill.opacity(0.5))
                     }
                     .padding(.leading)
-                    .listRowInsets(.init())
+                    .removeListRowInsets()
                 }
                 HStack {
                     Text("Weight").bold()
                     Spacer()
                     DecimalField(
                         amount: .init(
-                            get: { item.weight.convertedWeight(item.authorUnit)
-                            },
+                            get: { item.weight.convertedWeight(item.authorUnit) },
                             set: { newValue in
                                 item.weight = newValue.rawWeight(item.authorUnit)
                             }
@@ -70,7 +69,7 @@ struct ItemScreen: Screen {
 
                 }
                 .padding(.leading)
-                .listRowInsets(.init())
+                .removeListRowInsets()
             }
             Section(header: SectionHeader(title: "Description")) {
                 TextEditor(text: $item.description)
@@ -83,7 +82,7 @@ struct ItemScreen: Screen {
                     LinkPreview(link: item.url)
                         .id(item.url)
                 }
-                .listRowInsets(EdgeInsets())
+                .removeListRowInsets()
                 .padding(.top)
             ) {
                 Field("ex) https://lighterpack.com", text: $item.url, icon: .link)

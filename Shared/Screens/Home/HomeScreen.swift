@@ -22,7 +22,7 @@ struct HomeScreen: Screen {
                                 .foregroundColor(.label)
                         }
                         .textCase(.none)
-                        .listRowInsets(EdgeInsets())
+                        .removeListRowInsets()
                         .padding(.top)
                     ){
 
@@ -97,7 +97,7 @@ private extension HomeScreen {
             }
             .textCase(.none)
             .foregroundColor(.label)
-            .listRowInsets(EdgeInsets())
+            .removeListRowInsets()
         ) {}
     }
     var footer: some View {

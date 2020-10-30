@@ -78,7 +78,7 @@ struct LoginScreen: Screen {
                     NavigationLink("Forgot username/password?", destination: ForgotScreen())
                     .foregroundColor(.systemBlue)
                 }
-                .listRowInsets(EdgeInsets())
+                .removeListRowInsets()
                 .padding(.top)
             ) {
                 Button(action: signin, label: {

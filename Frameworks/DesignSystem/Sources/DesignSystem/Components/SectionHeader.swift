@@ -18,13 +18,12 @@ extension SectionHeader: View where Detail : View {
                 .font(.system(.title2, design: .rounded))
                 .bold()
                 .foregroundColor(.label)
-                .listRowInsets(.none)
             Spacer()
             detail
                 .font(.system(.title3, design: .rounded))
         }
         .textCase(.none)
-        .listRowInsets(EdgeInsets())
+        .removeListRowInsets()
     }
 }
 
@@ -95,7 +94,7 @@ extension EditableSectionHeader: View where LeadingDetail : View, Detail : View 
                 .font(.system(.title3, design: .rounded))
         }
         .textCase(.none)
-        .listRowInsets(EdgeInsets())
+        .removeListRowInsets()
     }
 }
 
