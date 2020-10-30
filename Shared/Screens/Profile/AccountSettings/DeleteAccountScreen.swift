@@ -48,7 +48,7 @@ struct DeleteAccountScreen: Screen {
     }
 
     var content: some View {
-        Form {
+        List {
             Section {
                 HStack(alignment: .top) {
                     Icon(.warning)
@@ -103,6 +103,7 @@ struct DeleteAccountScreen: Screen {
                 .listRowBackgroundColor(.systemRed)
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Delete account")
         .disabled(isLoading)
     }

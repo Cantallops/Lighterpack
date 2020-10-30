@@ -49,7 +49,7 @@ struct EmailChangeScreen: Screen {
     }
     
     var content: some View {
-        Form {
+        List {
             Section {
                 Field("Username", text: $repository.username, icon: .profile)
                     .disabled(true)
@@ -92,6 +92,7 @@ struct EmailChangeScreen: Screen {
                 .listRowBackgroundColor(.systemOrange)
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Change email")
         .disabled(isLoading)
     }

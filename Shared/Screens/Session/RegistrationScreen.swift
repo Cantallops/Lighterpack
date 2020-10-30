@@ -50,7 +50,7 @@ struct RegistrationScreen: Screen {
     }
 
     var content: some View {
-        Form {
+        List {
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
@@ -102,6 +102,7 @@ struct RegistrationScreen: Screen {
                 .listRowBackgroundColor(.systemOrange)
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Register an account")
         .disabled(isRegistering)
     }

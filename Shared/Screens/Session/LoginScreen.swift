@@ -50,7 +50,7 @@ struct LoginScreen: Screen {
     }
 
     var content: some View {
-        Form {
+        List {
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
@@ -97,6 +97,7 @@ struct LoginScreen: Screen {
                 .listRowBackgroundColor(.systemOrange)
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sign in")
         .navigationBarItems(trailing: NavigationLink("Need to register?", destination: RegistrationScreen())
         )

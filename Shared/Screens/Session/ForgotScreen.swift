@@ -73,7 +73,7 @@ struct ForgotScreen: Screen {
     }
 
     var content: some View {
-        Form {
+        List {
             Section(footer: Group{
                 if let error = status.otherError {
                     Text(error.localizedDescription)
@@ -105,6 +105,7 @@ struct ForgotScreen: Screen {
                 .listRowBackgroundColor(.systemOrange)
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Forgot credentials")
         .disabled(isRequesting)
         .onChange(of: usernameOrEmail, perform: evaluateEntryType)

@@ -50,7 +50,7 @@ struct PasswordChangeScreen: Screen {
     }
 
     var content: some View {
-        Form {
+        List {
             Section {
                 Field("Username", text: $repository.username, icon: .profile)
                     .disabled(true)
@@ -104,6 +104,7 @@ struct PasswordChangeScreen: Screen {
                 .listRowBackgroundColor(.systemOrange)
             }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Change password")
         .disabled(isLoading)
     }

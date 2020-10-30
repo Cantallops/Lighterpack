@@ -4,7 +4,7 @@ import DesignSystem
 struct AccountSettingsScreen: Screen {
 
     var content: some View {
-        Form {
+        List {
             Section {
                 NavigationLink(destination: EmailChangeScreen()) {
                     cell(text: "Change email", icon: .email)

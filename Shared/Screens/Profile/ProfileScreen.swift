@@ -9,7 +9,7 @@ struct ProfileScreen: Screen {
     @EnvironmentObject var repository: Repository
 
     var content: some View {
-        Form {
+        List {
             Section(header: SectionHeader(title: "Signed in as")) {
                 cell(text: repository.username, icon: .profile)
                 NavigationLink(destination: AccountSettingsScreen()) {
