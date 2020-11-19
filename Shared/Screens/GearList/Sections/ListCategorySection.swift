@@ -6,6 +6,7 @@ import Repository
 struct ListCategorySection: View {
     @EnvironmentObject var repository: Repository
     @Environment(\.redactionReasons) private var redactionReasons
+    @State private var showDeleteAlert: Bool = false
 
     @Binding var category: Entities.Category
 
@@ -31,9 +32,7 @@ struct ListCategorySection: View {
                     }
                 },
                 detail: {
-                    Button(action: {
-                        repository.remove(categoryWithId: category.id)
-                    }) {
+                    Button(action: { showDeleteAlert = true }) {
                         Icon(.remove)
                     }
                     .foregroundColor(.systemRed)
@@ -85,7 +84,18 @@ struct ListCategorySection: View {
                     titleWeight: .bold
                 )
             }.unredacted()
-        }.disabled(!redactionReasons.isEmpty)
+        }
+        .disabled(!redactionReasons.isEmpty)
+        .alert(isPresented: $showDeleteAlert) {
+            Alert(
+                title: Text("Delete \(category.name)"),
+                message: Text("Are you sure you want to remove \(category.name)?\nThis can't be undone."),
+                primaryButton: .cancel() {},
+                secondaryButton: .destructive(Text("Delete")) {
+                    repository.remove(categoryWithId: category.id)
+                }
+            )
+        }
     }
 
     func remove(indexSet: IndexSet) {
