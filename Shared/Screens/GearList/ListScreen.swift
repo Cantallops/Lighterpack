@@ -11,11 +11,12 @@ struct ListScreen: Screen {
 
     private enum SheetStatus {
         case share
+        case editCategories
     }
     @State private var sheetStatus: SheetStatus?
 
     var content: some View {
-        List {
+        SwiftUI.List {
             ListPieSection(list: list)
             Section(header: SectionHeader(title: "Title")) {
                 TextField("Title", text: $list.name)
@@ -35,7 +36,9 @@ struct ListScreen: Screen {
                 Button(action: {}, label: {
                     Label("Add new category", icon: .addCategory)
                 })
-                Button(action: {}, label: {
+                Button(action: {
+                    sheetStatus = .editCategories
+                }, label: {
                     Label("Rearrange categories", icon: .rearrange)
                 })
             }
@@ -59,8 +62,50 @@ struct ListScreen: Screen {
             switch sheetStatus {
             case .none: EmptyView()
             case .share: ShareSheet(activityItems: [list.shareUrl!])
+            case .editCategories:
+                NavigationView {
+                    EditCategoriesView(list: $list)
+                        .navigationBarItems(
+                            trailing: Button(
+                                action: { sheetStatus = nil },
+                                label: {
+                                    Icon(.close)
+                                }))
+                }
+                .environmentObject(repository)
             }
         }
+    }
+}
+
+struct EditCategoriesView: View {
+    @EnvironmentObject var repository: Repository
+
+    @Binding var list: Entities.List
+
+    var body: some View {
+        SwiftUI.List {
+            ForEach(list.categoryIds.compactMap({ repository.get(categoryWithId: $0)})) { (category: Entities.Category) in
+                HStack {
+                    Text(category.name)
+                }
+            }
+            .onDelete(perform: removeCategories)
+            .onMove(perform: moveCategories)
+        }
+        .navigationTitle("Edit categories")
+        .listStyle(InsetGroupedListStyle())
+        .environment(\.editMode, .constant(.active))
+    }
+
+    private func removeCategories(in indices: IndexSet) {
+        indices.forEach { index in
+            repository.remove(categoryWithId: list.categoryIds[index])
+        }
+    }
+
+    private func moveCategories(from: IndexSet, to: Int) {
+        repository.move(categoriesInListWithId: list.id, from: from, to: to)
     }
 }
 
