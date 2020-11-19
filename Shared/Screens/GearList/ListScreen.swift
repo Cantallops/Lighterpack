@@ -29,7 +29,7 @@ struct ListScreen: Screen {
             }
 
             ForEach(list.categoryIds.compactMap({ repository.get(categoryWithId: $0)})) { (category: Entities.Category) in
-                ListCategorySection(category: repository.binding(forCategory: category))
+                ListCategorySection(category: repository.binding(forCategory: category), listId: list.id)
             }
 
             Section {

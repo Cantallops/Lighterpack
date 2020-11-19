@@ -7,8 +7,10 @@ struct ListCategorySection: View {
     @EnvironmentObject var repository: Repository
     @Environment(\.redactionReasons) private var redactionReasons
     @State private var showDeleteAlert: Bool = false
+    @State private var showAddNewItem: Bool = false
 
     @Binding var category: Entities.Category
+    let listId: Int
 
     var body: some View {
         Section(
@@ -44,10 +46,12 @@ struct ListCategorySection: View {
                 CategoryItemCell(categoryItem: repository.binding(forCategoryItem: item, in: category))
             }
             .onDelete(perform: remove)
-            Button(action: {}) {
-                Button(action: {}, label: {
-                    Label("Add new item", icon: .add)
-                })
+            Button(action: { showAddNewItem = true }, label: {
+                Label("Add new item", icon: .add)
+            })
+            .sheet(isPresented: $showAddNewItem) {
+                NewItemSelectorView(category: $category, invalidIds: repository.invalidItemIds(forListId: listId))
+                    .environmentObject(repository)
             }
             DisclosureGroup {
                 if repository.showWorn {
@@ -124,5 +128,57 @@ struct ListCategorySection: View {
             }
             .frame(maxWidth: 200)
         }
+    }
+}
+
+struct NewItemSelectorView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var repository: Repository
+    @Binding var category: Entities.Category
+    var invalidIds: [Int]
+
+    var body: some View {
+        NavigationView {
+            SwiftUI.List {
+                ForEach(repository.getAllItems().filter { !invalidIds.contains($0.id) }) { (item: Item) in
+                    Button(action: {
+                        var editedCategory = category
+                        editedCategory.categoryItems.append(.init(qty: 1, worn: false, consumable: false, star: .none, itemId: item.id, price: item.price, weight: item.weight))
+                        repository.update(category: editedCategory)
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        ItemCell(
+                            item: item,
+                            currencySymbol: repository.currencySymbol,
+                            showPrice: repository.showPrice,
+                            showImages: repository.showImages
+                        )
+                    })
+                    .accentColor(.label)
+                }
+            }
+            .listStyle(InsetGroupedListStyle())
+            .navigationTitle("Select gear")
+            .navigationBarItems(
+                trailing: Button(
+                    action: { presentationMode.wrappedValue.dismiss() },
+                    label: {
+                        Icon(.close)
+                    }))
+        }
+    }
+}
+
+private extension Repository {
+    func invalidItemIds(forListId id: Int) -> [Int] {
+        guard let list: Entities.List = get(listWithId: id) else {
+            return []
+        }
+
+        let categories: [Entities.Category] = list.categoryIds.compactMap {
+            get(categoryWithId: $0)
+        }
+
+        return categories.flatMap { $0.categoryItems }.map { $0.id }
     }
 }
