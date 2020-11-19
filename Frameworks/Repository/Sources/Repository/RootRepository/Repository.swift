@@ -17,6 +17,7 @@ public class Repository: ObservableObject {
 
     @Published var localRepo: LocalRepository
     @Published public var syncStatus: SyncStatus = .idle
+    public var lastUpdated: Date? { syncEngine.lastUpdated }
 
 
     private let syncSubject = PassthroughSubject<(), Never>()
