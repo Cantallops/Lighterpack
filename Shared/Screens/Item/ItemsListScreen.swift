@@ -5,6 +5,7 @@ import Repository
 
 struct ItemsListScreen: Screen {
     @EnvironmentObject var repository: Repository
+    @SceneStorage("opened_gear_item") var openedItem: Int?
 
     @State private var sort: Sort = .default
     @State private var order: Order = .desc
@@ -69,7 +70,11 @@ struct ItemsListScreen: Screen {
                 }
             }
             ForEach(repository.getAllItems().sorted(by: filters)) { (item: Item) in
-                NavigationLink(destination: ItemScreen(item: repository.binding(forItem: item))) {
+                NavigationLink(
+                    destination: ItemScreen(item: repository.binding(forItem: item)),
+                    tag: item.id,
+                    selection: $openedItem
+                ) {
                     ItemCell(
                         item: item,
                         currencySymbol: repository.currencySymbol,

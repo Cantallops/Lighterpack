@@ -6,9 +6,10 @@ import Repository
 struct HomeScreen: Screen {
     
     @EnvironmentObject var repository: Repository
-    @Namespace private var animation
     @State private var isShowingSettings = false
-    @State private var newList = false
+    @SceneStorage("opened_list") var openedList: Int?
+    @SceneStorage("opened_all_gear") var openedAllGear: Bool = false
+    @State private var newList: Entities.List?
 
     var content: some View {
         if repository.isLoggedIn {
@@ -29,12 +30,9 @@ struct HomeScreen: Screen {
                     }.unredacted()
 
                     Section(header: SectionHeader(title: "Lists", detail: {
-                        NavigationLink(destination: ListCreateScreen(), isActive: $newList) {
-                            Text("")
-                        }
                         Menu(content: {
                             Button(action: {
-                                newList = true
+                                newList = repository.createList()
                             }) {
                                 Label("New list", icon: .add)
                             }
@@ -44,9 +42,20 @@ struct HomeScreen: Screen {
                         }) {
                             Icon(.add)
                         }
+                        if let list = newList {
+                            NavigationLink(
+                                "",
+                                destination: ListScreen(list: repository.binding(forList: list)),
+                                isActive: .init(get: { newList != nil }, set: { _ in newList = nil })
+                            )
+                        }
                     }).unredacted()) {
                         ForEach(repository.getAllLists()) { list in
-                            NavigationLink(destination: ListScreen(list: repository.binding(forList: list))) {
+                            NavigationLink(
+                                destination: ListScreen(list: repository.binding(forList: list)),
+                                tag: list.id,
+                                selection: $openedList
+                            ) {
                                 ListCell(list: list)
                                     .redacted(reason: repository.isPlaceholder ? .placeholder : [])
                             }.unredacted()
@@ -54,7 +63,7 @@ struct HomeScreen: Screen {
                     }.disabled(repository.isPlaceholder)
 
                     Section {
-                        NavigationLink(destination: ItemsListScreen()) {
+                        NavigationLink(destination: ItemsListScreen(), isActive: $openedAllGear) {
                             Label("All gear", icon: .gearList)
                                 .font(.system(.body, design: .rounded))
                         }.unredacted()
@@ -177,5 +186,27 @@ private extension HomeScreen {
 struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         HomeScreen()
+    }
+}
+
+private extension Repository {
+    func createList() -> Entities.List {
+        let list = Entities.List(
+            id: .min,
+            name: "",
+            categoryIds: [],
+            description: "",
+            externalId: "",
+            totalWeight: 0,
+            totalWornWeight: 0,
+            totalConsumableWeight: 0,
+            totalBaseWeight: 0,
+            totalPackWeight: 0,
+            totalPrice: 0,
+            totalConsumablePrice: 0,
+            totalWornPrice: 0,
+            totalQty: 0
+        )
+        return create(list: list)
     }
 }
