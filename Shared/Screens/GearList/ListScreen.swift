@@ -33,7 +33,9 @@ struct ListScreen: Screen {
             }
 
             Section {
-                Button(action: {}, label: {
+                Button(action: {
+                    repository.create(category: Entities.Category(), forListWithId: list.id)
+                }, label: {
                     Label("Add new category", icon: .addCategory)
                 })
                 Button(action: {
