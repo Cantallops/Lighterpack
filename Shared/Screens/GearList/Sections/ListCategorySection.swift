@@ -135,17 +135,23 @@ struct NewItemSelectorView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var repository: Repository
     @Binding var category: Entities.Category
+
     var invalidIds: [Int]
 
     var body: some View {
         NavigationView {
             SwiftUI.List {
+                Section {
+                    NavigationLink(destination: CreateItemScreen(onCreate: select)) {
+                        HStack {
+                            Icon(.add)
+                            Text("New gear")
+                        }
+                    }
+                }
                 ForEach(repository.getAllItems().filter { !invalidIds.contains($0.id) }) { (item: Item) in
                     Button(action: {
-                        var editedCategory = category
-                        editedCategory.categoryItems.append(.init(qty: 1, worn: false, consumable: false, star: .none, itemId: item.id, price: item.price, weight: item.weight))
-                        repository.update(category: editedCategory)
-                        presentationMode.wrappedValue.dismiss()
+                        select(item: item)
                     }, label: {
                         ItemCell(
                             item: item,
@@ -166,6 +172,13 @@ struct NewItemSelectorView: View {
                         Icon(.close)
                     }))
         }
+    }
+
+    private func select(item: Item) {
+        var editedCategory = category
+        editedCategory.categoryItems.append(.init(qty: 1, worn: false, consumable: false, star: .none, itemId: item.id, price: item.price, weight: item.weight))
+        repository.update(category: editedCategory)
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

@@ -51,7 +51,8 @@ public extension Repository {
         sync()
     }
 
-    func create(item unidentifiedItem: Item) {
+    @discardableResult
+    func create(item unidentifiedItem: Item) -> Item {
         logger.info("Called \(#function)")
         let sequence = localRepo.library.sequence
         var identifiedItem = unidentifiedItem
@@ -60,6 +61,7 @@ public extension Repository {
         localRepo.library.items.append(identifiedItem)
         localRepo.recompute()
         sync()
+        return identifiedItem
     }
 
     func move(from source: IndexSet, to destination: Int) {

@@ -58,18 +58,21 @@ struct ItemsListScreen: Screen {
         }
     }
 
+    var items: [Item] {
+        repository.getAllItems().sorted(by: filters)
+    }
+
     var content: some View {
         List {
             Section {
-                Button {
-                } label: {
+                NavigationLink(destination: CreateItemScreen()) {
                     HStack {
                         Icon(.add)
                         Text("New gear")
                     }
                 }
             }
-            ForEach(repository.getAllItems().sorted(by: filters)) { (item: Item) in
+            ForEach(items) { (item: Item) in
                 NavigationLink(
                     destination: ItemScreen(item: repository.binding(forItem: item)),
                     tag: item.id,
@@ -81,6 +84,11 @@ struct ItemsListScreen: Screen {
                         showPrice: repository.showPrice,
                         showImages: repository.showImages
                     )
+                }
+            }
+            .onDelete { indices in
+                indices.forEach { index in
+                    repository.remove(itemWithId: items[index].id)
                 }
             }
         }

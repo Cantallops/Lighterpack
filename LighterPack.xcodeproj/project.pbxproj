@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA05A970256E899700762DDC /* CreateItemScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA05A96F256E899700762DDC /* CreateItemScreen.swift */; };
 		CA098A1024EC17E6005B632D /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098A0F24EC17E6005B632D /* Tests_iOS.swift */; };
 		CA098A1B24EC17E6005B632D /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA098A1A24EC17E6005B632D /* Tests_macOS.swift */; };
 		CA098A1D24EC17E6005B632D /* LighterPackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0989F424EC17E5005B632D /* LighterPackApp.swift */; };
@@ -83,6 +84,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CA05A96F256E899700762DDC /* CreateItemScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemScreen.swift; sourceTree = "<group>"; };
 		CA0989F424EC17E5005B632D /* LighterPackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighterPackApp.swift; sourceTree = "<group>"; };
 		CA0989F624EC17E6005B632D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA0989FB24EC17E6005B632D /* LighterPack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LighterPack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -405,6 +407,7 @@
 				CA79BCE524EE59E400118788 /* ItemsListScreen.swift */,
 				CA79BCE724EE5A3300118788 /* ItemCell.swift */,
 				CA455BB424FCF0CA00DF4C78 /* ItemScreen.swift */,
+				CA05A96F256E899700762DDC /* CreateItemScreen.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				CA098A1D24EC17E6005B632D /* LighterPackApp.swift in Sources */,
 				CA098B0624ED1972005B632D /* DictionaryLookup.swift in Sources */,
 				CA79BCE224EE376C00118788 /* WeightFormatter.swift in Sources */,
+				CA05A970256E899700762DDC /* CreateItemScreen.swift in Sources */,
 				CA79BCE624EE59E400118788 /* ItemsListScreen.swift in Sources */,
 				CABC963B24F6651500020600 /* ForgotScreen.swift in Sources */,
 				CA30256524ED696F00FCD4FE /* ListScreen.swift in Sources */,

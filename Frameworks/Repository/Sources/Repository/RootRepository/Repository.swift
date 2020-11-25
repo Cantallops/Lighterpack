@@ -19,7 +19,6 @@ public class Repository: ObservableObject {
     @Published public var syncStatus: SyncStatus = .idle
     public var lastUpdated: Date? { syncEngine.lastUpdated }
 
-
     private let syncSubject = PassthroughSubject<(), Never>()
 
     internal var cancellables: Set<AnyCancellable> = .init()
