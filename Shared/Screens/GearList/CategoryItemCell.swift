@@ -94,19 +94,19 @@ struct CategoryItemCell: View {
                        .foregroundColor($0.color)
                }
            }
-       } label: {
-           Label("Star...", icon: .star)
-       }
+        } label: {
+            Label("Star...", icon: .star)
+        }
     }
 }
 
 extension StarColor {
     var color: Color {
         switch self {
-        case .none: return .clear
-        case .yellow: return .init(.systemYellow)
-        case .red: return .init(.systemRed)
-        case .green: return .init(.systemGreen)
+        case .none: return .label
+        case .yellow: return .systemYellow
+        case .red: return .systemRed
+        case .green: return .systemGreen
         }
     }
 }

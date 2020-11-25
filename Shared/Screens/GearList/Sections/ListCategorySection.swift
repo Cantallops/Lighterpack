@@ -11,6 +11,7 @@ struct ListCategorySection: View {
 
     @Binding var category: Entities.Category
     let listId: Int
+    var onSelectedCategoryItem: (CategoryItem) -> Void
 
     var body: some View {
         Section(
@@ -43,7 +44,12 @@ struct ListCategorySection: View {
             )
         ) {
             ForEach(category.categoryItems) { (item: CategoryItem) in
-                CategoryItemCell(categoryItem: repository.binding(forCategoryItem: item, in: category))
+                Button(action: {
+                    onSelectedCategoryItem(item)
+                }, label: {
+                    CategoryItemCell(categoryItem: repository.binding(forCategoryItem: item, in: category))
+                })
+                .accentColor(.label)
             }
             .onDelete(perform: remove)
             Button(action: { showAddNewItem = true }, label: {
