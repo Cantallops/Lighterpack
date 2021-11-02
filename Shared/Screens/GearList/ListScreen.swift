@@ -18,7 +18,7 @@ struct ListScreen: Screen {
 
     var content: some View {
         SwiftUI.List {
-            ListPieSection(list: list)
+            //ListPieSection(list: list)
             Section(header: SectionHeader(title: "Title")) {
                 TextField("Title", text: $list.name)
             }
@@ -34,8 +34,10 @@ struct ListScreen: Screen {
                     sheetStatus = .selectedCategoryItem($0, category)
                 })
             }
-
-            Section {
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                
                 Button(action: {
                     repository.create(category: Entities.Category(), forListWithId: list.id)
                 }, label: {

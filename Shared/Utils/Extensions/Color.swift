@@ -90,6 +90,10 @@ extension UIColor {
 
         return nil
     }
+
+    var color: Color {
+        Color(uiColor: self)
+    }
 }
 
 extension UIColor {

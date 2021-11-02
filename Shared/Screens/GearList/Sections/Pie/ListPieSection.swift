@@ -1,10 +1,10 @@
 import SwiftUI
-import SunburstDiagram
 import Combine
 import Entities
 import DesignSystem
 import Repository
 
+/*
 struct Pie: View {
     @ObservedObject var configuration: SunburstConfiguration
     @StateObject var tempConf: SunburstConfiguration = {
@@ -18,20 +18,7 @@ struct Pie: View {
         ZStack {
             SunburstView(configuration: tempConf)
                 .disabled(true)
-                .onFirstAppear {
-                    tempConf.nodes = [
-                        Node(
-                            id: -2,
-                            name: "",
-                            desc: "",
-                            showName: false,
-                            value: 1,
-                            backgroundColor: .secondarySystemFill,
-                            children: []
-                        )
-                    ]
-                    tempConf.calculationMode = .parentDependent(totalValue: 1)
-                }
+                
             SunburstView(configuration: configuration)
         }
         .frame(minHeight: 260)
@@ -353,3 +340,4 @@ struct CategoryButtonStyle: ButtonStyle {
     }
 
 }
+*/

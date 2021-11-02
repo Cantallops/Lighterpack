@@ -9,6 +9,7 @@ struct ItemsListScreen: Screen {
 
     @State private var sort: Sort = .default
     @State private var order: Order = .desc
+    @State private var showAdd: Bool = false
 
     enum Sort: String, CaseIterable {
         case `default` = "Default"
@@ -65,10 +66,14 @@ struct ItemsListScreen: Screen {
     var content: some View {
         List {
             Section {
-                NavigationLink(destination: CreateItemScreen()) {
-                    HStack {
-                        Icon(.add)
-                        Text("New gear")
+                Button {
+                    showAdd = true
+                } label: {
+                    Label("New gear", icon: .add)
+                }
+                .sheet(isPresented: $showAdd) {
+                    NavigationView {
+                        CreateItemScreen()
                     }
                 }
             }
@@ -113,7 +118,7 @@ struct ItemsListScreen: Screen {
                     }
                 }
                 label: {
-                    Label("Sort", icon: .sort)
+                    Label("Sort", icon: sort == .default ? .sort : .sortActived)
                 }
             }
         }

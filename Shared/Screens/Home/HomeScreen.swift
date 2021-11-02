@@ -31,12 +31,14 @@ struct HomeScreen: Screen {
 
                     Section(header: SectionHeader(title: "Lists", detail: {
                         Menu(content: {
-                            Button(action: {
+                            Button {
                                 newList = repository.createList()
-                            }) {
+                            } label: {
                                 Label("New list", icon: .add)
                             }
-                            Button(action: {}) {
+                            Button {
+                                newList = repository.createList()
+                            } label: {
                                 Label("Import", icon: .import)
                             }
                         }) {
@@ -186,6 +188,10 @@ private extension HomeScreen {
 struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         HomeScreen()
+            .environmentObject({ () -> Repository in
+                let repo = Repository()
+                return repo
+            }())
     }
 }
 

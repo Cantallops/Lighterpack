@@ -52,10 +52,8 @@ struct FeedbackView<V: View>: View {
                         .cornerRadius(4)
                         .padding(.horizontal)
                         .padding(.top)
-                        .transition(
-                            .slide
-                        )
-                        .animation(.easeInOut(duration: 0.4))
+                        .transition(.slide)
+                        .animation(.easeInOut(duration: 0.4), value: feedback.id)
                 }
             }.zIndex(9)
         }

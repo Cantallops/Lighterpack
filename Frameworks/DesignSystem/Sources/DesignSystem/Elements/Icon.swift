@@ -99,7 +99,8 @@ public extension Icon.Token {
     static let `import` = Token(rawValue: "square.and.arrow.down")
 
     static let quantity = Token(rawValue: "xmark")
-    static let sort = Token(rawValue: "arrow.up.arrow.down")
+    static let sort = Token(rawValue: "line.3.horizontal.decrease.circle")
+    static let sortActived = Token(rawValue: "line.3.horizontal.decrease.circle.fill")
 
     static let warning = Token(rawValue: "exclamationmark.triangle.fill")
     static let info = Token(rawValue: "info.circle.fill")
